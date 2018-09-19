@@ -52,17 +52,18 @@
     <div class="menubar-scroll">
         <div class="menubar-scroll-inner">
             <ul class="app-menu">
-                <li class="has-submenu">
-                    <a href="javascript:void(0)" class="submenu-toggle">
+                <li>
+                    <a href="javascript:void(0)">
                         <i class="menu-icon zmdi zmdi-view-dashboard zmdi-hc-lg"></i>
-                        <span class="menu-text">Dashboards</span>
-                        <i class="menu-caret zmdi zmdi-hc-sm zmdi-chevron-right"></i>
+                        <span class="menu-text">Dashboard</span>
                     </a>
-                    <ul class="submenu">
-                        <li><a href="index.html"><span class="menu-text">Dashboard 1</span></a></li>
-                        <li><a href="dashboard.2.html"><span class="menu-text">Dashboard 2</span></a></li>
-                        <li><a href="dashboard.3.html"><span class="menu-text">Dashboard 3</span></a></li>
-                    </ul>
+                </li>
+
+                <li>
+                    <a href="javascript:void(0)">
+                        <i class="menu-icon zmdi zmdi-settings zmdi-hc-lg"></i>
+                        <span class="menu-text">Settings</span>
+                    </a>
                 </li>
 
                 <li class="has-submenu">
@@ -229,13 +230,6 @@
                     <a href="documentation.html">
                         <i class="menu-icon zmdi zmdi-file-text zmdi-hc-lg"></i>
                         <span class="menu-text">Documentation</span>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="javascript:void(0)">
-                        <i class="menu-icon zmdi zmdi-settings zmdi-hc-lg"></i>
-                        <span class="menu-text">Settings</span>
                     </a>
                 </li>
 
