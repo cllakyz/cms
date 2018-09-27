@@ -6,3 +6,6 @@
 <title>Infinity - Bootstrap Admin Template</title>
 
 <?php $this->load->view('includes/include_style'); ?>
+<script>
+    var assets_url = '<?php echo base_url('assets');?>/';
+</script>
