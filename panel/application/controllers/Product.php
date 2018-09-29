@@ -142,4 +142,19 @@ class Product extends CI_Controller
             $this->load->view($viewData->viewFolder.'/'.$viewData->subViewFolder.'/index', $viewData);
         }
     }
+
+    public function delete($id)
+    {
+        $where = array(
+            'id' => strip_tags(str_replace(' ', '', $id))
+        );
+        $delete = $this->product_model->delete($where);
+
+        // TODO alert sistemi eklenecek
+        if($delete){
+            redirect(base_url('product'));
+        } else{
+            redirect(base_url('product'));
+        }
+    }
 }
