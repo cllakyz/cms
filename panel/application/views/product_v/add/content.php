@@ -23,7 +23,7 @@
                     <button type="submit" class="btn btn-primary btn-md btn-outline">Kaydet</button>
                     <a href="<?php echo base_url('product'); ?>" class="btn btn-md btn-danger btn-outline">İptal</a>
                 </form>
-            </div><!-- .widget-body -->
+            </div>
         </div>
     </div>
 </div>
