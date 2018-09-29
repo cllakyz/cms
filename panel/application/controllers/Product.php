@@ -61,10 +61,11 @@ class Product extends CI_Controller
             );
             $insert = $this->product_model->add($data);
 
+            // TODO alert sistemi eklenecek
             if($insert){
-                echo "İşlem Başarılı";
+                redirect(base_url('product'));
             } else{
-                echo "Bir Hata Oluştu";
+                redirect(base_url('product'));
             }
         } else{
             $viewData = new stdClass();
