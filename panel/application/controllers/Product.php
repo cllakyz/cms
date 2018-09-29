@@ -54,7 +54,7 @@ class Product extends CI_Controller
             $data = array(
                 'title'       => $this->input->post('title'),
                 'description' => $this->input->post('description'),
-                'url'         => "test",
+                'url'         => sef($this->input->post('title')),
                 'rank'        => 0,
                 'isActive'    => 1,
                 'createdAt'   => $this->zaman,
