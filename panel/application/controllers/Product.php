@@ -3,12 +3,14 @@
 class Product extends CI_Controller
 {
     public $viewFolder = "";
+    private $zaman = "";
 
     public function __construct()
     {
         parent::__construct();
         $this->viewFolder = "product_v";
         $this->load->model("product_model");
+        $this->zaman = date('Y-m-d H:i:s');
     }
 
     public function index()
@@ -49,7 +51,21 @@ class Product extends CI_Controller
         $validate = $this->form_validation->run();
 
         if($validate){
+            $data = array(
+                'title'       => $this->input->post('title'),
+                'description' => $this->input->post('description'),
+                'url'         => "test",
+                'rank'        => 0,
+                'isActive'    => 1,
+                'createdAt'   => $this->zaman,
+            );
+            $insert = $this->product_model->add($data);
 
+            if($insert){
+                echo "İşlem Başarılı";
+            } else{
+                echo "Bir Hata Oluştu";
+            }
         } else{
             $viewData = new stdClass();
 
