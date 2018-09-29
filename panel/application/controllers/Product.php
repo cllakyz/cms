@@ -36,6 +36,22 @@ class Product extends CI_Controller
 
     public function save()
     {
+        $this->load->library('form_validation');
 
+        //kurallar
+        $this->form_validation->set_rules('title', 'Başlık', 'required|trim');
+        //mesajlar
+        $this->form_validation->set_message(
+            array(
+                'required' => "Lütfen {field} Alanını Doldurun"
+            )
+        );
+        $validate = $this->form_validation->run();
+
+        if($validate){
+
+        } else{
+
+        }
     }
 }
