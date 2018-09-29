@@ -17,7 +17,7 @@ class Product extends CI_Controller
     {
         $viewData = new stdClass();
         /** Tablodan verilerin getirilmesi */
-        $items = $this->product_model->get_all();
+        $items = $this->product_model->get_all(array());
 
         $viewData->viewFolder = $this->viewFolder;
         $viewData->subViewFolder = "list";
@@ -32,6 +32,23 @@ class Product extends CI_Controller
 
         $viewData->viewFolder = $this->viewFolder;
         $viewData->subViewFolder = "add";
+
+        $this->load->view($viewData->viewFolder.'/'.$viewData->subViewFolder.'/index', $viewData);
+    }
+
+    public function edit_form($id)
+    {
+        $viewData = new stdClass();
+        /** Tablodan verilerin getirilmesi */
+        $item = $this->product_model->get(
+            array(
+                'id' => strip_tags(str_replace(' ', '', $id))
+            )
+        );
+
+        $viewData->viewFolder = $this->viewFolder;
+        $viewData->subViewFolder = "edit";
+        $viewData->item = $item;
 
         $this->load->view($viewData->viewFolder.'/'.$viewData->subViewFolder.'/index', $viewData);
     }
