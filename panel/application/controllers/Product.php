@@ -94,4 +94,52 @@ class Product extends CI_Controller
             $this->load->view($viewData->viewFolder.'/'.$viewData->subViewFolder.'/index', $viewData);
         }
     }
+
+    public function edit($id)
+    {
+        $this->load->library('form_validation');
+
+        //kurallar
+        $this->form_validation->set_rules('title', 'Başlık', 'required|trim');
+        //mesajlar
+        $this->form_validation->set_message(
+            array(
+                'required' => "Lütfen {field} Alanını Doldurun"
+            )
+        );
+        $validate = $this->form_validation->run();
+
+        if($validate){
+            $where = array(
+                'id' => strip_tags(str_replace(' ', '', $id))
+            );
+            $data = array(
+                'title'       => $this->input->post('title'),
+                'description' => $this->input->post('description'),
+                'url'         => sef($this->input->post('title')),
+            );
+            $update = $this->product_model->edit($where, $data);
+
+            // TODO alert sistemi eklenecek
+            if($update){
+                redirect(base_url('product'));
+            } else{
+                redirect(base_url('product'));
+            }
+        } else{
+            $viewData = new stdClass();
+            /** Tablodan verilerin getirilmesi */
+            $item = $this->product_model->get(
+                array(
+                    'id' => strip_tags(str_replace(' ', '', $id))
+                )
+            );
+            $viewData->viewFolder = $this->viewFolder;
+            $viewData->subViewFolder = "edit";
+            $viewData->form_error = TRUE;
+            $viewData->item = $item;
+
+            $this->load->view($viewData->viewFolder.'/'.$viewData->subViewFolder.'/index', $viewData);
+        }
+    }
 }

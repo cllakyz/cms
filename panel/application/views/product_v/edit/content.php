@@ -5,7 +5,7 @@
     <div class="col-md-12">
         <div class="widget">
             <div class="widget-body">
-                <form action="<?php echo base_url('product/save'); ?>" method="post">
+                <form action="<?php echo base_url('product/edit/'.$item->id); ?>" method="post">
                     <div class="form-group">
                         <label>Başlık</label>
                         <input type="text" name="title" class="form-control" placeholder="Başlık" value="<?php echo $item->title; ?>">
