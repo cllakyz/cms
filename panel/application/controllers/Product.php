@@ -51,7 +51,13 @@ class Product extends CI_Controller
         if($validate){
 
         } else{
+            $viewData = new stdClass();
 
+            $viewData->viewFolder = $this->viewFolder;
+            $viewData->subViewFolder = "add";
+            $viewData->form_error = TRUE;
+
+            $this->load->view($viewData->viewFolder.'/'.$viewData->subViewFolder.'/index', $viewData);
         }
     }
 }

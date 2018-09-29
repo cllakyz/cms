@@ -9,6 +9,12 @@
                     <div class="form-group">
                         <label>Başlık</label>
                         <input type="text" name="title" class="form-control" placeholder="Başlık">
+                        <?php
+                        if(isset($form_error)){ ?>
+                            <span class="pull-right input-form-errors"><?php echo form_error('title'); ?></span>
+                        <?php
+                        }
+                        ?>
                     </div>
                     <div class="form-group">
                         <label>Açıklama</label>
