@@ -82,6 +82,7 @@ var LIBS = {
 		assets_url+"libs/bower/switchery/dist/switchery.min.css",
 		assets_url+"libs/bower/switchery/dist/switchery.min.js",
 		assets_url+"libs/bower/lightbox2/dist/css/lightbox.min.css",
-		assets_url+"libs/bower/lightbox2/dist/js/lightbox.min.js"
+		assets_url+"libs/bower/lightbox2/dist/js/lightbox.min.js",
+		assets_url+"assets/js/custom.js"
 	]
 };

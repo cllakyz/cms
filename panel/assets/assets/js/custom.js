@@ -51,4 +51,10 @@ $(document).ready(function () {
             });
         }
     });
+
+    var uploadSection = Dropzone.forElement("#prd-img-dropzone");
+
+    uploadSection.on('complete', function () {
+        alert();
+    });
 });
