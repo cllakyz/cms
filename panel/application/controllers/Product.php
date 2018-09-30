@@ -204,6 +204,8 @@ class Product extends CI_Controller
         $viewData->subViewFolder = "image";
         $viewData->item = $this->product_model->get(array('id' => $id));
 
+        $image_where = array('product_id' => $id);
+        $viewData->item_images = $this->product_image_model->get_all($image_where, "rank ASC");
         $this->load->view($viewData->viewFolder.'/'.$viewData->subViewFolder.'/index', $viewData);
     }
 
