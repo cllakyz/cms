@@ -12,6 +12,7 @@ if(empty($item_images)){ ?>
         <th class="text-center">Görsel</th>
         <th>Görsel Adı</th>
         <th class="text-center">Durumu</th>
+        <th class="text-center">Kapak</th>
         <th class="text-center">İşlem</th>
         </thead>
         <tbody>
@@ -25,6 +26,9 @@ if(empty($item_images)){ ?>
                 <td><?php echo $image->img_url; ?></td>
                 <td class="w100 text-center">
                     <input type="checkbox" class="change-item-status" data-url="<?php echo base_url('product/change_image_status/'.$image->id); ?>" data-switchery data-color="#10c469"<?php echo $image->isActive == 1 ? ' checked' : NULL; ?> />
+                </td>
+                <td class="w100 text-center">
+                    <input type="checkbox" class="change-item-status" data-url="<?php echo base_url('product/change_image_status/'.$image->id); ?>" data-switchery<?php echo $image->isActive == 1 ? ' checked' : NULL; ?> />
                 </td>
                 <td class="w100 text-center">
                     <a data-url="<?php echo base_url('product/delete_image/'. $image->id); ?>" class="btn btn-sm btn-danger btn-block btn-outline remove-btn"><i class="fa fa-trash"></i> Sil</a>
