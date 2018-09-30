@@ -211,10 +211,15 @@ class Product extends CI_Controller
 
     public function image_upload($id)
     {
+        $ext = pathinfo($_FILES['file']['name'], PATHINFO_EXTENSION);
+        $file_name = sef(pathinfo($_FILES['file']['name'], PATHINFO_FILENAME)).'.'.$ext;
+
         $config = array(
             "allowed_types" => "jpg|jpeg|png|JPG|JPEG|PNG",
             "upload_path"   => "uploads/".$this->viewFolder."/",
+            "file_name"     => $file_name,
         );
+
         $this->load->library("upload", $config);
         $upload = $this->upload->do_upload("file");
         if($upload){
