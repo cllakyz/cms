@@ -17,20 +17,22 @@
             } else{ ?>
                 <table class="table table-hover table-striped">
                     <thead>
+                    <th><i class="fa fa-reorder"></i></th>
                     <th>#ID</th>
-                    <th>URL</th>
                     <th>Başlık</th>
+                    <th>URL</th>
                     <th>Açıklama</th>
                     <th>Durum</th>
                     <th>İşlem</th>
                     </thead>
-                    <tbody>
+                    <tbody class="sortable" data-url="<?php echo base_url('product/sort'); ?>">
                         <?php
                         foreach($items as $item){ ?>
-                            <tr>
+                            <tr id="sort-<?php echo $item->id; ?>">
+                                <td><i class="fa fa-reorder"></i></td>
                                 <td><?php echo $item->id; ?></td>
-                                <td><?php echo $item->url; ?></td>
                                 <td><?php echo $item->title; ?></td>
+                                <td><?php echo $item->url; ?></td>
                                 <td><?php echo $item->description; ?></td>
                                 <td>
                                     <input type="checkbox" class="change-item-status" data-url="<?php echo base_url('product/change_status/'.$item->id); ?>" data-switchery data-color="#10c469"<?php echo $item->isActive == 1 ? ' checked' : NULL; ?> />

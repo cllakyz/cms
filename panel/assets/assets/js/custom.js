@@ -37,4 +37,18 @@ $(document).ready(function () {
             });
         }
     });
+
+    /* Sıralama */
+    $('.sortable').sortable();
+
+    $('.sortable').on('sortupdate', function (event, ui) {
+        var data = $(this).sortable('serialize');
+        var url = $(this).attr('data-url');
+
+        if(typeof url !== "undefined"){
+            $.post(url, {data: data}, function (data) {
+
+            });
+        }
+    });
 });

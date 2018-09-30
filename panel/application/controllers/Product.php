@@ -17,7 +17,7 @@ class Product extends CI_Controller
     {
         $viewData = new stdClass();
         /** Tablodan verilerin getirilmesi */
-        $items = $this->product_model->get_all(array());
+        $items = $this->product_model->get_all(array(), "rank ASC");
 
         $viewData->viewFolder = $this->viewFolder;
         $viewData->subViewFolder = "list";
@@ -169,6 +169,28 @@ class Product extends CI_Controller
 
             } else{
 
+            }
+        }
+    }
+
+    public function sort()
+    {
+        $data = $this->input->post('data');
+        parse_str($data, $order);
+        $items = $order['sort'];
+        $eklenen = 0;
+        $eklenmeyen = 0;
+        foreach($items as $key => $value){
+            $where = array('id' => $value);
+            $sort_data = array('rank' => $key+1);
+            $get_item = $this->product_model->get($where);
+            if($sort_data['rank'] != $get_item->rank){
+                $update = $this->product_model->edit($where, $sort_data);
+                if($update){
+                    $eklenen++;
+                } else{
+                    $eklenmeyen++;
+                }
             }
         }
     }
