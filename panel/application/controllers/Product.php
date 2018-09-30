@@ -237,4 +237,19 @@ class Product extends CI_Controller
             echo "hata";
         }
     }
+
+    public function refresh_image_list($id)
+    {
+        $viewData = new stdClass();
+
+        $viewData->viewFolder = $this->viewFolder;
+        $viewData->subViewFolder = "image";
+        $viewData->item = $this->product_model->get(array('id' => $id));
+
+        $image_where = array('product_id' => $id);
+        $viewData->item_images = $this->product_image_model->get_all($image_where, "rank ASC");
+        $render_html = $this->load->view($viewData->viewFolder.'/'.$viewData->subViewFolder.'/image_list_v', $viewData, true);
+        echo $render_html;
+        die;
+    }
 }
