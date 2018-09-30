@@ -1,7 +1,9 @@
 $(document).ready(function () {
+    /* silme işlemi */
     $(document).on('click', '.remove-btn', function (e) {
         e.preventDefault();
-        var url = $(this).attr('data-url');
+        var thisEl = $(this);
+        var url = thisEl.attr('data-url');
         swal({
             title: 'Emin misiniz?',
             text: "Bu kaydı silmek istediğinize emin misiniz?",
@@ -16,5 +18,23 @@ $(document).ready(function () {
                 window.location.href = url;
             }
         })
+    });
+
+    /* durum değiştirme */
+    $(document).on('change', '.change-item-status', function () {
+        var thisEl = $(this);
+        var url = thisEl.attr('data-url');
+        var status;
+        if(thisEl.is(':checked')){
+            status = 1;
+        } else{
+            status = 0;
+        }
+
+        if(typeof status !== "undefined" && typeof url !== "undefined"){
+            $.post(url, {status: status}, function (data) {
+
+            });
+        }
     });
 });

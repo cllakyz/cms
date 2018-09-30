@@ -157,4 +157,19 @@ class Product extends CI_Controller
             redirect(base_url('product'));
         }
     }
+
+    public function change_status($id)
+    {
+        if($id){
+            $status = $this->input->post('status');
+            $where = array('id' => $id);
+            $data = array('isActive' => $status);
+            $update = $this->product_model->edit($where, $data);
+            if($update){
+
+            } else{
+
+            }
+        }
+    }
 }
