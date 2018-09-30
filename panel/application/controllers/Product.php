@@ -12,7 +12,7 @@ class Product extends CI_Controller
         $this->load->model("product_model");
         $this->zaman = date('Y-m-d H:i:s');
     }
-
+    /* anasayfa */
     public function index()
     {
         $viewData = new stdClass();
@@ -25,7 +25,7 @@ class Product extends CI_Controller
 
         $this->load->view($viewData->viewFolder.'/'.$viewData->subViewFolder.'/index', $viewData);
     }
-
+    /* yeni kayıt form */
     public function new_form()
     {
         $viewData = new stdClass();
@@ -35,7 +35,7 @@ class Product extends CI_Controller
 
         $this->load->view($viewData->viewFolder.'/'.$viewData->subViewFolder.'/index', $viewData);
     }
-
+    /* düzenle form */
     public function edit_form($id)
     {
         $viewData = new stdClass();
@@ -52,7 +52,7 @@ class Product extends CI_Controller
 
         $this->load->view($viewData->viewFolder.'/'.$viewData->subViewFolder.'/index', $viewData);
     }
-
+    /* yeni kayıt işlemi*/
     public function save()
     {
         $this->load->library('form_validation');
@@ -94,7 +94,7 @@ class Product extends CI_Controller
             $this->load->view($viewData->viewFolder.'/'.$viewData->subViewFolder.'/index', $viewData);
         }
     }
-
+    /* güncelleme işlemi */
     public function edit($id)
     {
         $this->load->library('form_validation');
@@ -142,7 +142,7 @@ class Product extends CI_Controller
             $this->load->view($viewData->viewFolder.'/'.$viewData->subViewFolder.'/index', $viewData);
         }
     }
-
+    /* silme işlemi */
     public function delete($id)
     {
         $where = array(
@@ -157,7 +157,7 @@ class Product extends CI_Controller
             redirect(base_url('product'));
         }
     }
-
+    /* durum değiştirme işlemi */
     public function change_status($id)
     {
         if($id){
@@ -172,7 +172,7 @@ class Product extends CI_Controller
             }
         }
     }
-
+    /* sıralama işlemi*/
     public function sort()
     {
         $data = $this->input->post('data');
@@ -193,5 +193,15 @@ class Product extends CI_Controller
                 }
             }
         }
+    }
+    /* resim ekleme form */
+    public function image_form($id)
+    {
+        $viewData = new stdClass();
+
+        $viewData->viewFolder = $this->viewFolder;
+        $viewData->subViewFolder = "image";
+
+        $this->load->view($viewData->viewFolder.'/'.$viewData->subViewFolder.'/index', $viewData);
     }
 }

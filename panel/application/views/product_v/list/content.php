@@ -40,6 +40,7 @@
                                 <td>
                                     <a data-url="<?php echo base_url('product/delete/'.$item->id); ?>" class="btn btn-sm btn-danger btn-outline remove-btn"><i class="fa fa-trash"></i> Sil</a>
                                     <a href="<?php echo base_url('product/edit_form/'.$item->id); ?>" class="btn btn-sm btn-info btn-outline"><i class="fa fa-edit"></i> Düzenle</a>
+                                    <a href="<?php echo base_url('product/image_form/'.$item->id); ?>" class="btn btn-sm btn-dark btn-outline"><i class="fa fa-image"></i> Resimler</a>
                                 </td>
                             </tr>
                         <?php
