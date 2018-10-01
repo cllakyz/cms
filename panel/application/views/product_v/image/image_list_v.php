@@ -8,8 +8,8 @@ if(empty($item_images)){ ?>
 } else{ ?>
     <table class="table table-bordered table-striped table-hover">
         <thead>
-        <th class="text-center"><i class="fa fa-reorder"></i></th>
-        <th class="text-center">#ID</th>
+        <th class="order"><i class="fa fa-reorder"></i></th>
+        <th class="w50 text-center">#ID</th>
         <th class="text-center">Görsel</th>
         <th>Görsel Adı</th>
         <th class="text-center">Durumu</th>
@@ -20,8 +20,8 @@ if(empty($item_images)){ ?>
         <?php
         foreach ($item_images as $image){ ?>
             <tr id="sort-<?php echo $image->id; ?>">
-                <td class="w40 text-center"><i class="fa fa-reorder"></i></td>
-                <td class="w100 text-center">#<?php echo $image->id; ?></td>
+                <td class="order"><i class="fa fa-reorder"></i></td>
+                <td class="w50 text-center">#<?php echo $image->id; ?></td>
                 <td class="w100">
                     <img width="50" height="50" src="<?php echo base_url('uploads/'.$viewFolder.'/'.$image->img_url); ?>" alt="<?php echo $image->img_url; ?>" class="img-responsive">
                 </td>
