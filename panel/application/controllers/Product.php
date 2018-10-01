@@ -252,4 +252,32 @@ class Product extends CI_Controller
         echo $render_html;
         die;
     }
+
+    public function change_product_cover($id,$prd_id)
+    {
+        if($id && $prd_id){
+            $set_cover = $this->input->post('set_cover');
+            $where = array('id' => $id, 'product_id' => $prd_id);
+            $data = array('isCover' => $set_cover);
+            $update = $this->product_image_model->edit($where, $data);
+            if($update){
+                $where = array('id !=' => $id, 'product_id' => $prd_id);
+                $data = array('isCover' => 0);
+                $this->product_image_model->edit($where, $data);
+                $viewData = new stdClass();
+
+                $viewData->viewFolder = $this->viewFolder;
+                $viewData->subViewFolder = "image";
+                $viewData->item = $this->product_model->get(array('id' => $prd_id));
+
+                $image_where = array('product_id' => $prd_id);
+                $viewData->item_images = $this->product_image_model->get_all($image_where, "rank ASC");
+                $render_html = $this->load->view($viewData->viewFolder.'/'.$viewData->subViewFolder.'/image_list_v', $viewData, true);
+                echo $render_html;
+                die;
+            } else{
+
+            }
+        }
+    }
 }
