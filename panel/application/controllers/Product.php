@@ -208,7 +208,7 @@ class Product extends CI_Controller
         $viewData->item_images = $this->product_image_model->get_all($image_where, "rank ASC");
         $this->load->view($viewData->viewFolder.'/'.$viewData->subViewFolder.'/index', $viewData);
     }
-
+    /* image ekleme işlemi */
     public function image_upload($id)
     {
         $ext = pathinfo($_FILES['file']['name'], PATHINFO_EXTENSION);
@@ -237,7 +237,7 @@ class Product extends CI_Controller
             echo "hata";
         }
     }
-
+    /* image list dom load */
     public function refresh_image_list($id)
     {
         $viewData = new stdClass();
@@ -252,7 +252,7 @@ class Product extends CI_Controller
         echo $render_html;
         die;
     }
-
+    /* kapak fotoğrafı değiştirme */
     public function change_product_cover($id,$prd_id)
     {
         if($id && $prd_id){
@@ -264,20 +264,69 @@ class Product extends CI_Controller
                 $where = array('id !=' => $id, 'product_id' => $prd_id);
                 $data = array('isCover' => 0);
                 $this->product_image_model->edit($where, $data);
-                $viewData = new stdClass();
-
-                $viewData->viewFolder = $this->viewFolder;
-                $viewData->subViewFolder = "image";
-                $viewData->item = $this->product_model->get(array('id' => $prd_id));
-
-                $image_where = array('product_id' => $prd_id);
-                $viewData->item_images = $this->product_image_model->get_all($image_where, "rank ASC");
-                $render_html = $this->load->view($viewData->viewFolder.'/'.$viewData->subViewFolder.'/image_list_v', $viewData, true);
-                echo $render_html;
-                die;
+                $this->refresh_image_list($prd_id);
             } else{
 
             }
+        }
+    }
+
+    /* durum değiştirme işlemi */
+    public function change_image_status($id)
+    {
+        if($id){
+            $status = $this->input->post('status');
+            $where = array('id' => $id);
+            $data = array('isActive' => $status);
+            $update = $this->product_image_model->edit($where, $data);
+            if($update){
+
+            } else{
+
+            }
+        }
+    }
+
+    /* fotoğraf sıralama işlemi*/
+    public function image_sort()
+    {
+        $data = $this->input->post('data');
+        parse_str($data, $order);
+        $items = $order['sort'];
+        $eklenen = 0;
+        $eklenmeyen = 0;
+        foreach($items as $key => $value){
+            $where = array('id' => $value);
+            $sort_data = array('rank' => $key+1);
+            $get_item = $this->product_image_model->get($where);
+            if($sort_data['rank'] != $get_item->rank){
+                $update = $this->product_image_model->edit($where, $sort_data);
+                if($update){
+                    $eklenen++;
+                } else{
+                    $eklenmeyen++;
+                }
+            }
+        }
+    }
+
+    /* image silme işlemi */
+    public function delete_image($id)
+    {
+        $where = array(
+            'id' => strip_tags(str_replace(' ', '', $id))
+        );
+        $img_info = $this->product_image_model->get($where);
+        $delete = $this->product_image_model->delete($where);
+
+        // TODO alert sistemi eklenecek
+        if($delete){
+            if(file_exists("uploads/".$this->viewFolder."/".$img_info->img_url)){
+                unlink("uploads/".$this->viewFolder."/".$img_info->img_url);
+            }
+            redirect(base_url('product/image_form/'.$img_info->product_id));
+        } else{
+            redirect(base_url('product/image_form/'.$img_info->product_id));
         }
     }
 }

@@ -8,6 +8,7 @@ if(empty($item_images)){ ?>
 } else{ ?>
     <table class="table table-bordered table-striped table-hover">
         <thead>
+        <th class="text-center"><i class="fa fa-reorder"></i></th>
         <th class="text-center">#ID</th>
         <th class="text-center">Görsel</th>
         <th>Görsel Adı</th>
@@ -15,10 +16,11 @@ if(empty($item_images)){ ?>
         <th class="text-center">Kapak</th>
         <th class="text-center">İşlem</th>
         </thead>
-        <tbody>
+        <tbody class="sortable" data-url="<?php echo base_url('product/image_sort'); ?>">
         <?php
         foreach ($item_images as $image){ ?>
-            <tr>
+            <tr id="sort-<?php echo $image->id; ?>">
+                <td class="w40 text-center"><i class="fa fa-reorder"></i></td>
                 <td class="w100 text-center">#<?php echo $image->id; ?></td>
                 <td class="w100">
                     <img width="50" height="50" src="<?php echo base_url('uploads/'.$viewFolder.'/'.$image->img_url); ?>" alt="<?php echo $image->img_url; ?>" class="img-responsive">

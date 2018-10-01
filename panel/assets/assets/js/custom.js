@@ -41,7 +41,7 @@ $(document).ready(function () {
     /* Sıralama */
     $('.sortable').sortable();
 
-    $('.sortable').on('sortupdate', function (event, ui) {
+    $(document).on('sortupdate', '.sortable', function (event, ui) {
         var data = $(this).sortable('serialize');
         var url = $(this).attr('data-url');
 
@@ -59,6 +59,7 @@ $(document).ready(function () {
         var url = $('#prd-img-dropzone').attr('data-url');
         $.post(url, {status: status}, function (data) {
             $('.image_list_container').html(data);
+            $('.sortable').sortable();
             $('[data-switchery]').each(function(){
                 var $this = $(this),
                     color = $this.attr('data-color') || '#188ae2',
@@ -88,6 +89,7 @@ $(document).ready(function () {
         if(typeof set_cover !== "undefined" && typeof url !== "undefined"){
             $.post(url, {set_cover: set_cover}, function (data) {
                 $('.image_list_container').html(data);
+                $('.sortable').sortable();
                 $('[data-switchery]').each(function(){
                     var $this = $(this),
                         color = $this.attr('data-color') || '#188ae2',
