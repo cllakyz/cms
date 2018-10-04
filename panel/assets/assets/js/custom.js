@@ -1,4 +1,9 @@
 $(document).ready(function () {
+    iziToast.success({
+        title: 'OK',
+        message: 'Successfully inserted record!',
+        position: 'topCenter',
+    });
     /* silme işlemi */
     $(document).on('click', '.remove-btn', function (e) {
         e.preventDefault();
