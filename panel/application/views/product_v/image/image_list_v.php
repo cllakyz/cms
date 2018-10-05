@@ -6,7 +6,7 @@ if(empty($item_images)){ ?>
     </div>
     <?php
 } else{ ?>
-    <table class="table table-bordered table-striped table-hover">
+    <table class="table table-bordered table-striped table-hover content-table">
         <thead>
         <th class="order"><i class="fa fa-reorder"></i></th>
         <th class="w50 text-center">#ID</th>

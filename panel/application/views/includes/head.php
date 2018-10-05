@@ -7,5 +7,6 @@
 
 <?php $this->load->view('includes/include_style'); ?>
 <script>
+    var base_url = '<?php echo base_url(); ?>';
     var assets_url = '<?php echo base_url('assets');?>/';
 </script>

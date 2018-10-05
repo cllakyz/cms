@@ -15,7 +15,7 @@
                 </div>
             <?php
             } else{ ?>
-                <table class="table table-hover table-striped table-bordered">
+                <table class="table table-hover table-striped table-bordered content-table">
                     <thead>
                     <th class="order"><i class="fa fa-reorder"></i></th>
                     <th class="w50">#ID</th>

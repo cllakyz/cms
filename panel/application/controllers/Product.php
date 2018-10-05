@@ -79,12 +79,21 @@ class Product extends CI_Controller
             );
             $insert = $this->product_model->add($data);
 
-            // TODO alert sistemi eklenecek
             if($insert){
-                redirect(base_url('product'));
+                $alert = array(
+                    'type' => 'success',
+                    'title' => 'Başarılı',
+                    'message' => 'Ürün Başarıyla Eklendi'
+                );
             } else{
-                redirect(base_url('product'));
+                $alert = array(
+                    'type' => 'error',
+                    'title' => 'Hata!',
+                    'message' => 'Ürün Eklenemedi'
+                );
             }
+            $this->session->set_flashdata('alert', $alert);
+            redirect(base_url('product'));
         } else{
             $viewData = new stdClass();
 
@@ -121,12 +130,21 @@ class Product extends CI_Controller
             );
             $update = $this->product_model->edit($where, $data);
 
-            // TODO alert sistemi eklenecek
             if($update){
-                redirect(base_url('product'));
+                $alert = array(
+                    'type' => 'success',
+                    'title' => 'Başarılı',
+                    'message' => 'Ürün Başarıyla Güncellendi'
+                );
             } else{
-                redirect(base_url('product'));
+                $alert = array(
+                    'type' => 'error',
+                    'title' => 'Hata!',
+                    'message' => 'Ürün Güncellenemedi'
+                );
             }
+            $this->session->set_flashdata('alert', $alert);
+            redirect(base_url('product'));
         } else{
             $viewData = new stdClass();
             /** Tablodan verilerin getirilmesi */
@@ -151,12 +169,23 @@ class Product extends CI_Controller
         );
         $delete = $this->product_model->delete($where);
 
-        // TODO alert sistemi eklenecek
         if($delete){
-            redirect(base_url('product'));
+            $alert = array(
+                'type' => 'success',
+                'title' => 'Başarılı',
+                'message' => 'Ürün Başarıyla Silindi'
+            );
         } else{
-            redirect(base_url('product'));
+            $alert = array(
+                'type' => 'error',
+                'title' => 'Hata!',
+                'message' => 'Ürün Silinemedi'
+            );
         }
+        /*$this->session->set_flashdata('alert', $alert);
+        redirect(base_url('product'));*/
+        echo json_encode($alert);
+        die;
     }
     /* durum değiştirme işlemi */
     public function change_status($id)
@@ -167,10 +196,20 @@ class Product extends CI_Controller
             $data = array('isActive' => $status);
             $update = $this->product_model->edit($where, $data);
             if($update){
-
+                $alert = array(
+                    'type' => 'success',
+                    'title' => 'Başarılı',
+                    'message' => 'Ürün Durumu Güncellendi'
+                );
             } else{
-
+                $alert = array(
+                    'type' => 'error',
+                    'title' => 'Hata!',
+                    'message' => 'Ürün Durumu Güncellenemedi'
+                );
             }
+            echo json_encode($alert);
+            die;
         }
     }
     /* sıralama işlemi*/
@@ -194,6 +233,21 @@ class Product extends CI_Controller
                 }
             }
         }
+        if($eklenmeyen == 0){
+            $alert = array(
+                'type' => 'success',
+                'title' => 'Başarılı',
+                'message' => 'Ürünler Başarıyla Sıralandı'
+            );
+        } else{
+            $alert = array(
+                'type' => 'error',
+                'title' => 'Hata!',
+                'message' => 'Ürünler Sıralanamadı'
+            );
+        }
+        echo json_encode($alert);
+        die;
     }
     /* resim ekleme form */
     public function image_form($id)
@@ -233,9 +287,28 @@ class Product extends CI_Controller
                 'createdAt'   => $this->zaman,
             );
             $add = $this->product_image_model->add($data);
+            if($add){
+                $alert = array(
+                    'type' => 'success',
+                    'title' => 'Başarılı',
+                    'message' => 'Ürün Resmi Başarıyla Eklendi.'
+                );
+            } else{
+                $alert = array(
+                    'type' => 'error',
+                    'title' => 'Hata!',
+                    'message' => 'Ürün Resmi Eklenemedi'
+                );
+            }
         } else{
-            echo "hata";
+            $alert = array(
+                'type' => 'error',
+                'title' => 'Hata!',
+                'message' => 'Ürün Resmi Yüklenemedi'
+            );
         }
+        echo json_encode($alert);
+        die;
     }
     /* image list dom load */
     public function refresh_image_list($id)
@@ -264,10 +337,22 @@ class Product extends CI_Controller
                 $where = array('id !=' => $id, 'product_id' => $prd_id);
                 $data = array('isCover' => 0);
                 $this->product_image_model->edit($where, $data);
-                $this->refresh_image_list($prd_id);
+                $alert = array(
+                    'type' => 'success',
+                    'title' => 'Başarılı',
+                    'message' => 'Kapak Resmi Güncellendi',
+                    'prd_id' => $prd_id
+                );
             } else{
-
+                $alert = array(
+                    'type' => 'error',
+                    'title' => 'Hata!',
+                    'message' => 'Kapak Resmi Güncellenemedi',
+                    'prd_id' => $prd_id
+                );
             }
+            echo json_encode($alert);
+            die;
         }
     }
 
@@ -280,10 +365,20 @@ class Product extends CI_Controller
             $data = array('isActive' => $status);
             $update = $this->product_image_model->edit($where, $data);
             if($update){
-
+                $alert = array(
+                    'type' => 'success',
+                    'title' => 'Başarılı',
+                    'message' => 'Resim Durumu Güncellendi'
+                );
             } else{
-
+                $alert = array(
+                    'type' => 'error',
+                    'title' => 'Hata!',
+                    'message' => 'Resim Durumu Güncellenemedi'
+                );
             }
+            echo json_encode($alert);
+            die;
         }
     }
 
@@ -308,6 +403,21 @@ class Product extends CI_Controller
                 }
             }
         }
+        if($eklenmeyen == 0){
+            $alert = array(
+                'type' => 'success',
+                'title' => 'Başarılı',
+                'message' => 'Resimler Başarıyla Sıralandı'
+            );
+        } else{
+            $alert = array(
+                'type' => 'error',
+                'title' => 'Hata!',
+                'message' => 'Resimler Sıralanamadı'
+            );
+        }
+        echo json_encode($alert);
+        die;
     }
 
     /* image silme işlemi */
@@ -319,14 +429,23 @@ class Product extends CI_Controller
         $img_info = $this->product_image_model->get($where);
         $delete = $this->product_image_model->delete($where);
 
-        // TODO alert sistemi eklenecek
         if($delete){
             if(file_exists("uploads/".$this->viewFolder."/".$img_info->img_url)){
                 unlink("uploads/".$this->viewFolder."/".$img_info->img_url);
             }
-            redirect(base_url('product/image_form/'.$img_info->product_id));
+            $alert = array(
+                'type' => 'success',
+                'title' => 'Başarılı',
+                'message' => 'Resim Başarıyla Silindi'
+            );
         } else{
-            redirect(base_url('product/image_form/'.$img_info->product_id));
+            $alert = array(
+                'type' => 'error',
+                'title' => 'Hata!',
+                'message' => 'Resim Silinemedi'
+            );
         }
+        echo json_encode($alert);
+        die;
     }
 }

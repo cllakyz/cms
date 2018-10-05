@@ -3,6 +3,7 @@ $(document).ready(function () {
     $(document).on('click', '.remove-btn', function (e) {
         e.preventDefault();
         var thisEl = $(this);
+        var thisTable = thisEl.parents('.content-table tbody');
         var url = thisEl.attr('data-url');
         swal({
             title: 'Emin misiniz?',
@@ -15,7 +16,17 @@ $(document).ready(function () {
             confirmButtonText: 'Evet, Sil!'
         }).then((result) => {
             if (result.value) {
-                window.location.href = url;
+                $.post(url, {}, function (data) {
+                    var alert = $.parseJSON(data);
+                    notify(alert.type, alert.title, alert.message);
+                    if(alert.type == 'success'){
+                        if(thisTable.find('tr').length > 1){
+                            thisEl.parents('tr').remove();
+                        } else{
+                            window.location.reload();
+                        }
+                    }
+                });
             }
         })
     });
@@ -33,7 +44,8 @@ $(document).ready(function () {
 
         if(typeof status !== "undefined" && typeof url !== "undefined"){
             $.post(url, {status: status}, function (data) {
-
+                var alert = $.parseJSON(data);
+                notify(alert.type, alert.title, alert.message);
             });
         }
     });
@@ -47,7 +59,8 @@ $(document).ready(function () {
 
         if(typeof url !== "undefined"){
             $.post(url, {data: data}, function (data) {
-
+                var alert = $.parseJSON(data);
+                notify(alert.type, alert.title, alert.message);
             });
         }
     });
@@ -55,9 +68,9 @@ $(document).ready(function () {
     /* dropzone */
     var uploadSection = Dropzone.forElement("#prd-img-dropzone");
 
-    uploadSection.on('complete', function () {
+    uploadSection.on('complete', function (data, response) {
         var url = $('#prd-img-dropzone').attr('data-url');
-        $.post(url, {status: status}, function (data) {
+        $.post(url, {}, function (data) {
             $('.image_list_container').html(data);
             $('.sortable').sortable();
             $('[data-switchery]').each(function(){
@@ -75,6 +88,11 @@ $(document).ready(function () {
         });
     });
 
+    uploadSection.on('success', function (file, response) {
+        var alert = $.parseJSON(response);
+        notify(alert.type, alert.title, alert.message);
+    });
+
     /* kapak fotoğrafı değiştirme */
     $(document).on('change', '.change-product-cover', function () {
         var thisEl = $(this);
@@ -88,39 +106,28 @@ $(document).ready(function () {
 
         if(typeof set_cover !== "undefined" && typeof url !== "undefined"){
             $.post(url, {set_cover: set_cover}, function (data) {
-                $('.image_list_container').html(data);
-                $('.sortable').sortable();
-                $('[data-switchery]').each(function(){
-                    var $this = $(this),
-                        color = $this.attr('data-color') || '#188ae2',
-                        jackColor = $this.attr('data-jackColor') || '#ffffff',
-                        size = $this.attr('data-size') || 'default'
+                var response = data.split('@@');
+                var alert = $.parseJSON(response[0]);
+                notify(alert.type, alert.title, alert.message);
+                if(alert.type == 'success'){
+                    $.post(base_url+'product/refresh_image_list/'+alert.prd_id, {}, function (data) {
+                        $('.image_list_container').html(data);
+                        $('.sortable').sortable();
+                        $('[data-switchery]').each(function(){
+                            var $this = $(this),
+                                color = $this.attr('data-color') || '#188ae2',
+                                jackColor = $this.attr('data-jackColor') || '#ffffff',
+                                size = $this.attr('data-size') || 'default'
 
-                    new Switchery(this, {
-                        color: color,
-                        size: size,
-                        jackColor: jackColor
+                            new Switchery(this, {
+                                color: color,
+                                size: size,
+                                jackColor: jackColor
+                            });
+                        });
                     });
-                });
+                }
             });
         }
     });
 });
-
-function notify(type, title, message) {
-    var options = {
-        title: title,
-        message: message,
-        position: 'topCenter',
-        timeout: 1500,
-    };
-    if(type == 'success'){
-        iziToast.success(options);
-    }else if(type == 'error'){
-        iziToast.error(options);
-    }else if(type == 'info'){
-        iziToast.info(options);
-    } else if(type == 'warning'){
-        iziToast.warning(options);
-    }
-}
