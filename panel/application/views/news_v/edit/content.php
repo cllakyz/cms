@@ -56,17 +56,23 @@
                             <option<?php echo $video_selected; ?> value="2">Video</option>
                         </select>
                     </div>
-
-                    <div class="form-group image-container<?php echo $image_class; ?>">
-                        <label>Görsel Seçiniz</label>
-                        <input type="file" name="img_url" class="form-control">
-                        <?php
-                        if(isset($form_error)){ ?>
-                            <span class="pull-right input-form-errors"><?php echo form_error('img_url'); ?></span>
+                    
+                    <div class="row image-container<?php echo $image_class; ?>">
+                        <div class="form-group col-md-1">
+                            <img src="<?php echo base_url('uploads/'.$viewFolder.'/'.$item->img_url); ?>" alt="<?php echo $item->img_url; ?>" class="img-responsive">
+                        </div>
+                        <div class="form-group col-md-11">
+                            <label>Görsel Seçiniz</label>
+                            <input type="file" name="img_url" class="form-control">
                             <?php
-                        }
-                        ?>
+                            if(isset($form_error)){ ?>
+                                <span class="pull-right input-form-errors"><?php echo form_error('img_url'); ?></span>
+                                <?php
+                            }
+                            ?>
+                        </div>
                     </div>
+                    
                     <div class="form-group video-container<?php echo $video_class; ?>">
                         <label>Video URL</label>
                         <input type="text" name="video_url" class="form-control" placeholder="Video Bağlantısını Buraya Giriniz" value="<?php echo $item->video_url; ?>">
