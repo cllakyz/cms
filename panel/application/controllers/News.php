@@ -71,7 +71,7 @@ class News extends CI_Controller
                 die;
             }
         } elseif($news_type == 2){
-
+            $this->form_validation->set_rules('video_url', 'Video URL', 'required|trim');
         }
 
         $this->form_validation->set_rules('title', 'Başlık', 'required|trim');
@@ -115,6 +115,7 @@ class News extends CI_Controller
             $viewData->viewFolder = $this->viewFolder;
             $viewData->subViewFolder = "add";
             $viewData->form_error = TRUE;
+            $viewData->news_type = $news_type;
 
             $this->load->view($viewData->viewFolder.'/'.$viewData->subViewFolder.'/index', $viewData);
         }

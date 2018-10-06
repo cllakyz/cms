@@ -20,14 +20,37 @@
                         <label>Açıklama</label>
                         <textarea name="description" class="m-0" data-plugin="summernote" data-options="{height: 250}"></textarea>
                     </div>
+
+                    <?php
+                    if(isset($form_error)){
+                        if($news_type == 1){
+                            $image_class = NULL;
+                            $video_class = ' hidden';
+                            $image_selected = ' selected';
+                            $video_selected = NULL;
+                        } else{
+                            $image_class = ' hidden';
+                            $video_class = NULL;
+                            $image_selected = NULL;
+                            $video_selected = ' selected';
+                        }
+                    } else{
+                        $image_class = NULL;
+                        $video_class = ' hidden';
+                        $image_selected = ' selected';
+                        $video_selected = NULL;
+                    }
+                    ?>
+
                     <div class="form-group">
                         <label>Haber Türü</label>
                         <select name="news_type" class="form-control news-type">
-                            <option value="1">Resim</option>
-                            <option value="2">Video</option>
+                            <option<?php echo $image_selected; ?> value="1">Resim</option>
+                            <option<?php echo $video_selected; ?> value="2">Video</option>
                         </select>
                     </div>
-                    <div class="form-group image-container">
+
+                    <div class="form-group image-container<?php echo $image_class; ?>">
                         <label>Görsel Seçiniz</label>
                         <input type="file" name="img_url" class="form-control">
                         <?php
@@ -37,7 +60,7 @@
                         }
                         ?>
                     </div>
-                    <div class="form-group video-container hidden">
+                    <div class="form-group video-container<?php echo $video_class; ?>">
                         <label>Video URL</label>
                         <input type="text" name="video_url" class="form-control" placeholder="Video Bağlantısını Buraya Giriniz">
                         <?php
