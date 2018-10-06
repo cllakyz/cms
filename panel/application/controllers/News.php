@@ -84,10 +84,58 @@ class News extends CI_Controller
         $validate = $this->form_validation->run();
 
         if($validate){
+
+            if($news_type == 1){
+                $ext = pathinfo($_FILES['img_url']['name'], PATHINFO_EXTENSION);
+                $file_name = sef(pathinfo($_FILES['img_url']['name'], PATHINFO_FILENAME)).'.'.$ext;
+
+                $config = array(
+                    "allowed_types" => "jpg|jpeg|png|JPG|JPEG|PNG",
+                    "upload_path"   => "uploads/".$this->viewFolder."/",
+                    "file_name"     => $file_name,
+                );
+
+                $this->load->library("upload", $config);
+                $upload = $this->upload->do_upload("img_url");
+                if($upload){
+                    $image_url = $this->upload->data("file_name");
+                    $video_url = NULL;
+                } else{
+                    $alert = array(
+                        'type' => 'error',
+                        'title' => 'Hata!',
+                        'message' => 'Dosya Formatı JPG,PNG veya JPEG Olmalıdır'
+                    );
+                    $this->session->set_flashdata('alert', $alert);
+                    redirect(base_url('news/new_form'));
+                    die;
+                }
+                $news_type_text = "Image";
+            } elseif($news_type == 2){
+                $image_url = NULL;
+                $video_url = $this->input->post('video_url');
+                $news_type_text = "Video";
+            } else{
+                $image_url = NULL;
+                $video_url = NULL;
+                $news_type_text = NULL;
+                $alert = array(
+                    'type' => 'info',
+                    'title' => 'Hata!',
+                    'message' => 'Lütfen En Az Bir Haber Türü Seçin'
+                );
+                $this->session->set_flashdata('alert', $alert);
+                redirect(base_url('news/new_form'));
+                die;
+            }
+
             $data = array(
                 'title'       => $this->input->post('title'),
                 'description' => $this->input->post('description'),
                 'url'         => sef($this->input->post('title')),
+                'news_type'   => $news_type_text,
+                'img_url'     => $image_url,
+                'video_url'   => $video_url,
                 'rank'        => 0,
                 'isActive'    => 1,
                 'createdAt'   => $this->zaman,
@@ -108,7 +156,7 @@ class News extends CI_Controller
                 );
             }
             $this->session->set_flashdata('alert', $alert);
-            redirect(base_url('product'));
+            redirect(base_url('news'));
         } else{
             $viewData = new stdClass();
 
