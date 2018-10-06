@@ -245,6 +245,11 @@ class News extends CI_Controller
             $update = $this->news_model->edit($where, $data);
 
             if($update){
+                if($_FILES['img_url']['name'] != ''){
+                    if(file_exists("uploads/".$this->viewFolder."/".$this->input->post("old_img_url"))){
+                        unlink("uploads/".$this->viewFolder."/".$this->input->post("old_img_url"));
+                    }
+                }
                 $alert = array(
                     'type' => 'success',
                     'title' => 'Başarılı',
