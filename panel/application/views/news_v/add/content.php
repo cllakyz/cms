@@ -5,7 +5,7 @@
     <div class="col-md-12">
         <div class="widget">
             <div class="widget-body">
-                <form action="<?php echo base_url('news/save'); ?>" method="post">
+                <form action="<?php echo base_url('news/save'); ?>" method="post" enctype="multipart/form-data">
                     <div class="form-group">
                         <label>Başlık</label>
                         <input type="text" name="title" class="form-control" placeholder="Başlık">
@@ -30,6 +30,12 @@
                     <div class="form-group image-container">
                         <label>Görsel Seçiniz</label>
                         <input type="file" name="img_url" class="form-control">
+                        <?php
+                        if(isset($form_error)){ ?>
+                            <span class="pull-right input-form-errors"><?php echo form_error('img_url'); ?></span>
+                            <?php
+                        }
+                        ?>
                     </div>
                     <div class="form-group video-container hidden">
                         <label>Video URL</label>
