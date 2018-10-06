@@ -18,26 +18,26 @@
                 <table class="table table-hover table-striped table-bordered content-table">
                     <thead>
                     <th class="order"><i class="fa fa-reorder"></i></th>
-                    <th class="w50">#ID</th>
+                    <th class="w50 text-center">#ID</th>
                     <th>Başlık</th>
                     <th>URL</th>
                     <th>Açıklama</th>
-                    <th>Durum</th>
-                    <th>İşlem</th>
+                    <th class="text-center">Durum</th>
+                    <th class="text-center">İşlem</th>
                     </thead>
                     <tbody class="sortable" data-url="<?php echo base_url('product/sort'); ?>">
                         <?php
                         foreach($items as $item){ ?>
                             <tr id="sort-<?php echo $item->id; ?>">
                                 <td class="order"><i class="fa fa-reorder"></i></td>
-                                <td class="w50"><?php echo $item->id; ?></td>
+                                <td class="w50 text-center"><?php echo $item->id; ?></td>
                                 <td><?php echo $item->title; ?></td>
                                 <td><?php echo $item->url; ?></td>
                                 <td><?php echo $item->description; ?></td>
-                                <td>
+                                <td class="w100 text-center">
                                     <input type="checkbox" class="change-item-status" data-url="<?php echo base_url('product/change_status/'.$item->id); ?>" data-switchery data-color="#10c469"<?php echo $item->isActive == 1 ? ' checked' : NULL; ?> />
                                 </td>
-                                <td>
+                                <td class="w300 text-center">
                                     <a data-url="<?php echo base_url('product/delete/'.$item->id); ?>" class="btn btn-sm btn-danger btn-outline remove-btn"><i class="fa fa-trash"></i> Sil</a>
                                     <a href="<?php echo base_url('product/edit_form/'.$item->id); ?>" class="btn btn-sm btn-info btn-outline"><i class="fa fa-edit"></i> Düzenle</a>
                                     <a href="<?php echo base_url('product/image_form/'.$item->id); ?>" class="btn btn-sm btn-dark btn-outline"><i class="fa fa-image"></i> Resimler</a>
