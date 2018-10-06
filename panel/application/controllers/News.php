@@ -110,15 +110,12 @@ class News extends CI_Controller
                     redirect(base_url('news/new_form'));
                     die;
                 }
-                $news_type_text = "Image";
             } elseif($news_type == 2){
                 $image_url = NULL;
                 $video_url = $this->input->post('video_url');
-                $news_type_text = "Video";
             } else{
                 $image_url = NULL;
                 $video_url = NULL;
-                $news_type_text = NULL;
                 $alert = array(
                     'type' => 'info',
                     'title' => 'Hata!',
@@ -133,7 +130,7 @@ class News extends CI_Controller
                 'title'       => $this->input->post('title'),
                 'description' => $this->input->post('description'),
                 'url'         => sef($this->input->post('title')),
-                'news_type'   => $news_type_text,
+                'news_type'   => $news_type,
                 'img_url'     => $image_url,
                 'video_url'   => $video_url,
                 'rank'        => 0,
