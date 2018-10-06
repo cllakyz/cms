@@ -63,6 +63,7 @@
                         </div>
                         <div class="form-group col-md-11">
                             <label>Görsel Seçiniz</label>
+                            <input type="hidden" name="old_img_url" value="<?php echo $item->img_url; ?>">
                             <input type="file" name="img_url" class="form-control">
                             <?php
                             if(isset($form_error)){ ?>
@@ -83,7 +84,7 @@
                         }
                         ?>
                     </div>
-                    <button type="submit" class="btn btn-primary btn-md btn-outline">Kaydet</button>
+                    <button type="submit" class="btn btn-primary btn-md btn-outline">Güncelle</button>
                     <a href="<?php echo base_url('news'); ?>" class="btn btn-md btn-danger btn-outline">İptal</a>
                 </form>
             </div>
