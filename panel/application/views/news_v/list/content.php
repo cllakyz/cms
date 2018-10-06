@@ -36,8 +36,8 @@
                                 <td><?php echo $item->title; ?></td>
                                 <td><?php echo $item->url; ?></td>
                                 <?php /*<td><?php echo $item->description; ?></td> */ ?>
-                                <td class="w100"><?php echo $item->news_type == 1 ? 'Image' : 'Video'; ?></td>
-                                <td class="w100">
+                                <td class="text-center"><?php echo $item->news_type == 1 ? 'Image' : 'Video'; ?></td>
+                                <td class="text-center">
                                     <?php
                                     if($item->news_type == 1){ ?>
                                         <img width="75" src="<?php echo base_url("uploads/$viewFolder/$item->img_url"); ?>" alt="" class="img-rounded">
@@ -50,10 +50,10 @@
                                     }
                                     ?>
                                 </td>
-                                <td class="w100 text-center">
+                                <td class="text-center">
                                     <input type="checkbox" class="change-item-status" data-url="<?php echo base_url('news/change_status/'.$item->id); ?>" data-switchery data-color="#10c469"<?php echo $item->isActive == 1 ? ' checked' : NULL; ?> />
                                 </td>
-                                <td class="w200 text-center">
+                                <td class="text-center">
                                     <a data-url="<?php echo base_url('news/delete/'.$item->id); ?>" class="btn btn-sm btn-danger btn-outline remove-btn"><i class="fa fa-trash"></i> Sil</a>
                                     <a href="<?php echo base_url('news/edit_form/'.$item->id); ?>" class="btn btn-sm btn-info btn-outline"><i class="fa fa-edit"></i> Düzenle</a>
                                 </td>

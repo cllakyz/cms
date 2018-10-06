@@ -57,21 +57,15 @@ class Reference extends CI_Controller
     {
         $this->load->library('form_validation');
         //kurallar
-        $news_type = $this->input->post("news_type");
-
-        if($news_type == 1){
-            if($_FILES['img_url']['name'] == ''){
-                $alert = array(
-                    'type' => 'info',
-                    'title' => 'Hata!',
-                    'message' => 'Lütfen Bir Görsel Seçiniz'
-                );
-                $this->session->set_flashdata('alert', $alert);
-                redirect(base_url('reference/new_form'));
-                die;
-            }
-        } elseif($news_type == 2){
-            $this->form_validation->set_rules('video_url', 'Video URL', 'required|trim');
+        if($_FILES['img_url']['name'] == ''){
+            $alert = array(
+                'type' => 'info',
+                'title' => 'Hata!',
+                'message' => 'Lütfen Bir Görsel Seçiniz'
+            );
+            $this->session->set_flashdata('alert', $alert);
+            redirect(base_url('reference/new_form'));
+            die;
         }
 
         $this->form_validation->set_rules('title', 'Başlık', 'required|trim');
@@ -85,7 +79,84 @@ class Reference extends CI_Controller
 
         if($validate){
 
-            if($news_type == 1){
+            $ext = pathinfo($_FILES['img_url']['name'], PATHINFO_EXTENSION);
+            $file_name = sef(pathinfo($_FILES['img_url']['name'], PATHINFO_FILENAME)).'.'.$ext;
+
+            $config = array(
+                "allowed_types" => "jpg|jpeg|png|JPG|JPEG|PNG",
+                "upload_path"   => "uploads/".$this->viewFolder."/",
+                "file_name"     => $file_name,
+            );
+
+            $this->load->library("upload", $config);
+            $upload = $this->upload->do_upload("img_url");
+            if($upload){
+                $image_url = $this->upload->data("file_name");
+            } else{
+                $alert = array(
+                    'type' => 'error',
+                    'title' => 'Hata!',
+                    'message' => 'Dosya Formatı JPG,PNG veya JPEG Olmalıdır'
+                );
+                $this->session->set_flashdata('alert', $alert);
+                redirect(base_url('reference/new_form'));
+                die;
+            }
+
+            $data = array(
+                'title'       => $this->input->post('title'),
+                'description' => $this->input->post('description'),
+                'url'         => sef($this->input->post('title')),
+                'img_url'     => $image_url,
+                'rank'        => 0,
+                'isActive'    => 1,
+                'createdAt'   => $this->zaman,
+            );
+            $insert = $this->reference_model->add($data);
+
+            if($insert){
+                $alert = array(
+                    'type' => 'success',
+                    'title' => 'Başarılı',
+                    'message' => 'Referans Başarıyla Eklendi'
+                );
+            } else{
+                $alert = array(
+                    'type' => 'error',
+                    'title' => 'Hata!',
+                    'message' => 'Referans Eklenemedi'
+                );
+            }
+            $this->session->set_flashdata('alert', $alert);
+            redirect(base_url('reference'));
+        } else{
+            $viewData = new stdClass();
+
+            $viewData->viewFolder = $this->viewFolder;
+            $viewData->subViewFolder = "add";
+            $viewData->form_error = TRUE;
+
+            $this->load->view($viewData->viewFolder.'/'.$viewData->subViewFolder.'/index', $viewData);
+        }
+    }
+    /* güncelleme işlemi */
+    public function edit($id)
+    {
+        $this->load->library('form_validation');
+        //kurallar
+
+        $this->form_validation->set_rules('title', 'Başlık', 'required|trim');
+        //mesajlar
+        $this->form_validation->set_message(
+            array(
+                'required' => "Lütfen {field} Alanını Doldurun"
+            )
+        );
+        $validate = $this->form_validation->run();
+
+        if($validate){
+
+            if($_FILES['img_url']['name'] != ''){
                 $ext = pathinfo($_FILES['img_url']['name'], PATHINFO_EXTENSION);
                 $file_name = sef(pathinfo($_FILES['img_url']['name'], PATHINFO_FILENAME)).'.'.$ext;
 
@@ -107,139 +178,18 @@ class Reference extends CI_Controller
                         'message' => 'Dosya Formatı JPG,PNG veya JPEG Olmalıdır'
                     );
                     $this->session->set_flashdata('alert', $alert);
-                    redirect(base_url('reference/new_form'));
+                    redirect(base_url('reference/edit_form/'.$id));
                     die;
                 }
-            } elseif($news_type == 2){
-                $image_url = NULL;
-                $video_url = $this->input->post('video_url');
             } else{
-                $image_url = NULL;
-                $video_url = NULL;
-                $alert = array(
-                    'type' => 'info',
-                    'title' => 'Hata!',
-                    'message' => 'Lütfen En Az Bir Haber Türü Seçin'
-                );
-                $this->session->set_flashdata('alert', $alert);
-                redirect(base_url('reference/new_form'));
-                die;
+                $image_url = $this->input->post("old_img_url");
             }
 
             $data = array(
                 'title'       => $this->input->post('title'),
                 'description' => $this->input->post('description'),
                 'url'         => sef($this->input->post('title')),
-                'news_type'   => $news_type,
                 'img_url'     => $image_url,
-                'video_url'   => $video_url,
-                'rank'        => 0,
-                'isActive'    => 1,
-                'createdAt'   => $this->zaman,
-            );
-            $insert = $this->reference_model->add($data);
-
-            if($insert){
-                $alert = array(
-                    'type' => 'success',
-                    'title' => 'Başarılı',
-                    'message' => 'Haber Başarıyla Eklendi'
-                );
-            } else{
-                $alert = array(
-                    'type' => 'error',
-                    'title' => 'Hata!',
-                    'message' => 'Haber Eklenemedi'
-                );
-            }
-            $this->session->set_flashdata('alert', $alert);
-            redirect(base_url('reference'));
-        } else{
-            $viewData = new stdClass();
-
-            $viewData->viewFolder = $this->viewFolder;
-            $viewData->subViewFolder = "add";
-            $viewData->form_error = TRUE;
-            $viewData->news_type = $news_type;
-
-            $this->load->view($viewData->viewFolder.'/'.$viewData->subViewFolder.'/index', $viewData);
-        }
-    }
-    /* güncelleme işlemi */
-    public function edit($id)
-    {
-        $this->load->library('form_validation');
-        //kurallar
-        $news_type = $this->input->post("news_type");
-
-        if($news_type == 2){
-            $this->form_validation->set_rules('video_url', 'Video URL', 'required|trim');
-        }
-
-        $this->form_validation->set_rules('title', 'Başlık', 'required|trim');
-        //mesajlar
-        $this->form_validation->set_message(
-            array(
-                'required' => "Lütfen {field} Alanını Doldurun"
-            )
-        );
-        $validate = $this->form_validation->run();
-
-        if($validate){
-
-            if($news_type == 1){
-                if($_FILES['img_url']['name'] != ''){
-                    $ext = pathinfo($_FILES['img_url']['name'], PATHINFO_EXTENSION);
-                    $file_name = sef(pathinfo($_FILES['img_url']['name'], PATHINFO_FILENAME)).'.'.$ext;
-
-                    $config = array(
-                        "allowed_types" => "jpg|jpeg|png|JPG|JPEG|PNG",
-                        "upload_path"   => "uploads/".$this->viewFolder."/",
-                        "file_name"     => $file_name,
-                    );
-
-                    $this->load->library("upload", $config);
-                    $upload = $this->upload->do_upload("img_url");
-                    if($upload){
-                        $image_url = $this->upload->data("file_name");
-                        $video_url = NULL;
-                    } else{
-                        $alert = array(
-                            'type' => 'error',
-                            'title' => 'Hata!',
-                            'message' => 'Dosya Formatı JPG,PNG veya JPEG Olmalıdır'
-                        );
-                        $this->session->set_flashdata('alert', $alert);
-                        redirect(base_url('reference/edit_form/'.$id));
-                        die;
-                    }
-                } else{
-                    $video_url = NULL;
-                    $image_url = $this->input->post("old_img_url");
-                }
-            } elseif($news_type == 2){
-                $image_url = NULL;
-                $video_url = $this->input->post('video_url');
-            } else{
-                $image_url = NULL;
-                $video_url = NULL;
-                $alert = array(
-                    'type' => 'info',
-                    'title' => 'Hata!',
-                    'message' => 'Lütfen En Az Bir Haber Türü Seçin'
-                );
-                $this->session->set_flashdata('alert', $alert);
-                redirect(base_url('reference/edit_form/'.$id));
-                die;
-            }
-
-            $data = array(
-                'title'       => $this->input->post('title'),
-                'description' => $this->input->post('description'),
-                'url'         => sef($this->input->post('title')),
-                'news_type'   => $news_type,
-                'img_url'     => $image_url,
-                'video_url'   => $video_url,
             );
             $where = array('id' => $id);
             $update = $this->reference_model->edit($where, $data);
@@ -248,13 +198,13 @@ class Reference extends CI_Controller
                 $alert = array(
                     'type' => 'success',
                     'title' => 'Başarılı',
-                    'message' => 'Haber Başarıyla Güncellendi'
+                    'message' => 'Referans Başarıyla Güncellendi'
                 );
             } else{
                 $alert = array(
                     'type' => 'error',
                     'title' => 'Hata!',
-                    'message' => 'Haber Güncellenemedi'
+                    'message' => 'Referans Güncellenemedi'
                 );
             }
             $this->session->set_flashdata('alert', $alert);
@@ -270,7 +220,6 @@ class Reference extends CI_Controller
             $viewData->viewFolder = $this->viewFolder;
             $viewData->subViewFolder = "edit";
             $viewData->form_error = TRUE;
-            $viewData->news_type = $news_type;
             $viewData->item = $item;
 
             $this->load->view($viewData->viewFolder.'/'.$viewData->subViewFolder.'/index', $viewData);
@@ -288,13 +237,13 @@ class Reference extends CI_Controller
             $alert = array(
                 'type' => 'success',
                 'title' => 'Başarılı',
-                'message' => 'Haber Başarıyla Silindi'
+                'message' => 'Referans Başarıyla Silindi'
             );
         } else{
             $alert = array(
                 'type' => 'error',
                 'title' => 'Hata!',
-                'message' => 'Haber Silinemedi'
+                'message' => 'Referans Silinemedi'
             );
         }
         echo json_encode($alert);
@@ -312,13 +261,13 @@ class Reference extends CI_Controller
                 $alert = array(
                     'type' => 'success',
                     'title' => 'Başarılı',
-                    'message' => 'Haber Durumu Güncellendi'
+                    'message' => 'Referans Durumu Güncellendi'
                 );
             } else{
                 $alert = array(
                     'type' => 'error',
                     'title' => 'Hata!',
-                    'message' => 'Haber Durumu Güncellenemedi'
+                    'message' => 'Referans Durumu Güncellenemedi'
                 );
             }
             echo json_encode($alert);
@@ -350,13 +299,13 @@ class Reference extends CI_Controller
             $alert = array(
                 'type' => 'success',
                 'title' => 'Başarılı',
-                'message' => 'Haberler Başarıyla Sıralandı'
+                'message' => 'Referanslar Başarıyla Sıralandı'
             );
         } else{
             $alert = array(
                 'type' => 'error',
                 'title' => 'Hata!',
-                'message' => 'Haberler Sıralanamadı'
+                'message' => 'Referanslar Sıralanamadı'
             );
         }
         echo json_encode($alert);
