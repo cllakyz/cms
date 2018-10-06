@@ -234,17 +234,15 @@ class News extends CI_Controller
             $alert = array(
                 'type' => 'success',
                 'title' => 'Başarılı',
-                'message' => 'Ürün Başarıyla Silindi'
+                'message' => 'Haber Başarıyla Silindi'
             );
         } else{
             $alert = array(
                 'type' => 'error',
                 'title' => 'Hata!',
-                'message' => 'Ürün Silinemedi'
+                'message' => 'Haber Silinemedi'
             );
         }
-        /*$this->session->set_flashdata('alert', $alert);
-        redirect(base_url('product'));*/
         echo json_encode($alert);
         die;
     }
@@ -260,13 +258,13 @@ class News extends CI_Controller
                 $alert = array(
                     'type' => 'success',
                     'title' => 'Başarılı',
-                    'message' => 'Ürün Durumu Güncellendi'
+                    'message' => 'Haber Durumu Güncellendi'
                 );
             } else{
                 $alert = array(
                     'type' => 'error',
                     'title' => 'Hata!',
-                    'message' => 'Ürün Durumu Güncellenemedi'
+                    'message' => 'Haber Durumu Güncellenemedi'
                 );
             }
             echo json_encode($alert);
@@ -298,13 +296,13 @@ class News extends CI_Controller
             $alert = array(
                 'type' => 'success',
                 'title' => 'Başarılı',
-                'message' => 'Ürünler Başarıyla Sıralandı'
+                'message' => 'Haberler Başarıyla Sıralandı'
             );
         } else{
             $alert = array(
                 'type' => 'error',
                 'title' => 'Hata!',
-                'message' => 'Ürünler Sıralanamadı'
+                'message' => 'Haberler Sıralanamadı'
             );
         }
         echo json_encode($alert);

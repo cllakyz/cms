@@ -18,7 +18,7 @@
                     </div>
                     <div class="form-group">
                         <label>Açıklama</label>
-                        <textarea name="description" class="m-0" data-plugin="summernote" data-options="{height: 250}"></textarea>
+                        <textarea name="description" class="m-0" data-plugin="summernote" data-options="{height: 150}"></textarea>
                     </div>
                     <button type="submit" class="btn btn-primary btn-md btn-outline">Kaydet</button>
                     <a href="<?php echo base_url('product'); ?>" class="btn btn-md btn-danger btn-outline">İptal</a>

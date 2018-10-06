@@ -27,7 +27,7 @@
                     <th>Durum</th>
                     <th>İşlem</th>
                     </thead>
-                    <tbody class="sortable" data-url="<?php echo base_url('product/sort'); ?>">
+                    <tbody class="sortable" data-url="<?php echo base_url('news/sort'); ?>">
                         <?php
                         foreach($items as $item){ ?>
                             <tr id="sort-<?php echo $item->id; ?>">
@@ -36,8 +36,20 @@
                                 <td><?php echo $item->title; ?></td>
                                 <td><?php echo $item->url; ?></td>
                                 <td><?php echo $item->description; ?></td>
-                                <td><?php echo $item->news_type; ?></td>
-                                <td><?php echo "Görsel Gelecek.."; ?></td>
+                                <td><?php echo $item->news_type == 1 ? 'Image' : 'Video'; ?></td>
+                                <td>
+                                    <?php
+                                    if($item->news_type == 1){ ?>
+                                        <img width="100" src="<?php echo base_url("uploads/$viewFolder/$item->img_url"); ?>" alt="" class="img-rounded">
+                                    <?php
+                                    } elseif($item->news_type == 2){ ?>
+                                        <iframe width="100" src="<?php echo $item->video_url; ?>" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                                    <?php
+                                    } else{
+                                        echo '-';
+                                    }
+                                    ?>
+                                </td>
                                 <td>
                                     <input type="checkbox" class="change-item-status" data-url="<?php echo base_url('news/change_status/'.$item->id); ?>" data-switchery data-color="#10c469"<?php echo $item->isActive == 1 ? ' checked' : NULL; ?> />
                                 </td>

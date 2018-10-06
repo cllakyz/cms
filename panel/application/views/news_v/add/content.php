@@ -18,7 +18,7 @@
                     </div>
                     <div class="form-group">
                         <label>Açıklama</label>
-                        <textarea name="description" class="m-0" data-plugin="summernote" data-options="{height: 250}"></textarea>
+                        <textarea name="description" class="m-0" data-plugin="summernote" data-options="{height: 150}"></textarea>
                     </div>
 
                     <?php
