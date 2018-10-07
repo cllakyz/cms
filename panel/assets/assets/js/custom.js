@@ -1,4 +1,7 @@
 $(document).ready(function () {
+    if($('form').not('.login-form').length > 0){
+        $('form').not('.login-form').attr('autocomplete', 'off');
+    }
     /* silme işlemi */
     $(document).on('click', '.remove-btn', function (e) {
         e.preventDefault();
