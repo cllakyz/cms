@@ -35,13 +35,13 @@
                                 <td><?php echo $item->title; ?></td>
                                 <td><?php echo $item->url; ?></td>
                                 <td><?php echo $item->description; ?></td>
-                                <td class="text-center">
+                                <td class="text-center w100">
                                     <img width="75" src="<?php echo base_url("uploads/$viewFolder/$item->img_url"); ?>" alt="" class="img-rounded">
                                 </td>
-                                <td class="text-center">
+                                <td class="text-center w100">
                                     <input type="checkbox" class="change-item-status" data-url="<?php echo base_url('reference/change_status/'.$item->id); ?>" data-switchery data-color="#10c469"<?php echo $item->isActive == 1 ? ' checked' : NULL; ?> />
                                 </td>
-                                <td class="text-center">
+                                <td class="text-center w200">
                                     <a data-url="<?php echo base_url('reference/delete/'.$item->id); ?>" class="btn btn-sm btn-danger btn-outline remove-btn"><i class="fa fa-trash"></i> Sil</a>
                                     <a href="<?php echo base_url('reference/edit_form/'.$item->id); ?>" class="btn btn-sm btn-info btn-outline"><i class="fa fa-edit"></i> Düzenle</a>
                                 </td>
