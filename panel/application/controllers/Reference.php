@@ -236,9 +236,13 @@ class Reference extends CI_Controller
         $where = array(
             'id' => strip_tags(str_replace(' ', '', $id))
         );
+        $item = $this->brand_model->get($where);
         $delete = $this->reference_model->delete($where);
 
         if($delete){
+            if(file_exists("uploads/".$this->viewFolder."/".$item->img_url)){
+                unlink("uploads/".$this->viewFolder."/".$item->img_url);
+            }
             $alert = array(
                 'type' => 'success',
                 'title' => 'Başarılı',
