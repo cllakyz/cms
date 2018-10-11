@@ -69,6 +69,7 @@ class Course extends CI_Controller
         }
 
         $this->form_validation->set_rules('title', 'Başlık', 'required|trim');
+        $this->form_validation->set_rules('event_date', 'Eğitim Tarihi', 'required|trim');
         //mesajlar
         $this->form_validation->set_message(
             array(
@@ -108,6 +109,7 @@ class Course extends CI_Controller
                 'description' => $this->input->post('description'),
                 'url'         => sef($this->input->post('title')),
                 'img_url'     => $image_url,
+                'event_date'  => date('Y-m-d H:i:s', strtotime($this->input->post('event_date'))),
                 'rank'        => 0,
                 'isActive'    => 1,
                 'createdAt'   => $this->zaman,
@@ -118,13 +120,13 @@ class Course extends CI_Controller
                 $alert = array(
                     'type' => 'success',
                     'title' => 'Başarılı',
-                    'message' => 'Referans Başarıyla Eklendi'
+                    'message' => 'Eğitim Başarıyla Eklendi'
                 );
             } else{
                 $alert = array(
                     'type' => 'error',
                     'title' => 'Hata!',
-                    'message' => 'Referans Eklenemedi'
+                    'message' => 'Eğitim Eklenemedi'
                 );
             }
             $this->session->set_flashdata('alert', $alert);
@@ -146,6 +148,7 @@ class Course extends CI_Controller
         //kurallar
 
         $this->form_validation->set_rules('title', 'Başlık', 'required|trim');
+        $this->form_validation->set_rules('event_date', 'Eğitim Tarihi', 'required|trim');
         //mesajlar
         $this->form_validation->set_message(
             array(
@@ -190,7 +193,9 @@ class Course extends CI_Controller
                 'description' => $this->input->post('description'),
                 'url'         => sef($this->input->post('title')),
                 'img_url'     => $image_url,
+                'event_date'  => $this->input->post('event_date'),
             );
+
             $where = array('id' => $id);
             $update = $this->course_model->edit($where, $data);
 
@@ -203,13 +208,13 @@ class Course extends CI_Controller
                 $alert = array(
                     'type' => 'success',
                     'title' => 'Başarılı',
-                    'message' => 'Referans Başarıyla Güncellendi'
+                    'message' => 'Eğitim Başarıyla Güncellendi'
                 );
             } else{
                 $alert = array(
                     'type' => 'error',
                     'title' => 'Hata!',
-                    'message' => 'Referans Güncellenemedi'
+                    'message' => 'Eğitim Güncellenemedi'
                 );
             }
             $this->session->set_flashdata('alert', $alert);
@@ -236,7 +241,7 @@ class Course extends CI_Controller
         $where = array(
             'id' => strip_tags(str_replace(' ', '', $id))
         );
-        $item = $this->brand_model->get($where);
+        $item = $this->course_model->get($where);
         $delete = $this->course_model->delete($where);
 
         if($delete){
@@ -246,13 +251,13 @@ class Course extends CI_Controller
             $alert = array(
                 'type' => 'success',
                 'title' => 'Başarılı',
-                'message' => 'Referans Başarıyla Silindi'
+                'message' => 'Eğitim Başarıyla Silindi'
             );
         } else{
             $alert = array(
                 'type' => 'error',
                 'title' => 'Hata!',
-                'message' => 'Referans Silinemedi'
+                'message' => 'Eğitim Silinemedi'
             );
         }
         echo json_encode($alert);
@@ -270,13 +275,13 @@ class Course extends CI_Controller
                 $alert = array(
                     'type' => 'success',
                     'title' => 'Başarılı',
-                    'message' => 'Referans Durumu Güncellendi'
+                    'message' => 'Eğitim Durumu Güncellendi'
                 );
             } else{
                 $alert = array(
                     'type' => 'error',
                     'title' => 'Hata!',
-                    'message' => 'Referans Durumu Güncellenemedi'
+                    'message' => 'Eğitim Durumu Güncellenemedi'
                 );
             }
             echo json_encode($alert);
@@ -308,13 +313,13 @@ class Course extends CI_Controller
             $alert = array(
                 'type' => 'success',
                 'title' => 'Başarılı',
-                'message' => 'Referanslar Başarıyla Sıralandı'
+                'message' => 'Eğitimler Başarıyla Sıralandı'
             );
         } else{
             $alert = array(
                 'type' => 'error',
                 'title' => 'Hata!',
-                'message' => 'Referanslar Sıralanamadı'
+                'message' => 'Eğitimler Sıralanamadı'
             );
         }
         echo json_encode($alert);
