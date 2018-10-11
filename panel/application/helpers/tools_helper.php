@@ -97,3 +97,8 @@ function sef($str, $options = array())
 
     return $options['lowercase'] ? mb_strtolower($str, 'UTF-8') : $str;
 }
+
+//tarih fonksiyonu
+function get_date($date){
+    return strftime('%e %B %Y', strtotime($date));
+}
