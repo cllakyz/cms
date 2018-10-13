@@ -376,14 +376,14 @@ class Gallery extends CI_Controller
         $this->load->view($viewData->viewFolder.'/'.$viewData->subViewFolder.'/index', $viewData);
     }
     /* image ekleme işlemi */
-    public function file_upload($id)
+    public function file_upload($gallery_id, $gallery_type, $folder_name)
     {
         $ext = pathinfo($_FILES['file']['name'], PATHINFO_EXTENSION);
         $file_name = sef(pathinfo($_FILES['file']['name'], PATHINFO_FILENAME)).'.'.$ext;
 
         $config = array(
-            "allowed_types" => "jpg|jpeg|png|JPG|JPEG|PNG",
-            "upload_path"   => "uploads/".$this->viewFolder."/",
+            "allowed_types" => "jpg|jpeg|png|JPG|JPEG|PNG|pdf|doc|docx",
+            "upload_path"   => $gallery_type == 1 ? "uploads/".$this->viewFolder."/images/".$folder_name."/" : "uploads/".$this->viewFolder."/files/".$folder_name."/",
             "file_name"     => $file_name,
         );
 
@@ -391,33 +391,33 @@ class Gallery extends CI_Controller
         $upload = $this->upload->do_upload("file");
         if($upload){
             $file = $this->upload->data("file_name");
+            $model_name = $gallery_type == 1 ? "image_model" : "file_model";
             $data = array(
-                'product_id'  => $id,
-                'img_url'     => $file,
+                'gallery_id'  => $gallery_id,
+                'url'         => $config["upload_path"].$file,
                 'rank'        => 0,
                 'isActive'    => 1,
-                'isCover'     => 0,
                 'createdAt'   => $this->zaman,
             );
-            $add = $this->product_image_model->add($data);
+            $add = $this->$model_name->add($data);
             if($add){
                 $alert = array(
                     'type' => 'success',
                     'title' => 'Başarılı',
-                    'message' => 'Ürün Resmi Başarıyla Eklendi.'
+                    'message' => 'Dosya Başarıyla Eklendi.'
                 );
             } else{
                 $alert = array(
                     'type' => 'error',
                     'title' => 'Hata!',
-                    'message' => 'Ürün Resmi Eklenemedi'
+                    'message' => 'Dosya Eklenemedi'
                 );
             }
         } else{
             $alert = array(
                 'type' => 'error',
                 'title' => 'Hata!',
-                'message' => 'Ürün Resmi Yüklenemedi'
+                'message' => 'Dosya Yüklenemedi'
             );
         }
         echo json_encode($alert);
@@ -429,12 +429,12 @@ class Gallery extends CI_Controller
         $viewData = new stdClass();
 
         $viewData->viewFolder = $this->viewFolder;
-        $viewData->subViewFolder = "image";
+        $viewData->subViewFolder = "file";
         $viewData->item = $this->gallery_model->get(array('id' => $id));
 
         $image_where = array('product_id' => $id);
         $viewData->item_images = $this->product_image_model->get_all($image_where, "rank ASC");
-        $render_html = $this->load->view($viewData->viewFolder.'/'.$viewData->subViewFolder.'/image_list_v', $viewData, true);
+        $render_html = $this->load->view($viewData->viewFolder.'/'.$viewData->subViewFolder.'/file_list_v', $viewData, true);
         echo $render_html;
         die;
     }
