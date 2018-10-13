@@ -372,7 +372,7 @@ class Gallery extends CI_Controller
         } else{
             $viewData->items = $this->video_model->get_all($where, "rank ASC");
         }
-
+        $viewData->gallery_type = $item->gallery_type;
         $this->load->view($viewData->viewFolder.'/'.$viewData->subViewFolder.'/index', $viewData);
     }
     /* image ekleme işlemi */
@@ -424,16 +424,17 @@ class Gallery extends CI_Controller
         die;
     }
     /* image list dom load */
-    public function refresh_file_list($id)
+    public function refresh_file_list($gallery_id, $gallery_type)
     {
         $viewData = new stdClass();
 
         $viewData->viewFolder = $this->viewFolder;
         $viewData->subViewFolder = "file";
-        $viewData->item = $this->gallery_model->get(array('id' => $id));
 
-        $image_where = array('product_id' => $id);
-        $viewData->item_images = $this->product_image_model->get_all($image_where, "rank ASC");
+        $where = array('gallery_id' => $gallery_id);
+        $model_name = $gallery_type == 1 ? "image_model" : "file_model";
+        $viewData->items = $this->$model_name->get_all($where, "rank ASC");
+        $viewData->gallery_type = $gallery_type;
         $render_html = $this->load->view($viewData->viewFolder.'/'.$viewData->subViewFolder.'/file_list_v', $viewData, true);
         echo $render_html;
         die;
