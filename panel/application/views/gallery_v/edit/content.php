@@ -5,7 +5,7 @@
     <div class="col-md-12">
         <div class="widget">
             <div class="widget-body">
-                <form action="<?php echo base_url('gallery/edit/'.$item->id.'/'.$item->folder_name); ?>" method="post">
+                <form action="<?php echo base_url('gallery/edit/'.$item->id); ?>" method="post">
                     <div class="form-group">
                         <label>Galeri Adı</label>
                         <input type="text" name="gallery_name" class="form-control" placeholder="Galeri Adı" value="<?php echo $item->gallery_name; ?>">

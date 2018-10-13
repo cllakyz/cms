@@ -85,7 +85,7 @@ class Gallery extends CI_Controller
             }
 
             if($gallery_type != 2){
-                if(!file_exists($path)){
+                if(!is_dir($path)){
                     $create_folder = mkdir($path,0775);
                     if(!$create_folder){
                         $alert = array(
@@ -137,7 +137,7 @@ class Gallery extends CI_Controller
         }
     }
     /* güncelleme işlemi */
-    public function edit($id, $old_folder_name="")
+    public function edit($id)
     {
         $this->load->library('form_validation');
 
@@ -152,6 +152,9 @@ class Gallery extends CI_Controller
         $validate = $this->form_validation->run();
         $gallery_type = $this->input->post('gallery_type');
         if($validate){
+            $item = $this->gallery_model->get(array('id' => $id));
+            $old_folder_name = $item->folder_name;
+            $old_gallery_type = $item->gallery_type;
 
             $gallery_name = $this->input->post('gallery_name');
             $path = "uploads/".$this->viewFolder."/";
@@ -167,7 +170,7 @@ class Gallery extends CI_Controller
             }
 
             if($gallery_type != 2){
-                if(file_exists($path.$old_folder_name)){
+                if(is_dir($path.$old_folder_name)){
                     $create_folder = rename($path.$old_folder_name, $path.$folder_name);
                     if(!$create_folder){
                         $alert = array(
@@ -193,7 +196,14 @@ class Gallery extends CI_Controller
                     }
                 }
             } else{
-                if(file_exists($path.$old_folder_name)){
+                if($old_gallery_type == 1){
+                    /* image ise*/
+                    $path .= "images/";
+                } elseif($old_gallery_type == 3){
+                    /* dosya ise */
+                    $path .= "files/";
+                }
+                if(is_dir($path.$old_folder_name)){
                     $remove_folder = rmdir($path.$old_folder_name);
                     if(!$remove_folder){
                         $alert = array(
@@ -255,23 +265,31 @@ class Gallery extends CI_Controller
         $where = array(
             'id' => strip_tags(str_replace(' ', '', $id))
         );
+        $item = $this->gallery_model->get($where);
         $delete = $this->gallery_model->delete($where);
 
         if($delete){
+            if($item->gallery_type != 2){
+                if($item->gallery_type == 1){
+                    $path = "uploads/".$this->viewFolder."/images/".$item->folder_name;
+                    rmdir($path);
+                } elseif ($item->gallery_type == 3){
+                    $path = "uploads/".$this->viewFolder."/files/".$item->folder_name;
+                    rmdir($path);
+                }
+            }
             $alert = array(
                 'type' => 'success',
                 'title' => 'Başarılı',
-                'message' => 'Ürün Başarıyla Silindi'
+                'message' => 'Galeri Başarıyla Silindi'
             );
         } else{
             $alert = array(
                 'type' => 'error',
                 'title' => 'Hata!',
-                'message' => 'Ürün Silinemedi'
+                'message' => 'Galeri Silinemedi'
             );
         }
-        /*$this->session->set_flashdata('alert', $alert);
-        redirect(base_url('product'));*/
         echo json_encode($alert);
         die;
     }
@@ -287,13 +305,13 @@ class Gallery extends CI_Controller
                 $alert = array(
                     'type' => 'success',
                     'title' => 'Başarılı',
-                    'message' => 'Ürün Durumu Güncellendi'
+                    'message' => 'Galeri Durumu Güncellendi'
                 );
             } else{
                 $alert = array(
                     'type' => 'error',
                     'title' => 'Hata!',
-                    'message' => 'Ürün Durumu Güncellenemedi'
+                    'message' => 'Galeri Durumu Güncellenemedi'
                 );
             }
             echo json_encode($alert);
@@ -325,13 +343,13 @@ class Gallery extends CI_Controller
             $alert = array(
                 'type' => 'success',
                 'title' => 'Başarılı',
-                'message' => 'Ürünler Başarıyla Sıralandı'
+                'message' => 'Galeriler Başarıyla Sıralandı'
             );
         } else{
             $alert = array(
                 'type' => 'error',
                 'title' => 'Hata!',
-                'message' => 'Ürünler Sıralanamadı'
+                'message' => 'Galeriler Sıralanamadı'
             );
         }
         echo json_encode($alert);
