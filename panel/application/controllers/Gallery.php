@@ -356,20 +356,27 @@ class Gallery extends CI_Controller
         die;
     }
     /* resim ekleme form */
-    public function image_form($id)
+    public function upload_form($id)
     {
         $viewData = new stdClass();
 
         $viewData->viewFolder = $this->viewFolder;
-        $viewData->subViewFolder = "image";
-        $viewData->item = $this->gallery_model->get(array('id' => $id));
+        $viewData->subViewFolder = "file";
+        $item = $this->gallery_model->get(array('id' => $id));
+        $viewData->item = $item;
+        $where = array('gallery_id' => $id);
+        if($item->gallery_type == 1){
+            $viewData->items = $this->image_model->get_all($where, "rank ASC");
+        } elseif($item->gallery_type == 3){
+            $viewData->items = $this->file_model->get_all($where, "rank ASC");
+        } else{
+            $viewData->items = $this->video_model->get_all($where, "rank ASC");
+        }
 
-        $image_where = array('product_id' => $id);
-        $viewData->item_images = $this->product_image_model->get_all($image_where, "rank ASC");
         $this->load->view($viewData->viewFolder.'/'.$viewData->subViewFolder.'/index', $viewData);
     }
     /* image ekleme işlemi */
-    public function image_upload($id)
+    public function file_upload($id)
     {
         $ext = pathinfo($_FILES['file']['name'], PATHINFO_EXTENSION);
         $file_name = sef(pathinfo($_FILES['file']['name'], PATHINFO_FILENAME)).'.'.$ext;
@@ -417,7 +424,7 @@ class Gallery extends CI_Controller
         die;
     }
     /* image list dom load */
-    public function refresh_image_list($id)
+    public function refresh_file_list($id)
     {
         $viewData = new stdClass();
 

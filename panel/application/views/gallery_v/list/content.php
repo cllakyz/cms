@@ -28,34 +28,32 @@
                     </thead>
                     <tbody class="sortable" data-url="<?php echo base_url('gallery/sort'); ?>">
                         <?php
-                        foreach($items as $item){ ?>
+                        foreach($items as $item){
+                            if($item->gallery_type == 1){
+                                $type = "Resim";
+                                $button_icon = "image";
+                            } elseif ($item->gallery_type == 2){
+                                $type = "Video";
+                                $button_icon = "play";
+                            } else{
+                                $type = "Dosya";
+                                $button_icon = "folder";
+                            }
+                            ?>
                             <tr id="sort-<?php echo $item->id; ?>">
                                 <td class="order"><i class="fa fa-reorder"></i></td>
                                 <td class="w50 text-center"><?php echo $item->id; ?></td>
-                                <td><?php echo $item->gallery_name; ?></td>
-                                <td>
-                                    <?php
-                                    if($item->gallery_type == 1){
-                                        $type = "Resim";
-                                    } elseif ($item->gallery_type == 2){
-                                        $type = "Video";
-                                    } elseif ($item->gallery_type == 3){
-                                        $type = "Dosya";
-                                    } else{
-                                        $type = "-";
-                                    }
-                                    echo $type;
-                                    ?>
-                                </td>
-                                <td><?php echo $item->folder_name; ?></td>
-                                <td><?php echo $item->url; ?></td>
+                                <td class="text-center"><?php echo $item->gallery_name; ?></td>
+                                <td class="text-center"><?php echo $type; ?></td>
+                                <td class="text-center"><?php echo $item->folder_name; ?></td>
+                                <td class="text-center"><?php echo $item->url; ?></td>
                                 <td class="text-center w100">
                                     <input type="checkbox" class="change-item-status" data-url="<?php echo base_url('gallery/change_status/'.$item->id); ?>" data-switchery data-color="#10c469"<?php echo $item->isActive == 1 ? ' checked' : NULL; ?> />
                                 </td>
                                 <td class="text-center w300">
                                     <a data-url="<?php echo base_url('gallery/delete/'.$item->id); ?>" class="btn btn-sm btn-danger btn-outline remove-btn"><i class="fa fa-trash"></i> Sil</a>
                                     <a href="<?php echo base_url('gallery/edit_form/'.$item->id); ?>" class="btn btn-sm btn-info btn-outline"><i class="fa fa-edit"></i> Düzenle</a>
-                                    <a href="<?php echo base_url('gallery/image_form/'.$item->id); ?>" class="btn btn-sm btn-dark btn-outline"><i class="fa fa-image"></i> Resimler</a>
+                                    <a href="<?php echo base_url('gallery/upload_form/'.$item->id); ?>" class="btn btn-sm btn-dark btn-outline"><i class="fa fa-<?php echo $button_icon; ?>"></i> Galeriye Gözat</a>
                                 </td>
                             </tr>
                         <?php
