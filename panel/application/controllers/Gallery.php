@@ -61,7 +61,7 @@ class Gallery extends CI_Controller
         $this->load->library('form_validation');
 
         //kurallar
-        $this->form_validation->set_rules('title', 'Başlık', 'required|trim');
+        $this->form_validation->set_rules('gallery_name', 'Galeri Adı', 'required|trim');
         //mesajlar
         $this->form_validation->set_message(
             array(
@@ -69,15 +69,44 @@ class Gallery extends CI_Controller
             )
         );
         $validate = $this->form_validation->run();
-
+        $gallery_type = $this->input->post('gallery_type');
         if($validate){
+            $gallery_name = $this->input->post('gallery_name');
+            $path = "uploads/".$this->viewFolder."/";
+            $folder_name = NULL;
+            if($gallery_type == 1){
+                /* image ise*/
+                $folder_name = sef($gallery_name);
+                $path .= "images/".$folder_name;
+            } elseif($gallery_type == 3){
+                /* dosya ise */
+                $folder_name = sef($gallery_name);
+                $path .= "files/".$folder_name;
+            }
+
+            if($gallery_type != 2){
+                if(!file_exists($path)){
+                    $create_folder = mkdir($path, 0775);
+                    if(!$create_folder){
+                        $alert = array(
+                            'type' => 'error',
+                            'title' => 'Hata!',
+                            'message' => 'Galeri Klasörü Oluşturulamadı'
+                        );
+                        $this->session->set_flashdata('alert', $alert);
+                        redirect(base_url('gallery'));
+                    }
+                }
+            }
+
             $data = array(
-                'title'       => $this->input->post('title'),
-                'description' => $this->input->post('description'),
-                'url'         => sef($this->input->post('title')),
-                'rank'        => 0,
-                'isActive'    => 1,
-                'createdAt'   => $this->zaman,
+                'gallery_name' => $gallery_name,
+                'gallery_type' => $gallery_type,
+                'url'          => sef($gallery_name),
+                'folder_name'  => $folder_name,
+                'rank'         => 0,
+                'isActive'     => 1,
+                'createdAt'    => $this->zaman,
             );
             $insert = $this->gallery_model->add($data);
 
@@ -85,23 +114,24 @@ class Gallery extends CI_Controller
                 $alert = array(
                     'type' => 'success',
                     'title' => 'Başarılı',
-                    'message' => 'Ürün Başarıyla Eklendi'
+                    'message' => 'Galeri Başarıyla Eklendi'
                 );
             } else{
                 $alert = array(
                     'type' => 'error',
                     'title' => 'Hata!',
-                    'message' => 'Ürün Eklenemedi'
+                    'message' => 'Galeri Eklenemedi'
                 );
             }
             $this->session->set_flashdata('alert', $alert);
-            redirect(base_url('product'));
+            redirect(base_url('gallery'));
         } else{
             $viewData = new stdClass();
 
             $viewData->viewFolder = $this->viewFolder;
             $viewData->subViewFolder = "add";
             $viewData->form_error = TRUE;
+            $viewData->gallery_type = $gallery_type;
 
             $this->load->view($viewData->viewFolder.'/'.$viewData->subViewFolder.'/index', $viewData);
         }
@@ -146,7 +176,7 @@ class Gallery extends CI_Controller
                 );
             }
             $this->session->set_flashdata('alert', $alert);
-            redirect(base_url('product'));
+            redirect(base_url('gallery'));
         } else{
             $viewData = new stdClass();
             /** Tablodan verilerin getirilmesi */
