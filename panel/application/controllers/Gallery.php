@@ -73,7 +73,7 @@ class Gallery extends CI_Controller
         if($validate){
             $gallery_name = $this->input->post('gallery_name');
             $path = "uploads/".$this->viewFolder."/";
-            $folder_name = NULL;
+            $folder_name = "-";
             if($gallery_type == 1){
                 /* image ise*/
                 $folder_name = sef($gallery_name);
@@ -86,7 +86,7 @@ class Gallery extends CI_Controller
 
             if($gallery_type != 2){
                 if(!file_exists($path)){
-                    $create_folder = mkdir($path, 0775);
+                    $create_folder = mkdir($path,0775);
                     if(!$create_folder){
                         $alert = array(
                             'type' => 'error',
@@ -137,12 +137,12 @@ class Gallery extends CI_Controller
         }
     }
     /* güncelleme işlemi */
-    public function edit($id)
+    public function edit($id, $old_folder_name="")
     {
         $this->load->library('form_validation');
 
         //kurallar
-        $this->form_validation->set_rules('title', 'Başlık', 'required|trim');
+        $this->form_validation->set_rules('gallery_name', 'Galeri Adı', 'required|trim');
         //mesajlar
         $this->form_validation->set_message(
             array(
@@ -150,15 +150,71 @@ class Gallery extends CI_Controller
             )
         );
         $validate = $this->form_validation->run();
-
+        $gallery_type = $this->input->post('gallery_type');
         if($validate){
+
+            $gallery_name = $this->input->post('gallery_name');
+            $path = "uploads/".$this->viewFolder."/";
+            $folder_name = "-";
+            if($gallery_type == 1){
+                /* image ise*/
+                $folder_name = sef($gallery_name);
+                $path .= "images/";
+            } elseif($gallery_type == 3){
+                /* dosya ise */
+                $folder_name = sef($gallery_name);
+                $path .= "files/";
+            }
+
+            if($gallery_type != 2){
+                if(file_exists($path.$old_folder_name)){
+                    $create_folder = rename($path.$old_folder_name, $path.$folder_name);
+                    if(!$create_folder){
+                        $alert = array(
+                            'type' => 'error',
+                            'title' => 'Hata!',
+                            'message' => 'Galeri Klasörü Oluşturulamadı'
+                        );
+                        $this->session->set_flashdata('alert', $alert);
+                        redirect(base_url('gallery'));
+                    }
+                } else{
+                    rmdir($path.$old_folder_name);
+                    $path .= $folder_name;
+                    $create_folder = mkdir($path,0775);
+                    if(!$create_folder){
+                        $alert = array(
+                            'type' => 'error',
+                            'title' => 'Hata!',
+                            'message' => 'Galeri Klasörü Oluşturulamadı'
+                        );
+                        $this->session->set_flashdata('alert', $alert);
+                        redirect(base_url('gallery'));
+                    }
+                }
+            } else{
+                if(file_exists($path.$old_folder_name)){
+                    $remove_folder = rmdir($path.$old_folder_name);
+                    if(!$remove_folder){
+                        $alert = array(
+                            'type' => 'error',
+                            'title' => 'Hata!',
+                            'message' => 'Galeri Klasörü Kaldırılamadı'
+                        );
+                        $this->session->set_flashdata('alert', $alert);
+                        redirect(base_url('gallery'));
+                    }
+                }
+            }
+
             $where = array(
                 'id' => strip_tags(str_replace(' ', '', $id))
             );
             $data = array(
-                'title'       => $this->input->post('title'),
-                'description' => $this->input->post('description'),
-                'url'         => sef($this->input->post('title')),
+                'gallery_name' => $gallery_name,
+                'gallery_type' => $gallery_type,
+                'folder_name'  => $folder_name,
+                'url'          => sef($gallery_name),
             );
             $update = $this->gallery_model->edit($where, $data);
 
@@ -166,13 +222,13 @@ class Gallery extends CI_Controller
                 $alert = array(
                     'type' => 'success',
                     'title' => 'Başarılı',
-                    'message' => 'Ürün Başarıyla Güncellendi'
+                    'message' => 'Galeri Başarıyla Güncellendi'
                 );
             } else{
                 $alert = array(
                     'type' => 'error',
                     'title' => 'Hata!',
-                    'message' => 'Ürün Güncellenemedi'
+                    'message' => 'Galeri Güncellenemedi'
                 );
             }
             $this->session->set_flashdata('alert', $alert);
