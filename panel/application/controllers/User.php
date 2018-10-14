@@ -57,58 +57,32 @@ class User extends CI_Controller
     {
         $this->load->library('form_validation');
         //kurallar
-        if($_FILES['img_url']['name'] == ''){
-            $alert = array(
-                'type' => 'info',
-                'title' => 'Hata!',
-                'message' => 'Lütfen Bir Görsel Seçiniz'
-            );
-            $this->session->set_flashdata('alert', $alert);
-            redirect(base_url('reference/new_form'));
-            die;
-        }
 
-        $this->form_validation->set_rules('title', 'Başlık', 'required|trim');
+        $this->form_validation->set_rules('user_name', 'Kullanıcı Adı', 'required|trim|is_unique[users.user_name]');
+        $this->form_validation->set_rules('full_name', 'Ad Soyad', 'required|trim');
+        $this->form_validation->set_rules('email', 'E-Posta', 'required|trim|valid_email|is_unique[users.email]');
+        $this->form_validation->set_rules('password', 'Şifre', 'required|trim|min_length[6]|max_length[8]');
+        $this->form_validation->set_rules('re_password', 'Şifre Tekrar', 'required|trim|min_length[6]|max_length[8]|matches[password]');
         //mesajlar
         $this->form_validation->set_message(
             array(
-                'required' => "Lütfen {field} Alanını Doldurun"
+                'required'    => "Lütfen <b>{field}</b> Alanını Doldurun",
+                'valid_email' => "Lütfen Geçerli <b>{field}</b> Adresi Girin",
+                'is_unique'   => "<b>{field}</b> Daha Önceden Kullanılmış",
+                'matches'     => "Şifreler Uyuşmuyor",
+                'min_length'  => "<b>{field}</b> En Az 6 Karakter Olmalıdır",
+                'max_length'  => "<b>{field}</b> En Fazla 8 Karakter Olmalıdır",
             )
         );
         $validate = $this->form_validation->run();
 
         if($validate){
 
-            $ext = pathinfo($_FILES['img_url']['name'], PATHINFO_EXTENSION);
-            $file_name = sef(pathinfo($_FILES['img_url']['name'], PATHINFO_FILENAME)).'.'.$ext;
-
-            $config = array(
-                "allowed_types" => "jpg|jpeg|png|JPG|JPEG|PNG",
-                "upload_path"   => "uploads/".$this->viewFolder."/",
-                "file_name"     => $file_name,
-            );
-
-            $this->load->library("upload", $config);
-            $upload = $this->upload->do_upload("img_url");
-            if($upload){
-                $image_url = $this->upload->data("file_name");
-            } else{
-                $alert = array(
-                    'type' => 'error',
-                    'title' => 'Hata!',
-                    'message' => 'Dosya Formatı JPG,PNG veya JPEG Olmalıdır'
-                );
-                $this->session->set_flashdata('alert', $alert);
-                redirect(base_url('reference/new_form'));
-                die;
-            }
-
             $data = array(
-                'title'       => $this->input->post('title'),
-                'description' => $this->input->post('description'),
-                'url'         => sef($this->input->post('title')),
-                'img_url'     => $image_url,
-                'rank'        => 0,
+                'user_name'   => $this->input->post('user_name'),
+                'full_name'   => $this->input->post('full_name'),
+                'email'       => $this->input->post('email'),
+                'password'    => sha1($this->input->post('password')),
                 'isActive'    => 1,
                 'createdAt'   => $this->zaman,
             );
@@ -118,17 +92,17 @@ class User extends CI_Controller
                 $alert = array(
                     'type' => 'success',
                     'title' => 'Başarılı',
-                    'message' => 'Referans Başarıyla Eklendi'
+                    'message' => 'Kullanıcı Başarıyla Eklendi'
                 );
             } else{
                 $alert = array(
                     'type' => 'error',
                     'title' => 'Hata!',
-                    'message' => 'Referans Eklenemedi'
+                    'message' => 'Kullanıcı Eklenemedi'
                 );
             }
             $this->session->set_flashdata('alert', $alert);
-            redirect(base_url('reference'));
+            redirect(base_url('user'));
         } else{
             $viewData = new stdClass();
 
@@ -178,7 +152,7 @@ class User extends CI_Controller
                         'message' => 'Dosya Formatı JPG,PNG veya JPEG Olmalıdır'
                     );
                     $this->session->set_flashdata('alert', $alert);
-                    redirect(base_url('reference/edit_form/'.$id));
+                    redirect(base_url('user/edit_form/'.$id));
                     die;
                 }
             } else{
@@ -213,7 +187,7 @@ class User extends CI_Controller
                 );
             }
             $this->session->set_flashdata('alert', $alert);
-            redirect(base_url('reference'));
+            redirect(base_url('user'));
         } else{
             $viewData = new stdClass();
             /** Tablodan verilerin getirilmesi */
