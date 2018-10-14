@@ -549,22 +549,23 @@ class Gallery extends CI_Controller
         $this->load->view($viewData->viewFolder.'/'.$viewData->subViewFolder.'/index', $viewData);
     }
 
-    public function new_gallery_video_form()
+    public function new_gallery_video_form($gallery_id)
     {
         $viewData = new stdClass();
 
         $viewData->viewFolder = $this->viewFolder;
         $viewData->subViewFolder = "video/add";
+        $viewData->gallery_id = $gallery_id;
 
         $this->load->view($viewData->viewFolder.'/'.$viewData->subViewFolder.'/index', $viewData);
     }
 
-    public function gallery_video_save()
+    public function gallery_video_save($gallery_id)
     {
         $this->load->library('form_validation');
 
         //kurallar
-        $this->form_validation->set_rules('gallery_name', 'Galeri Adı', 'required|trim');
+        $this->form_validation->set_rules('url', 'Video URL', 'required|trim');
         //mesajlar
         $this->form_validation->set_message(
             array(
@@ -572,69 +573,39 @@ class Gallery extends CI_Controller
             )
         );
         $validate = $this->form_validation->run();
-        $gallery_type = $this->input->post('gallery_type');
         if($validate){
-            $gallery_name = $this->input->post('gallery_name');
-            $path = "uploads/".$this->viewFolder."/";
-            $folder_name = "-";
-            if($gallery_type == 1){
-                /* image ise*/
-                $folder_name = sef($gallery_name);
-                $path .= "images/".$folder_name;
-            } elseif($gallery_type == 3){
-                /* dosya ise */
-                $folder_name = sef($gallery_name);
-                $path .= "files/".$folder_name;
-            }
-
-            if($gallery_type != 2){
-                if(!is_dir($path)){
-                    $create_folder = mkdir($path,0775);
-                    if(!$create_folder){
-                        $alert = array(
-                            'type' => 'error',
-                            'title' => 'Hata!',
-                            'message' => 'Galeri Klasörü Oluşturulamadı'
-                        );
-                        $this->session->set_flashdata('alert', $alert);
-                        redirect(base_url('gallery'));
-                    }
-                }
-            }
 
             $data = array(
-                'gallery_name' => $gallery_name,
-                'gallery_type' => $gallery_type,
-                'url'          => sef($gallery_name),
-                'folder_name'  => $folder_name,
+                'url'          => $this->input->post('url'),
+                'gallery_id'   => $gallery_id,
                 'rank'         => 0,
                 'isActive'     => 1,
                 'createdAt'    => $this->zaman,
             );
-            $insert = $this->gallery_model->add($data);
+            $insert = $this->video_model->add($data);
 
             if($insert){
                 $alert = array(
                     'type' => 'success',
                     'title' => 'Başarılı',
-                    'message' => 'Galeri Başarıyla Eklendi'
+                    'message' => 'Video Başarıyla Eklendi'
                 );
             } else{
                 $alert = array(
                     'type' => 'error',
                     'title' => 'Hata!',
-                    'message' => 'Galeri Eklenemedi'
+                    'message' => 'Video Eklenemedi'
                 );
             }
             $this->session->set_flashdata('alert', $alert);
-            redirect(base_url('gallery'));
+            redirect(base_url('gallery/gallery_video_list/'.$gallery_id));
         } else{
             $viewData = new stdClass();
 
             $viewData->viewFolder = $this->viewFolder;
-            $viewData->subViewFolder = "add";
+            $viewData->subViewFolder = "video/add";
             $viewData->form_error = TRUE;
-            $viewData->gallery_type = $gallery_type;
+            $viewData->gallery_id = $gallery_id;
 
             $this->load->view($viewData->viewFolder.'/'.$viewData->subViewFolder.'/index', $viewData);
         }

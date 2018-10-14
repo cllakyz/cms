@@ -2,7 +2,7 @@
     <div class="col-md-12">
         <h4 class="m-b-lg">
             <b><?php echo $gallery->gallery_name; ?></b> Video Listesi
-            <a href="<?php echo base_url('gallery/new_gallery_video_form'); ?>" class="btn btn-outline btn-primary btn-sm pull-right"> <i class="fa fa-plus"></i> Yeni Ekle</a>
+            <a href="<?php echo base_url('gallery/new_gallery_video_form/'.$gallery->id); ?>" class="btn btn-outline btn-primary btn-sm pull-right"> <i class="fa fa-plus"></i> Yeni Ekle</a>
         </h4>
     </div><!-- END column -->
     <div class="col-md-12">
@@ -11,7 +11,7 @@
             if(empty($items)){ ?>
                 <div class="alert alert-info text-center">
                     <h5 class="alert-title">Kayıt Bulunamadı</h5>
-                    <p>Herhangi bir veri bulunmamaktadır. Eklemek için <a href="<?php echo base_url('gallery/new_gallery_video_form'); ?>">tıklayınız</a></p>
+                    <p>Herhangi bir veri bulunmamaktadır. Eklemek için <a href="<?php echo base_url('gallery/new_gallery_video_form/'.$gallery->id); ?>">tıklayınız</a></p>
                 </div>
             <?php
             } else{ ?>
@@ -30,9 +30,9 @@
                             <tr id="sort-<?php echo $item->id; ?>">
                                 <td class="order"><i class="fa fa-reorder"></i></td>
                                 <td class="w50 text-center"><?php echo $item->id; ?></td>
-                                <td><?php echo $item->url; ?></td>
+                                <td class="text-center"><?php echo $item->url; ?></td>
                                 <td class="text-center w100">
-                                    <iframe width="75" src="<?php echo $item->url; ?>" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                                    <iframe width="200" src="<?php echo $item->url; ?>" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
                                 </td>
                                 <td class="text-center w100">
                                     <input type="checkbox" class="change-item-status" data-url="<?php echo base_url('gallery/change_status/'.$item->id); ?>" data-switchery data-color="#10c469"<?php echo $item->isActive == 1 ? ' checked' : NULL; ?> />
