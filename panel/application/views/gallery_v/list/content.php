@@ -32,12 +32,15 @@
                             if($item->gallery_type == 1){
                                 $type = "Resim";
                                 $button_icon = "image";
+                                $href = 'gallery/upload_form/'.$item->id;
                             } elseif ($item->gallery_type == 2){
                                 $type = "Video";
                                 $button_icon = "play";
+                                $href = 'gallery/gallery_video_list/'.$item->id;
                             } else{
                                 $type = "Dosya";
                                 $button_icon = "folder";
+                                $href = 'gallery/upload_form/'.$item->id;
                             }
                             ?>
                             <tr id="sort-<?php echo $item->id; ?>">
@@ -53,7 +56,7 @@
                                 <td class="text-center w300">
                                     <a data-url="<?php echo base_url('gallery/delete/'.$item->id); ?>" class="btn btn-sm btn-danger btn-outline remove-btn"><i class="fa fa-trash"></i> Sil</a>
                                     <a href="<?php echo base_url('gallery/edit_form/'.$item->id); ?>" class="btn btn-sm btn-info btn-outline"><i class="fa fa-edit"></i> Düzenle</a>
-                                    <a href="<?php echo base_url('gallery/upload_form/'.$item->id); ?>" class="btn btn-sm btn-dark btn-outline"><i class="fa fa-<?php echo $button_icon; ?>"></i> Galeriye Gözat</a>
+                                    <a href="<?php echo base_url($href); ?>" class="btn btn-sm btn-dark btn-outline"><i class="fa fa-<?php echo $button_icon; ?>"></i> Galeriye Gözat</a>
                                 </td>
                             </tr>
                         <?php
