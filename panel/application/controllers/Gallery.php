@@ -610,4 +610,77 @@ class Gallery extends CI_Controller
             $this->load->view($viewData->viewFolder.'/'.$viewData->subViewFolder.'/index', $viewData);
         }
     }
+
+    public function edit_gallery_video_form($id)
+    {
+        $viewData = new stdClass();
+        /** Tablodan verilerin getirilmesi */
+        $item = $this->video_model->get(
+            array(
+                'id' => strip_tags(str_replace(' ', '', $id))
+            )
+        );
+
+        $viewData->viewFolder = $this->viewFolder;
+        $viewData->subViewFolder = "video/edit";
+        $viewData->item = $item;
+
+        $this->load->view($viewData->viewFolder.'/'.$viewData->subViewFolder.'/index', $viewData);
+    }
+
+    public function gallery_video_edit($id, $gallery_id)
+    {
+        $this->load->library('form_validation');
+
+        //kurallar
+        $this->form_validation->set_rules('url', 'Video URL', 'required|trim');
+        //mesajlar
+        $this->form_validation->set_message(
+            array(
+                'required' => "Lütfen {field} Alanını Doldurun"
+            )
+        );
+        $validate = $this->form_validation->run();
+
+        if($validate){
+
+            $where = array(
+                'id' => strip_tags(str_replace(' ', '', $id))
+            );
+            $data = array(
+                'url'          => $this->input->post('url'),
+            );
+            $update = $this->video_model->edit($where, $data);
+
+            if($update){
+                $alert = array(
+                    'type' => 'success',
+                    'title' => 'Başarılı',
+                    'message' => 'Video Başarıyla Güncellendi'
+                );
+            } else{
+                $alert = array(
+                    'type' => 'error',
+                    'title' => 'Hata!',
+                    'message' => 'Video Güncellenemedi'
+                );
+            }
+            $this->session->set_flashdata('alert', $alert);
+            redirect(base_url('gallery/gallery_video_list/'.$gallery_id));
+        } else{
+            $viewData = new stdClass();
+            $viewData->viewFolder = $this->viewFolder;
+            $viewData->subViewFolder = "video/edit";
+            $viewData->form_error = TRUE;
+            /** Tablodan verilerin getirilmesi */
+            $item = $this->video_model->get(
+                array(
+                    'id' => strip_tags(str_replace(' ', '', $id))
+                )
+            );
+            $viewData->item = $item;
+
+            $this->load->view($viewData->viewFolder.'/'.$viewData->subViewFolder.'/index', $viewData);
+        }
+    }
 }
