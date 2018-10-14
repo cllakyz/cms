@@ -439,56 +439,27 @@ class Gallery extends CI_Controller
         echo $render_html;
         die;
     }
-    /* kapak fotoğrafı değiştirme */
-    public function change_product_cover($id,$prd_id)
-    {
-        if($id && $prd_id){
-            $set_cover = $this->input->post('set_cover');
-            $where = array('id' => $id, 'product_id' => $prd_id);
-            $data = array('isCover' => $set_cover);
-            $update = $this->product_image_model->edit($where, $data);
-            if($update){
-                $where = array('id !=' => $id, 'product_id' => $prd_id);
-                $data = array('isCover' => 0);
-                $this->product_image_model->edit($where, $data);
-                $alert = array(
-                    'type' => 'success',
-                    'title' => 'Başarılı',
-                    'message' => 'Kapak Resmi Güncellendi',
-                    'prd_id' => $prd_id
-                );
-            } else{
-                $alert = array(
-                    'type' => 'error',
-                    'title' => 'Hata!',
-                    'message' => 'Kapak Resmi Güncellenemedi',
-                    'prd_id' => $prd_id
-                );
-            }
-            echo json_encode($alert);
-            die;
-        }
-    }
 
     /* durum değiştirme işlemi */
-    public function change_image_status($id)
+    public function change_file_status($id, $gallery_type)
     {
-        if($id){
+        if($id && $gallery_type){
             $status = $this->input->post('status');
             $where = array('id' => $id);
             $data = array('isActive' => $status);
-            $update = $this->product_image_model->edit($where, $data);
+            $model_name = $gallery_type == 1 ? "image_model" : "file_model";
+            $update = $this->$model_name->edit($where, $data);
             if($update){
                 $alert = array(
                     'type' => 'success',
                     'title' => 'Başarılı',
-                    'message' => 'Resim Durumu Güncellendi'
+                    'message' => 'Dosya Durumu Güncellendi'
                 );
             } else{
                 $alert = array(
                     'type' => 'error',
                     'title' => 'Hata!',
-                    'message' => 'Resim Durumu Güncellenemedi'
+                    'message' => 'Dosya Durumu Güncellenemedi'
                 );
             }
             echo json_encode($alert);
@@ -497,19 +468,20 @@ class Gallery extends CI_Controller
     }
 
     /* fotoğraf sıralama işlemi*/
-    public function image_sort()
+    public function file_sort($gallery_type)
     {
         $data = $this->input->post('data');
         parse_str($data, $order);
         $items = $order['sort'];
         $eklenen = 0;
         $eklenmeyen = 0;
+        $model_name = $gallery_type == 1 ? "image_model" : "file_model";
         foreach($items as $key => $value){
             $where = array('id' => $value);
             $sort_data = array('rank' => $key+1);
-            $get_item = $this->product_image_model->get($where);
+            $get_item = $this->$model_name->get($where);
             if($sort_data['rank'] != $get_item->rank){
-                $update = $this->product_image_model->edit($where, $sort_data);
+                $update = $this->$model_name->edit($where, $sort_data);
                 if($update){
                     $eklenen++;
                 } else{
@@ -521,13 +493,13 @@ class Gallery extends CI_Controller
             $alert = array(
                 'type' => 'success',
                 'title' => 'Başarılı',
-                'message' => 'Resimler Başarıyla Sıralandı'
+                'message' => 'Dosyalar Başarıyla Sıralandı'
             );
         } else{
             $alert = array(
                 'type' => 'error',
                 'title' => 'Hata!',
-                'message' => 'Resimler Sıralanamadı'
+                'message' => 'Dosyalar Sıralanamadı'
             );
         }
         echo json_encode($alert);
@@ -535,28 +507,29 @@ class Gallery extends CI_Controller
     }
 
     /* image silme işlemi */
-    public function delete_image($id)
+    public function delete_file($id, $gallery_type)
     {
         $where = array(
             'id' => strip_tags(str_replace(' ', '', $id))
         );
-        $img_info = $this->product_image_model->get($where);
-        $delete = $this->product_image_model->delete($where);
+        $model_name = $gallery_type == 1 ? "image_model" : "file_model";
+        $item_info = $this->$model_name->get($where);
+        $delete = $this->$model_name->delete($where);
 
         if($delete){
-            if(file_exists("uploads/".$this->viewFolder."/".$img_info->img_url)){
-                unlink("uploads/".$this->viewFolder."/".$img_info->img_url);
+            if(file_exists($item_info->url)){
+                unlink($item_info->url);
             }
             $alert = array(
                 'type' => 'success',
                 'title' => 'Başarılı',
-                'message' => 'Resim Başarıyla Silindi'
+                'message' => 'Dosya Başarıyla Silindi'
             );
         } else{
             $alert = array(
                 'type' => 'error',
                 'title' => 'Hata!',
-                'message' => 'Resim Silinemedi'
+                'message' => 'Dosya Silinemedi'
             );
         }
         echo json_encode($alert);

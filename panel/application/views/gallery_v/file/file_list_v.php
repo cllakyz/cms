@@ -15,7 +15,7 @@ if(empty($items)){ ?>
         <th class="text-center">Durumu</th>
         <th class="text-center">İşlem</th>
         </thead>
-        <tbody class="sortable" data-url="<?php echo base_url('gallery/image_sort'); ?>">
+        <tbody class="sortable" data-url="<?php echo base_url('gallery/file_sort/'.$gallery_type); ?>">
         <?php
         foreach ($items as $item){ ?>
             <tr id="sort-<?php echo $item->id; ?>">
@@ -35,10 +35,10 @@ if(empty($items)){ ?>
                 </td>
                 <td><?php echo $item->url; ?></td>
                 <td class="w100 text-center">
-                    <input type="checkbox" class="change-item-status" data-url="<?php echo base_url('gallery/change_image_status/'.$item->id); ?>" data-switchery data-color="#10c469"<?php echo $item->isActive == 1 ? ' checked' : NULL; ?> />
+                    <input type="checkbox" class="change-item-status" data-url="<?php echo base_url('gallery/change_file_status/'.$item->id.'/'.$gallery_type); ?>" data-switchery data-color="#10c469"<?php echo $item->isActive == 1 ? ' checked' : NULL; ?> />
                 </td>
                 <td class="w100 text-center">
-                    <a data-url="<?php echo base_url('gallery/delete_image/'. $item->id); ?>" class="btn btn-sm btn-danger btn-block btn-outline remove-btn"><i class="fa fa-trash"></i> Sil</a>
+                    <a data-url="<?php echo base_url('gallery/delete_file/'.$item->id.'/'.$gallery_type); ?>" class="btn btn-sm btn-danger btn-block btn-outline remove-btn"><i class="fa fa-trash"></i> Sil</a>
                 </td>
             </tr>
             <?php
