@@ -683,4 +683,91 @@ class Gallery extends CI_Controller
             $this->load->view($viewData->viewFolder.'/'.$viewData->subViewFolder.'/index', $viewData);
         }
     }
+
+    public function delete_gallery_video($id)
+    {
+        $where = array(
+            'id' => strip_tags(str_replace(' ', '', $id))
+        );
+
+        $delete = $this->video_model->delete($where);
+
+        if($delete){
+            $alert = array(
+                'type' => 'success',
+                'title' => 'Başarılı',
+                'message' => 'Video Başarıyla Silindi'
+            );
+        } else{
+            $alert = array(
+                'type' => 'error',
+                'title' => 'Hata!',
+                'message' => 'Video Silinemedi'
+            );
+        }
+        echo json_encode($alert);
+        die;
+    }
+
+    public function change_gallery_video_status($id)
+    {
+        if($id){
+            $status = $this->input->post('status');
+            $where = array('id' => $id);
+            $data = array('isActive' => $status);
+            $update = $this->video_model->edit($where, $data);
+            if($update){
+                $alert = array(
+                    'type' => 'success',
+                    'title' => 'Başarılı',
+                    'message' => 'Video Durumu Güncellendi'
+                );
+            } else{
+                $alert = array(
+                    'type' => 'error',
+                    'title' => 'Hata!',
+                    'message' => 'Video Durumu Güncellenemedi'
+                );
+            }
+            echo json_encode($alert);
+            die;
+        }
+    }
+
+    public function gallery_video_sort()
+    {
+        $data = $this->input->post('data');
+        parse_str($data, $order);
+        $items = $order['sort'];
+        $eklenen = 0;
+        $eklenmeyen = 0;
+        foreach($items as $key => $value){
+            $where = array('id' => $value);
+            $sort_data = array('rank' => $key+1);
+            $get_item = $this->video_model->get($where);
+            if($sort_data['rank'] != $get_item->rank){
+                $update = $this->video_model->edit($where, $sort_data);
+                if($update){
+                    $eklenen++;
+                } else{
+                    $eklenmeyen++;
+                }
+            }
+        }
+        if($eklenmeyen == 0){
+            $alert = array(
+                'type' => 'success',
+                'title' => 'Başarılı',
+                'message' => 'Videolar Başarıyla Sıralandı'
+            );
+        } else{
+            $alert = array(
+                'type' => 'error',
+                'title' => 'Hata!',
+                'message' => 'Videolar Sıralanamadı'
+            );
+        }
+        echo json_encode($alert);
+        die;
+    }
 }
