@@ -57,7 +57,6 @@ class User extends CI_Controller
     {
         $this->load->library('form_validation');
         //kurallar
-
         $this->form_validation->set_rules('user_name', 'Kullanıcı Adı', 'required|trim|is_unique[users.user_name]');
         $this->form_validation->set_rules('full_name', 'Ad Soyad', 'required|trim');
         $this->form_validation->set_rules('email', 'E-Posta', 'required|trim|valid_email|is_unique[users.email]');
@@ -117,85 +116,60 @@ class User extends CI_Controller
     public function edit($id)
     {
         $this->load->library('form_validation');
+        /** Tablodan verilerin getirilmesi */
+        $item = $this->user_model->get(
+            array(
+                'id' => strip_tags(str_replace(' ', '', $id))
+            )
+        );
         //kurallar
 
-        $this->form_validation->set_rules('title', 'Başlık', 'required|trim');
+        if($item->user_name != $this->input->post('user_name')){
+            $this->form_validation->set_rules('user_name', 'Kullanıcı Adı', 'required|trim|is_unique[users.user_name]');
+        }
+        if($item->email != $this->input->post('email')){
+            $this->form_validation->set_rules('email', 'E-Posta', 'required|trim|valid_email|is_unique[users.email]');
+        }
+
+        $this->form_validation->set_rules('full_name', 'Ad Soyad', 'required|trim');
+
         //mesajlar
         $this->form_validation->set_message(
             array(
-                'required' => "Lütfen {field} Alanını Doldurun"
+                'required'    => "Lütfen <b>{field}</b> Alanını Doldurun",
+                'valid_email' => "Lütfen Geçerli <b>{field}</b> Adresi Girin",
+                'is_unique'   => "<b>{field}</b> Daha Önceden Kullanılmış",
             )
         );
         $validate = $this->form_validation->run();
 
         if($validate){
 
-            if($_FILES['img_url']['name'] != ''){
-                $ext = pathinfo($_FILES['img_url']['name'], PATHINFO_EXTENSION);
-                $file_name = sef(pathinfo($_FILES['img_url']['name'], PATHINFO_FILENAME)).'.'.$ext;
-
-                $config = array(
-                    "allowed_types" => "jpg|jpeg|png|JPG|JPEG|PNG",
-                    "upload_path"   => "uploads/".$this->viewFolder."/",
-                    "file_name"     => $file_name,
-                );
-
-                $this->load->library("upload", $config);
-                $upload = $this->upload->do_upload("img_url");
-                if($upload){
-                    $image_url = $this->upload->data("file_name");
-                    $video_url = NULL;
-                } else{
-                    $alert = array(
-                        'type' => 'error',
-                        'title' => 'Hata!',
-                        'message' => 'Dosya Formatı JPG,PNG veya JPEG Olmalıdır'
-                    );
-                    $this->session->set_flashdata('alert', $alert);
-                    redirect(base_url('user/edit_form/'.$id));
-                    die;
-                }
-            } else{
-                $image_url = $this->input->post("old_img_url");
-            }
-
             $data = array(
-                'title'       => $this->input->post('title'),
-                'description' => $this->input->post('description'),
-                'url'         => sef($this->input->post('title')),
-                'img_url'     => $image_url,
+                'user_name'  => $this->input->post('user_name'),
+                'full_name'  => $this->input->post('full_name'),
+                'email'      => $this->input->post('email'),
             );
             $where = array('id' => $id);
             $update = $this->user_model->edit($where, $data);
 
             if($update){
-                if($_FILES['img_url']['name'] != ''){
-                    if(file_exists("uploads/".$this->viewFolder."/".$this->input->post("old_img_url"))){
-                        unlink("uploads/".$this->viewFolder."/".$this->input->post("old_img_url"));
-                    }
-                }
                 $alert = array(
                     'type' => 'success',
                     'title' => 'Başarılı',
-                    'message' => 'Referans Başarıyla Güncellendi'
+                    'message' => 'Kullanıcı Başarıyla Güncellendi'
                 );
             } else{
                 $alert = array(
                     'type' => 'error',
                     'title' => 'Hata!',
-                    'message' => 'Referans Güncellenemedi'
+                    'message' => 'Kullanıcı Güncellenemedi'
                 );
             }
             $this->session->set_flashdata('alert', $alert);
             redirect(base_url('user'));
         } else{
             $viewData = new stdClass();
-            /** Tablodan verilerin getirilmesi */
-            $item = $this->user_model->get(
-                array(
-                    'id' => strip_tags(str_replace(' ', '', $id))
-                )
-            );
             $viewData->viewFolder = $this->viewFolder;
             $viewData->subViewFolder = "edit";
             $viewData->form_error = TRUE;
