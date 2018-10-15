@@ -301,4 +301,12 @@ class User extends CI_Controller
             $this->load->view($viewData->viewFolder.'/'.$viewData->subViewFolder.'/index', $viewData);
         }
     }
+    /* login form */
+    public function login()
+    {
+        $viewData = new stdClass();
+        $viewData->viewFolder = $this->viewFolder;
+        $viewData->subViewFolder = "login";
+        $this->load->view($viewData->viewFolder.'/'.$viewData->subViewFolder.'/index', $viewData);
+    }
 }
