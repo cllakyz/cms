@@ -231,4 +231,78 @@ class User extends CI_Controller
             die;
         }
     }
+    /* Şifre düzenle form */
+    public function edit_password_form($id)
+    {
+        $viewData = new stdClass();
+        /** Tablodan verilerin getirilmesi */
+        $item = $this->user_model->get(
+            array(
+                'id' => strip_tags(str_replace(' ', '', $id))
+            )
+        );
+
+        $viewData->viewFolder = $this->viewFolder;
+        $viewData->subViewFolder = "password";
+        $viewData->item = $item;
+
+        $this->load->view($viewData->viewFolder.'/'.$viewData->subViewFolder.'/index', $viewData);
+    }
+    /* güncelleme işlemi */
+    public function edit_password($id)
+    {
+        $this->load->library('form_validation');
+        //kurallar
+        $this->form_validation->set_rules('password', 'Şifre', 'required|trim|min_length[6]|max_length[8]');
+        $this->form_validation->set_rules('re_password', 'Şifre Tekrar', 'required|trim|min_length[6]|max_length[8]|matches[password]');
+        //mesajlar
+        $this->form_validation->set_message(
+            array(
+                'required'    => "Lütfen <b>{field}</b> Alanını Doldurun",
+                'matches'     => "Şifreler Uyuşmuyor",
+                'min_length'  => "<b>{field}</b> En Az 6 Karakter Olmalıdır",
+                'max_length'  => "<b>{field}</b> En Fazla 8 Karakter Olmalıdır",
+            )
+        );
+        $validate = $this->form_validation->run();
+
+        if($validate){
+
+            $data = array(
+                'password'     => sha1($this->input->post('password')),
+            );
+            $where = array('id' => $id);
+            $update = $this->user_model->edit($where, $data);
+
+            if($update){
+                $alert = array(
+                    'type' => 'success',
+                    'title' => 'Başarılı',
+                    'message' => 'Şifre Başarıyla Güncellendi'
+                );
+            } else{
+                $alert = array(
+                    'type' => 'error',
+                    'title' => 'Hata!',
+                    'message' => 'Şifre Güncellenemedi'
+                );
+            }
+            $this->session->set_flashdata('alert', $alert);
+            redirect(base_url('user'));
+        } else{
+            $viewData = new stdClass();
+            /** Tablodan verilerin getirilmesi */
+            $item = $this->user_model->get(
+                array(
+                    'id' => strip_tags(str_replace(' ', '', $id))
+                )
+            );
+            $viewData->viewFolder = $this->viewFolder;
+            $viewData->subViewFolder = "password";
+            $viewData->form_error = TRUE;
+            $viewData->item = $item;
+
+            $this->load->view($viewData->viewFolder.'/'.$viewData->subViewFolder.'/index', $viewData);
+        }
+    }
 }
