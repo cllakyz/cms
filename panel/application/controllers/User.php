@@ -184,23 +184,19 @@ class User extends CI_Controller
         $where = array(
             'id' => strip_tags(str_replace(' ', '', $id))
         );
-        $item = $this->brand_model->get($where);
         $delete = $this->user_model->delete($where);
 
         if($delete){
-            if(file_exists("uploads/".$this->viewFolder."/".$item->img_url)){
-                unlink("uploads/".$this->viewFolder."/".$item->img_url);
-            }
             $alert = array(
                 'type' => 'success',
                 'title' => 'Başarılı',
-                'message' => 'Referans Başarıyla Silindi'
+                'message' => 'Kullanıcı Başarıyla Silindi'
             );
         } else{
             $alert = array(
                 'type' => 'error',
                 'title' => 'Hata!',
-                'message' => 'Referans Silinemedi'
+                'message' => 'Kullanıcı Silinemedi'
             );
         }
         echo json_encode($alert);
@@ -218,13 +214,13 @@ class User extends CI_Controller
                 $alert = array(
                     'type' => 'success',
                     'title' => 'Başarılı',
-                    'message' => 'Referans Durumu Güncellendi'
+                    'message' => 'Kullanıcı Durumu Güncellendi'
                 );
             } else{
                 $alert = array(
                     'type' => 'error',
                     'title' => 'Hata!',
-                    'message' => 'Referans Durumu Güncellenemedi'
+                    'message' => 'Kullanıcı Durumu Güncellenemedi'
                 );
             }
             echo json_encode($alert);
