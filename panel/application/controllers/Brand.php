@@ -9,6 +9,9 @@ class Brand extends CI_Controller
     {
         parent::__construct();
         $this->viewFolder = "brand_v";
+        if(!is_login()){
+            redirect(base_url("login"));
+        }
         $this->load->model("brand_model");
         $this->zaman = date('Y-m-d H:i:s');
     }

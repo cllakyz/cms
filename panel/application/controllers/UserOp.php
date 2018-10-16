@@ -15,6 +15,9 @@ class UserOp extends CI_Controller
     /* login form */
     public function login()
     {
+        if(is_login()){
+            redirect(base_url());
+        }
         $viewData = new stdClass();
         $viewData->viewFolder = $this->viewFolder;
         $viewData->subViewFolder = "login";
@@ -23,6 +26,9 @@ class UserOp extends CI_Controller
     /* login işlemi */
     public function do_login()
     {
+        if(is_login()){
+            redirect(base_url());
+        }
         $this->load->library('form_validation');
         //kurallar
         if(strpos($this->input->post('user_email'), '@') !== FALSE){

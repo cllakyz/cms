@@ -102,3 +102,17 @@ function sef($str, $options = array())
 function get_date($date){
     return strftime('%e %B %Y', strtotime($date));
 }
+
+// is_login
+function is_login(){
+    $t = &get_instance();
+    $user = $t->session->userdata("user");
+    if(!$user){
+        if(isset($_COOKIE['user']) && $_COOKIE['user'] != ''){
+            $user = unserialize($_COOKIE['user']);
+        } else{
+            $user = false;
+        }
+    }
+    return $user;
+}

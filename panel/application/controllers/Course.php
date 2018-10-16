@@ -9,6 +9,9 @@ class Course extends CI_Controller
     {
         parent::__construct();
         $this->viewFolder = "course_v";
+        if(!is_login()){
+            redirect(base_url("login"));
+        }
         $this->load->model("course_model");
         $this->zaman = date('Y-m-d H:i:s');
     }

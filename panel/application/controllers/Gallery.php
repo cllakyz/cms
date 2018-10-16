@@ -9,6 +9,9 @@ class Gallery extends CI_Controller
     {
         parent::__construct();
         $this->viewFolder = "gallery_v";
+        if(!is_login()){
+            redirect(base_url("login"));
+        }
         $this->load->model("gallery_model");
         $this->load->model("image_model");
         $this->load->model("video_model");

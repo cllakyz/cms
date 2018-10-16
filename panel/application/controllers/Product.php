@@ -9,6 +9,9 @@ class Product extends CI_Controller
     {
         parent::__construct();
         $this->viewFolder = "product_v";
+        if(!is_login()){
+            redirect(base_url("login"));
+        }
         $this->load->model("product_model");
         $this->load->model("product_image_model");
         $this->zaman = date('Y-m-d H:i:s');

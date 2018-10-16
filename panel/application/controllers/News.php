@@ -9,6 +9,9 @@ class News extends CI_Controller
     {
         parent::__construct();
         $this->viewFolder = "news_v";
+        if(!is_login()){
+            redirect(base_url("login"));
+        }
         $this->load->model("news_model");
         $this->zaman = date('Y-m-d H:i:s');
     }
