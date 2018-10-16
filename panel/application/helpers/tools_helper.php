@@ -107,12 +107,9 @@ function get_date($date){
 function is_login(){
     $t = &get_instance();
     $user = $t->session->userdata("user");
-    if(!$user){
-        if(isset($_COOKIE['user']) && $_COOKIE['user'] != ''){
-            $user = unserialize($_COOKIE['user']);
-        } else{
-            $user = false;
-        }
+    if($user){
+        return $user;
+    }else{
+        return false;
     }
-    return $user;
 }

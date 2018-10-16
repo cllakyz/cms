@@ -7,7 +7,7 @@
     </div><!-- logo -->
     <div class="simple-page-form animated flipInY" id="login-form">
         <h4 class="form-title m-b-xl text-center">Bilgileriniz İle CMS'e Giriş Yapın</h4>
-        <form action="<?php echo base_url('userop/do_login'); ?>" method="post" autocomplete="off">
+        <form action="<?php echo base_url('userop/do_login'); ?>" method="post">
             <div class="form-group">
                 <input type="text" name="user_email" class="form-control" placeholder="E-Posta veya Kullanıcı Adı" value="<?php echo isset($form_error) ? set_value("user_email") : NULL; ?>">
                 <?php

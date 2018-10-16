@@ -20,7 +20,8 @@ class User extends CI_Controller
     {
         $viewData = new stdClass();
         /** Tablodan verilerin getirilmesi */
-        $items = $this->user_model->get_all(array());
+        $user = is_login();
+        $items = $this->user_model->get_all(array('id !=' => $user->id));
 
         $viewData->viewFolder = $this->viewFolder;
         $viewData->subViewFolder = "list";

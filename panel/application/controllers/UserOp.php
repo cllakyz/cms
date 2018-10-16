@@ -58,12 +58,23 @@ class UserOp extends CI_Controller
                 )
             );
             if($user){
-                $remember = $this->input->post('remember_me');
-                $this->session->set_userdata("user", $user);
-                if($remember != ''){
-                    setcookie('user', serialize($user), time() + 365*24*60*60, '/');
+                if($user->isActive == 1){
+                    $remember = $this->input->post('remember_me');
+                    $this->session->set_userdata("user", $user);
+                    if($remember != ''){
+                        //setcookie('user', serialize($user), time() + 365*24*60*60, '/');
+                    }
+                    redirect(base_url());
+                } else{
+                    $alert = array(
+                        'type' => 'error',
+                        'title' => 'Hata!',
+                        'message' => 'Hesabınız Engellenmiştir'
+                    );
+                    $this->session->set_flashdata('alert', $alert);
+                    redirect(base_url('login'));
                 }
-                redirect(base_url());
+
             } else{
                 $alert = array(
                     'type' => 'error',
@@ -82,5 +93,11 @@ class UserOp extends CI_Controller
 
             $this->load->view($viewData->viewFolder.'/'.$viewData->subViewFolder.'/index', $viewData);
         }
+    }
+    /* logout işlemi */
+    public function logout()
+    {
+        $this->session->unset_userdata("user");
+        redirect(base_url('login'));
     }
 }
