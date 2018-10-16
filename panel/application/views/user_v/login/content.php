@@ -7,13 +7,25 @@
     </div><!-- logo -->
     <div class="simple-page-form animated flipInY" id="login-form">
         <h4 class="form-title m-b-xl text-center">Bilgileriniz İle CMS'e Giriş Yapın</h4>
-        <form action="#">
+        <form action="<?php echo base_url('userop/do_login'); ?>" method="post" autocomplete="off">
             <div class="form-group">
-                <input type="email" name="email" class="form-control" placeholder="Email">
+                <input type="text" name="user_email" class="form-control" placeholder="E-Posta veya Kullanıcı Adı" value="<?php echo isset($form_error) ? set_value("user_email") : NULL; ?>">
+                <?php
+                if(isset($form_error)){ ?>
+                    <span class="pull-right input-form-errors"><?php echo form_error('user_email'); ?></span>
+                    <?php
+                }
+                ?>
             </div>
 
             <div class="form-group">
-                <input type="password" name="password" class="form-control" placeholder="Şifre">
+                <input type="password" name="user_password" class="form-control" placeholder="Şifre" value="<?php echo isset($form_error) ? set_value("user_password") : NULL; ?>">
+                <?php
+                if(isset($form_error)){ ?>
+                    <span class="pull-right input-form-errors"><?php echo form_error('user_password'); ?></span>
+                    <?php
+                }
+                ?>
             </div>
 
             <div class="form-group m-b-xl">
