@@ -7,38 +7,48 @@
             <div class="widget-body">
                 <form action="<?php echo base_url('email/save'); ?>" method="post">
                     <div class="form-group">
-                        <label>Kullanıcı Adı</label>
-                        <input type="text" name="user_name" class="form-control" placeholder="Kullanıcı adını giriniz" value="<?php echo isset($form_error) ? set_value("user_name") : NULL; ?>">
+                        <label>Protokol</label>
+                        <input type="text" name="protocol" class="form-control" placeholder="Protokol" value="<?php echo isset($form_error) ? set_value("protocol") : NULL; ?>">
                         <?php
                         if(isset($form_error)){ ?>
-                            <span class="pull-right input-form-errors"><?php echo form_error('user_name'); ?></span>
+                            <span class="pull-right input-form-errors"><?php echo form_error('protocol'); ?></span>
                         <?php
                         }
                         ?>
                     </div>
                     <div class="form-group">
-                        <label>Ad Soyad</label>
-                        <input type="text" name="full_name" class="form-control" placeholder="Ad soyad giriniz" value="<?php echo isset($form_error) ? set_value("full_name") : NULL; ?>">
+                        <label>E-Posta Sunucu Bilgisi</label>
+                        <input type="text" name="host" class="form-control" placeholder="Hostname" value="<?php echo isset($form_error) ? set_value("host") : NULL; ?>">
                         <?php
                         if(isset($form_error)){ ?>
-                            <span class="pull-right input-form-errors"><?php echo form_error('full_name'); ?></span>
+                            <span class="pull-right input-form-errors"><?php echo form_error('host'); ?></span>
                             <?php
                         }
                         ?>
                     </div>
                     <div class="form-group">
-                        <label>E-Posta Adresi</label>
-                        <input type="email" name="email" class="form-control" placeholder="E-posta adresini giriniz" value="<?php echo isset($form_error) ? set_value("email") : NULL; ?>">
+                        <label>Port Numarası</label>
+                        <input type="text" name="port" class="form-control" placeholder="Port Numarası" value="<?php echo isset($form_error) ? set_value("port") : NULL; ?>">
                         <?php
                         if(isset($form_error)){ ?>
-                            <span class="pull-right input-form-errors"><?php echo form_error('email'); ?></span>
+                            <span class="pull-right input-form-errors"><?php echo form_error('port'); ?></span>
                             <?php
                         }
                         ?>
                     </div>
                     <div class="form-group">
-                        <label>Şifre</label>
-                        <input type="password" name="password" class="form-control" placeholder="Şifre giriniz">
+                        <label>E-Posta Adresi (User)</label>
+                        <input type="email" name="user" class="form-control" placeholder="User" value="<?php echo isset($form_error) ? set_value("user") : NULL; ?>">
+                        <?php
+                        if(isset($form_error)){ ?>
+                            <span class="pull-right input-form-errors"><?php echo form_error('user'); ?></span>
+                            <?php
+                        }
+                        ?>
+                    </div>
+                    <div class="form-group">
+                        <label>E-Posta Adresine Ait Şifre</label>
+                        <input type="password" name="password" class="form-control" placeholder="Şifre">
                         <?php
                         if(isset($form_error)){ ?>
                             <span class="pull-right input-form-errors"><?php echo form_error('password'); ?></span>
@@ -47,11 +57,31 @@
                         ?>
                     </div>
                     <div class="form-group">
-                        <label>Şifre Tekrar</label>
-                        <input type="password" name="re_password" class="form-control" placeholder="Şifreyi tekrar giriniz">
+                        <label>Kimden Gidecek (From)</label>
+                        <input type="email" name="from" class="form-control" placeholder="From" value="<?php echo isset($form_error) ? set_value("from") : NULL; ?>">
                         <?php
                         if(isset($form_error)){ ?>
-                            <span class="pull-right input-form-errors"><?php echo form_error('re_password'); ?></span>
+                            <span class="pull-right input-form-errors"><?php echo form_error('from'); ?></span>
+                            <?php
+                        }
+                        ?>
+                    </div>
+                    <div class="form-group">
+                        <label>Kime Gidecek (To)</label>
+                        <input type="email" name="to" class="form-control" placeholder="To" value="<?php echo isset($form_error) ? set_value("to") : NULL; ?>">
+                        <?php
+                        if(isset($form_error)){ ?>
+                            <span class="pull-right input-form-errors"><?php echo form_error('to'); ?></span>
+                            <?php
+                        }
+                        ?>
+                    </div>
+                    <div class="form-group">
+                        <label>E-Posta Başlık</label>
+                        <input type="text" name="user_name" class="form-control" placeholder="Başlık" value="<?php echo isset($form_error) ? set_value("user_name") : NULL; ?>">
+                        <?php
+                        if(isset($form_error)){ ?>
+                            <span class="pull-right input-form-errors"><?php echo form_error('user_name'); ?></span>
                             <?php
                         }
                         ?>
