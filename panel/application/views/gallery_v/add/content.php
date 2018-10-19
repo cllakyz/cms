@@ -8,7 +8,7 @@
                 <form action="<?php echo base_url('gallery/save'); ?>" method="post">
                     <div class="form-group">
                         <label>Galeri Adı</label>
-                        <input type="text" name="gallery_name" class="form-control" placeholder="Galeri Adı">
+                        <input type="text" name="gallery_name" class="form-control" placeholder="Galeri Adı" value="<?php echo isset($form_error) ? set_value("gallery_name") : NULL; ?>">
                         <?php
                         if(isset($form_error)){ ?>
                             <span class="pull-right input-form-errors"><?php echo form_error('gallery_name'); ?></span>

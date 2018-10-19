@@ -8,7 +8,7 @@
                 <form action="<?php echo base_url('course/edit/'.$item->id); ?>" method="post" enctype="multipart/form-data">
                     <div class="form-group">
                         <label>Başlık</label>
-                        <input type="text" name="title" class="form-control" placeholder="Başlık" value="<?php echo $item->title; ?>">
+                        <input type="text" name="title" class="form-control" placeholder="Başlık" value="<?php echo isset($form_error) ? set_value("title") : $item->title; ?>">
                         <?php
                         if(isset($form_error)){ ?>
                             <span class="pull-right input-form-errors"><?php echo form_error('title'); ?></span>
@@ -19,12 +19,12 @@
 
                     <div class="form-group">
                         <label>Açıklama</label>
-                        <textarea name="description" class="m-0" data-plugin="summernote" data-options="{height: 150}"><?php echo $item->description; ?></textarea>
+                        <textarea name="description" class="m-0" data-plugin="summernote" data-options="{height: 150}"><?php echo isset($form_error) ? set_value("description") : $item->description; ?></textarea>
                     </div>
 
                     <div class="form-group" style="position: relative;">
                         <label>Eğitim Tarihi</label>
-                        <input type="text" name="event_date" class="form-control" data-plugin="datetimepicker" data-options="{ format: 'YYYY-MM-DD HH:mm:ss' }" value="<?php echo date('Y-m-d H:i:s', strtotime($item->event_date)); ?>">
+                        <input type="text" name="event_date" class="form-control" data-plugin="datetimepicker" data-options="{ format: 'YYYY-MM-DD HH:mm:ss' }" value="<?php echo isset($form_error) ? set_value("event_date") : date('Y-m-d H:i:s', strtotime($item->event_date)); ?>">
                     </div>
                     
                     <div class="row">

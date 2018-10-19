@@ -258,6 +258,7 @@ class Gallery extends CI_Controller
             $viewData->subViewFolder = "edit";
             $viewData->form_error = TRUE;
             $viewData->item = $item;
+            $viewData->gallery_type = $gallery_type;
 
             $this->load->view($viewData->viewFolder.'/'.$viewData->subViewFolder.'/index', $viewData);
         }

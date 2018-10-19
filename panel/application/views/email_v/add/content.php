@@ -1,11 +1,11 @@
 <div class="row">
     <div class="col-md-12">
-        <h4 class="m-b-lg">Yeni Kullanıcı Ekle</h4>
+        <h4 class="m-b-lg">Yeni E-Posta Hesabı Ekle</h4>
     </div><!-- END column -->
     <div class="col-md-12">
         <div class="widget">
             <div class="widget-body">
-                <form action="<?php echo base_url('user/save'); ?>" method="post">
+                <form action="<?php echo base_url('email/save'); ?>" method="post">
                     <div class="form-group">
                         <label>Kullanıcı Adı</label>
                         <input type="text" name="user_name" class="form-control" placeholder="Kullanıcı adını giriniz" value="<?php echo isset($form_error) ? set_value("user_name") : NULL; ?>">
@@ -57,7 +57,7 @@
                         ?>
                     </div>
                     <button type="submit" class="btn btn-primary btn-md btn-outline">Kaydet</button>
-                    <a href="<?php echo base_url('user'); ?>" class="btn btn-md btn-danger btn-outline">İptal</a>
+                    <a href="<?php echo base_url('email'); ?>" class="btn btn-md btn-danger btn-outline">İptal</a>
                 </form>
             </div>
         </div>

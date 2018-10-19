@@ -8,7 +8,7 @@
                 <form action="<?php echo base_url('gallery/gallery_video_edit/'.$item->id.'/'.$item->gallery_id); ?>" method="post">
                     <div class="form-group">
                         <label>Video URL</label>
-                        <input type="text" name="url" class="form-control" placeholder="Video url giriniz" value="<?php echo $item->url; ?>">
+                        <input type="text" name="url" class="form-control" placeholder="Video url giriniz" value="<?php echo isset($form_error) ? set_value("url") : $item->url; ?>">
                         <?php
                         if(isset($form_error)){ ?>
                             <span class="pull-right input-form-errors"><?php echo form_error('url'); ?></span>

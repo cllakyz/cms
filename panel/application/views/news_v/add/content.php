@@ -8,7 +8,7 @@
                 <form action="<?php echo base_url('news/save'); ?>" method="post" enctype="multipart/form-data">
                     <div class="form-group">
                         <label>Başlık</label>
-                        <input type="text" name="title" class="form-control" placeholder="Başlık">
+                        <input type="text" name="title" class="form-control" placeholder="Başlık" value="<?php echo isset($form_error) ? set_value("title") : NULL; ?>">
                         <?php
                         if(isset($form_error)){ ?>
                             <span class="pull-right input-form-errors"><?php echo form_error('title'); ?></span>
@@ -18,7 +18,7 @@
                     </div>
                     <div class="form-group">
                         <label>Açıklama</label>
-                        <textarea name="description" class="m-0" data-plugin="summernote" data-options="{height: 150}"></textarea>
+                        <textarea name="description" class="m-0" data-plugin="summernote" data-options="{height: 150}"><?php echo isset($form_error) ? set_value("description") : NULL; ?></textarea>
                     </div>
 
                     <?php
@@ -63,7 +63,7 @@
 
                     <div class="form-group video-container<?php echo $video_class; ?>">
                         <label>Video URL</label>
-                        <input type="text" name="video_url" class="form-control" placeholder="Video Bağlantısını Buraya Giriniz">
+                        <input type="text" name="video_url" class="form-control" placeholder="Video Bağlantısını Buraya Giriniz" value="<?php echo isset($form_error) ? set_value("video_url") : NULL; ?>">
                         <?php
                         if(isset($form_error)){ ?>
                             <span class="pull-right input-form-errors"><?php echo form_error('video_url'); ?></span>
