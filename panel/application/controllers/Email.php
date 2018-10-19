@@ -61,20 +61,19 @@ class Email extends CI_Controller
     {
         $this->load->library('form_validation');
         //kurallar
-        $this->form_validation->set_rules('user_name', 'Kullanıcı Adı', 'required|trim|is_unique[users.user_name]');
-        $this->form_validation->set_rules('full_name', 'Ad Soyad', 'required|trim');
-        $this->form_validation->set_rules('email', 'E-Posta', 'required|trim|valid_email|is_unique[users.email]');
-        $this->form_validation->set_rules('password', 'Şifre', 'required|trim|min_length[6]|max_length[8]');
-        $this->form_validation->set_rules('re_password', 'Şifre Tekrar', 'required|trim|min_length[6]|max_length[8]|matches[password]');
+        $this->form_validation->set_rules('protocol', 'Protokol Numarası', 'required|trim');
+        $this->form_validation->set_rules('host', 'E-Posta Sunucusu', 'required|trim');
+        $this->form_validation->set_rules('port', 'Port Numarası', 'required|trim');
+        $this->form_validation->set_rules('user_name', 'Başlık', 'required|trim');
+        $this->form_validation->set_rules('user', 'E-Posta (User)', 'required|trim|valid_email');
+        $this->form_validation->set_rules('from', 'Kimden Gidecek (From)', 'required|trim|valid_email');
+        $this->form_validation->set_rules('to', 'Kime Gidecek (To)', 'required|trim|valid_email');
+        $this->form_validation->set_rules('password', 'Şifre', 'required|trim');
         //mesajlar
         $this->form_validation->set_message(
             array(
                 'required'    => "Lütfen <b>{field}</b> Alanını Doldurun",
                 'valid_email' => "Lütfen Geçerli <b>{field}</b> Adresi Girin",
-                'is_unique'   => "<b>{field}</b> Daha Önceden Kullanılmış",
-                'matches'     => "Şifreler Uyuşmuyor",
-                'min_length'  => "<b>{field}</b> En Az 6 Karakter Olmalıdır",
-                'max_length'  => "<b>{field}</b> En Fazla 8 Karakter Olmalıdır",
             )
         );
         $validate = $this->form_validation->run();
@@ -82,12 +81,16 @@ class Email extends CI_Controller
         if($validate){
 
             $data = array(
-                'user_name'   => $this->input->post('user_name'),
-                'full_name'   => $this->input->post('full_name'),
-                'email'       => $this->input->post('email'),
-                'password'    => sha1($this->input->post('password')),
-                'isActive'    => 1,
-                'createdAt'   => $this->zaman,
+                'protocol'   => $this->input->post('protocol'),
+                'host'       => $this->input->post('host'),
+                'port'       => $this->input->post('port'),
+                'user_name'  => $this->input->post('user_name'),
+                'user'       => $this->input->post('user'),
+                'from'       => $this->input->post('from'),
+                'to'         => $this->input->post('to'),
+                'password'   => $this->input->post('password'),
+                'isActive'   => 1,
+                'createdAt'  => $this->zaman,
             );
             $insert = $this->email_model->add($data);
 
@@ -95,13 +98,13 @@ class Email extends CI_Controller
                 $alert = array(
                     'type' => 'success',
                     'title' => 'Başarılı',
-                    'message' => 'Kullanıcı Başarıyla Eklendi'
+                    'message' => 'E-Mail Ayarı Başarıyla Eklendi'
                 );
             } else{
                 $alert = array(
                     'type' => 'error',
                     'title' => 'Hata!',
-                    'message' => 'Kullanıcı Eklenemedi'
+                    'message' => 'E-Mail Ayarı Eklenemedi'
                 );
             }
             $this->session->set_flashdata('alert', $alert);
