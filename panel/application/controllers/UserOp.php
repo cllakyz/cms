@@ -130,4 +130,20 @@ class UserOp extends CI_Controller
             die;
         }
     }
+    /* şifre sıfırla form */
+    public function forget_password()
+    {
+        if(is_login()){
+            redirect(base_url());
+        }
+        $viewData = new stdClass();
+        $viewData->viewFolder = $this->viewFolder;
+        $viewData->subViewFolder = "forget_password";
+        $this->load->view($viewData->viewFolder.'/'.$viewData->subViewFolder.'/index', $viewData);
+    }
+    /* Şifre sıfırlama işlemi */
+    public function reset_password()
+    {
+
+    }
 }
