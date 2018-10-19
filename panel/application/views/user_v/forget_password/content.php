@@ -12,7 +12,13 @@
         <h4 class="form-title m-b-xl text-center">Şifrenizi mi unuttunuz ?</h4>
         <form action="<?php echo base_url('reset-password'); ?>" method="post">
             <div class="form-group">
-                <input id="reset-password-email" name="email" type="email" class="form-control" placeholder="E-Posta Adresini Giriniz">
+                <input id="reset-password-email" name="email" type="email" class="form-control" placeholder="E-Posta Adresini Giriniz" value="<?php echo isset($form_error) ? set_value("email") : NULL; ?>">
+                <?php
+                if(isset($form_error)){ ?>
+                    <span class="pull-right input-form-errors"><?php echo form_error('email'); ?></span>
+                    <?php
+                }
+                ?>
             </div>
             <button type="submit" class="btn btn-primary">Şifre Sıfırla</button>
         </form>

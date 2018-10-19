@@ -100,36 +100,6 @@ class UserOp extends CI_Controller
         $this->session->unset_userdata("user");
         redirect(base_url('login'));
     }
-
-    public function send_email()
-    {
-        $config = array(
-            "protocol"      => "smtp",
-            "smtp_host"     => "ssl://smtp.gmail.com",
-            "smtp_port"     => "465",
-            "smtp_user"     => "celal7174@gmail.com",
-            "smtp_pass"     => "cll580akyz",
-            "starttls"      => true,
-            "charset"       => "utf-8",
-            "mailtype"      => "html",
-            "wordwrap"      => true,
-            "newline"       => "\r\n"
-        );
-        $this->load->library('email', $config);
-        $this->email->from('celal7174@gmail.com', 'CMS');
-        $this->email->to('celaalakyuz@gmail.com');
-        $this->email->subject('CMS için Email Çalışmaları');
-        $this->email->message('CMS için Email Çalışmaları');
-
-        $send = $this->email->send();
-        if($send){
-            echo 'E-Posta başarıyla gönderilmiştir';
-            die;
-        } else{
-            echo $this->email->print_debugger();
-            die;
-        }
-    }
     /* şifre sıfırla form */
     public function forget_password()
     {
@@ -144,6 +114,71 @@ class UserOp extends CI_Controller
     /* Şifre sıfırlama işlemi */
     public function reset_password()
     {
+        if(is_login()){
+            redirect(base_url());
+        }
+        $this->load->library('form_validation');
+        //kurallar
+        $this->form_validation->set_rules('email', 'E-Posta', 'required|trim|valid_email');
+        //mesajlar
+        $this->form_validation->set_message(
+            array(
+                'required'    => "Lütfen <b>{field}</b> Alanını Doldurun",
+                'valid_email' => "Lütfen Geçerli <b>{field}</b> Adresi Girin",
+            )
+        );
+        $validate = $this->form_validation->run();
+        if($validate){
+            $where = array(
+                'isActive'  => 1,
+                'email'     => $this->input->post('email'),
+            );
+            $user = $this->user_model->get($where);
+            if($user){
+                $this->load->model('email_model');
+                $email_setting = $this->email_model->get(array('isActive' => 1));
 
+                $config = array(
+                    "protocol"      => $email_setting->protocol,
+                    "smtp_host"     => $email_setting->host,
+                    "smtp_port"     => $email_setting->port,
+                    "smtp_user"     => $email_setting->user,
+                    "smtp_pass"     => $email_setting->password,
+                    "starttls"      => true,
+                    "charset"       => "utf-8",
+                    "mailtype"      => "html",
+                    "wordwrap"      => true,
+                    "newline"       => "\r\n"
+                );
+                $this->load->library('email', $config);
+                $this->email->from($email_setting->from, $email_setting->user_name);
+                $this->email->to($user->email);
+                $this->email->subject('CMS için Email Çalışmaları');
+                $this->email->message('CMS için Email Çalışmaları');
+
+                $send = $this->email->send();
+                if($send){
+                    echo 'E-Posta başarıyla gönderilmiştir';
+                    die;
+                } else{
+                    echo $this->email->print_debugger();
+                    die;
+                }
+            } else{
+                $alert = array(
+                    'type' => 'error',
+                    'title' => 'Hata!',
+                    'message' => 'Bu E-Postaya Ait Kullanıcı Bulunamadı'
+                );
+                $this->session->set_flashdata('alert', $alert);
+                redirect(base_url('sifremi-unuttum'));
+            }
+        } else{
+            $viewData = new stdClass();
+            $viewData->viewFolder = $this->viewFolder;
+            $viewData->subViewFolder = "forget_password";
+            $viewData->form_error = TRUE;
+            $this->load->view($viewData->viewFolder.'/'.$viewData->subViewFolder.'/index', $viewData);
+        }
     }
 }
