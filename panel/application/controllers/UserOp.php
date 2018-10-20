@@ -143,31 +143,10 @@ class UserOp extends CI_Controller
             );
             $user = $this->user_model->get($where);
             if($user){
-                $this->load->model('email_model');
                 $this->load->helper('string');
-
                 $temp_password = random_string();
 
-                $email_setting = $this->email_model->get(array('isActive' => 1));
-                $config = array(
-                    "protocol"      => $email_setting->protocol,
-                    "smtp_host"     => $email_setting->host,
-                    "smtp_port"     => $email_setting->port,
-                    "smtp_user"     => $email_setting->user,
-                    "smtp_pass"     => $email_setting->password,
-                    "starttls"      => true,
-                    "charset"       => "utf-8",
-                    "mailtype"      => "html",
-                    "wordwrap"      => true,
-                    "newline"       => "\r\n"
-                );
-                $this->load->library('email', $config);
-                $this->email->from($email_setting->from, $email_setting->user_name);
-                $this->email->to($user->email);
-                $this->email->subject('Şifre Sıfırlama');
-                $this->email->message("CMS'e geçici olarak <b>{$temp_password}</b> ile giriş yapabilirsiniz.");
-
-                $send = $this->email->send();
+                $send = sendEmail($user->email, 'Şifre Sıfırlama', "CMS'e geçici olarak <b>{$temp_password}</b> ile giriş yapabilirsiniz.");
                 if($send){
                     $this->user_model->edit(array('id' => $user->id), array('password' => sha1($temp_password)));
                     $alert = array(
