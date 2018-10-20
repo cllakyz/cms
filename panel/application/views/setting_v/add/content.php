@@ -13,19 +13,32 @@
                         <li role="presentation"><a href="#tab-3"  aria-controls="tab-3" role="tab" data-toggle="tab">Misyon</a></li>
                         <li role="presentation"><a href="#tab-4"  aria-controls="tab-4" role="tab" data-toggle="tab">Vizyon</a></li>
                         <li role="presentation"><a href="#tab-5"  aria-controls="tab-5" role="tab" data-toggle="tab">Sosyal Medya</a></li>
+                        <li role="presentation"><a href="#tab-7"  aria-controls="tab-7" role="tab" data-toggle="tab">Logo</a></li>
                     </ul>
 
                     <div class="tab-content p-md">
                         <div role="tabpanel" class="tab-pane in active fade" id="tab-1">
-                            <div class="form-group">
-                                <label>Şirket Adı</label>
-                                <input type="text" name="company_name" class="form-control" placeholder="Şirketinizin yada sitenizin adını giriniz" value="<?php echo isset($form_error) ? set_value("company_name") : NULL; ?>">
-                                <?php
-                                if(isset($form_error)){ ?>
-                                    <span class="pull-right input-form-errors"><?php echo form_error('company_name'); ?></span>
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label>Şirket Adı</label>
+                                    <input type="text" name="company_name" class="form-control" placeholder="Şirketinizin yada sitenizin adını giriniz" value="<?php echo isset($form_error) ? set_value("company_name") : NULL; ?>">
                                     <?php
-                                }
-                                ?>
+                                    if(isset($form_error)){ ?>
+                                        <span class="pull-right input-form-errors"><?php echo form_error('company_name'); ?></span>
+                                        <?php
+                                    }
+                                    ?>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label>E-Posta Adresi</label>
+                                    <input type="text" name="email" class="form-control" placeholder="Şirketinizin yada sitenizin e-posta adresini giriniz" value="<?php echo isset($form_error) ? set_value("email") : NULL; ?>">
+                                    <?php
+                                    if(isset($form_error)){ ?>
+                                        <span class="pull-right input-form-errors"><?php echo form_error('email'); ?></span>
+                                        <?php
+                                    }
+                                    ?>
+                                </div>
                             </div>
                             <div class="row">
                                 <div class="form-group col-md-6">
@@ -102,8 +115,59 @@
                         </div>
 
                         <div role="tabpanel" class="tab-pane fade" id="tab-5">
-                            <h4 class="m-b-md">Third Tab Content</h4>
-                            <p class="lh-lg">Lorem ipsum dolor sit amet. ipsum dolor sit amet, consectetur adipisicing elit. Officia illo aspernatur facilis, nisi commodi dolor?</p>
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label>Facebook</label>
+                                    <input type="text" name="facebook" class="form-control" placeholder="Facebook adresinizi giriniz" value="<?php echo isset($form_error) ? set_value("facebook") : NULL; ?>">
+                                    <?php
+                                    if(isset($form_error)){ ?>
+                                        <span class="pull-right input-form-errors"><?php echo form_error('facebook'); ?></span>
+                                        <?php
+                                    }
+                                    ?>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label>Twitter</label>
+                                    <input type="text" name="twitter" class="form-control" placeholder="Twitter adresinizi giriniz" value="<?php echo isset($form_error) ? set_value("twitter") : NULL; ?>">
+                                    <?php
+                                    if(isset($form_error)){ ?>
+                                        <span class="pull-right input-form-errors"><?php echo form_error('twitter'); ?></span>
+                                        <?php
+                                    }
+                                    ?>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label>Instagram</label>
+                                    <input type="text" name="instagram" class="form-control" placeholder="Instagram adresinizi giriniz" value="<?php echo isset($form_error) ? set_value("instagram") : NULL; ?>">
+                                    <?php
+                                    if(isset($form_error)){ ?>
+                                        <span class="pull-right input-form-errors"><?php echo form_error('instagram'); ?></span>
+                                        <?php
+                                    }
+                                    ?>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label>Linkedin</label>
+                                    <input type="text" name="linkedin" class="form-control" placeholder="Linkedin adresinizi giriniz" value="<?php echo isset($form_error) ? set_value("linkedin") : NULL; ?>">
+                                    <?php
+                                    if(isset($form_error)){ ?>
+                                        <span class="pull-right input-form-errors"><?php echo form_error('linkedin'); ?></span>
+                                        <?php
+                                    }
+                                    ?>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div role="tabpanel" class="tab-pane fade" id="tab-7">
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label>Görsel Seçiniz</label>
+                                    <input type="file" name="logo" class="form-control">
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
