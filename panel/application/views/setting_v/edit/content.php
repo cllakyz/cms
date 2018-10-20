@@ -22,6 +22,7 @@
                                 <div class="form-group col-md-6">
                                     <label>Şirket Adı</label>
                                     <input type="text" name="company_name" class="form-control" placeholder="Şirketinizin yada sitenizin adını giriniz" value="<?php echo isset($form_error) ? set_value("company_name") : $item->company_name; ?>">
+                                    <input type="hidden" name="old_company_name" value="<?php echo $item->company_name; ?>">
                                     <?php
                                     if(isset($form_error)){ ?>
                                         <span class="pull-right input-form-errors"><?php echo form_error('company_name'); ?></span>
@@ -126,6 +127,7 @@
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label>Görsel Seçiniz</label>
+                                    <input type="hidden" name="old_logo" value="<?php echo $item->logo; ?>">
                                     <input type="file" name="logo" class="form-control">
                                 </div>
                             </div>
