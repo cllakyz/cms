@@ -53,17 +53,17 @@
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label>Telefon 2</label>
-                                    <input type="text" name="phone_2" class="form-control" placeholder="Diğer telefon numaranızı giriniz">
+                                    <input type="text" name="phone_2" class="form-control" placeholder="Diğer telefon numaranızı giriniz" value="<?php echo isset($form_error) ? set_value("phone_2") : NULL; ?>">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="form-group col-md-6">
                                     <label>Fax 1</label>
-                                    <input type="text" name="fax_1" class="form-control" placeholder="Fax numaranızı giriniz">
+                                    <input type="text" name="fax_1" class="form-control" placeholder="Fax numaranızı giriniz" value="<?php echo isset($form_error) ? set_value("fax_1") : NULL; ?>">
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label>Fax 2</label>
-                                    <input type="text" name="fax_2" class="form-control" placeholder="Diğer fax numaranızı giriniz">
+                                    <input type="text" name="fax_2" class="form-control" placeholder="Diğer fax numaranızı giriniz" value="<?php echo isset($form_error) ? set_value("fax_2") : NULL; ?>">
                                 </div>
                             </div>
                         </div>
@@ -71,28 +71,28 @@
                         <div role="tabpanel" class="tab-pane fade" id="tab-6">
                             <div class="form-group">
                                 <label>Adres Bilgisi</label>
-                                <textarea name="address" class="m-0" data-plugin="summernote" data-options="{height: 200}"></textarea>
+                                <textarea name="address" class="m-0" data-plugin="summernote" data-options="{height: 200}"><?php echo isset($form_error) ? set_value("address") : NULL; ?></textarea>
                             </div>
                         </div>
 
                         <div role="tabpanel" class="tab-pane fade" id="tab-2">
                             <div class="form-group">
                                 <label>Hakkımızda</label>
-                                <textarea name="about_us" class="m-0" data-plugin="summernote" data-options="{height: 200}"></textarea>
+                                <textarea name="about_us" class="m-0" data-plugin="summernote" data-options="{height: 200}"><?php echo isset($form_error) ? set_value("about_us") : NULL; ?></textarea>
                             </div>
                         </div>
 
                         <div role="tabpanel" class="tab-pane fade" id="tab-3">
                             <div class="form-group">
                                 <label>Misyon</label>
-                                <textarea name="mission" class="m-0" data-plugin="summernote" data-options="{height: 200}"></textarea>
+                                <textarea name="mission" class="m-0" data-plugin="summernote" data-options="{height: 200}"><?php echo isset($form_error) ? set_value("mission") : NULL; ?></textarea>
                             </div>
                         </div>
 
                         <div role="tabpanel" class="tab-pane fade" id="tab-4">
                             <div class="form-group">
                                 <label>Vizyon</label>
-                                <textarea name="vision" class="m-0" data-plugin="summernote" data-options="{height: 200}"></textarea>
+                                <textarea name="vision" class="m-0" data-plugin="summernote" data-options="{height: 200}"><?php echo isset($form_error) ? set_value("vision") : NULL; ?></textarea>
                             </div>
                         </div>
 
@@ -100,21 +100,21 @@
                             <div class="row">
                                 <div class="form-group col-md-6">
                                     <label>Facebook</label>
-                                    <input type="text" name="facebook" class="form-control" placeholder="Facebook adresinizi giriniz">
+                                    <input type="text" name="facebook" class="form-control" placeholder="Facebook adresinizi giriniz" value="<?php echo isset($form_error) ? set_value("facebook") : NULL; ?>">
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label>Twitter</label>
-                                    <input type="text" name="twitter" class="form-control" placeholder="Twitter adresinizi giriniz">
+                                    <input type="text" name="twitter" class="form-control" placeholder="Twitter adresinizi giriniz" value="<?php echo isset($form_error) ? set_value("twitter") : NULL; ?>">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="form-group col-md-6">
                                     <label>Instagram</label>
-                                    <input type="text" name="instagram" class="form-control" placeholder="Instagram adresinizi giriniz">
+                                    <input type="text" name="instagram" class="form-control" placeholder="Instagram adresinizi giriniz" value="<?php echo isset($form_error) ? set_value("instagram") : NULL; ?>">
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label>Linkedin</label>
-                                    <input type="text" name="linkedin" class="form-control" placeholder="Linkedin adresinizi giriniz">
+                                    <input type="text" name="linkedin" class="form-control" placeholder="Linkedin adresinizi giriniz" value="<?php echo isset($form_error) ? set_value("linkedin") : NULL; ?>">
                                 </div>
                             </div>
                         </div>
