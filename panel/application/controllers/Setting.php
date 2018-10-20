@@ -24,11 +24,11 @@ class Setting extends CI_Controller
         /** Tablodan verilerin getirilmesi */
         $item = $this->setting_model->get();
         if($item){
-            $viewData->subViewFolder = "no_content";
-        } else{
             $viewData->subViewFolder = "edit";
+        } else{
+            $viewData->subViewFolder = "no_content";
         }
-        $viewData->items = $item;
+        $viewData->item = $item;
 
         $this->load->view($viewData->viewFolder.'/'.$viewData->subViewFolder.'/index', $viewData);
     }

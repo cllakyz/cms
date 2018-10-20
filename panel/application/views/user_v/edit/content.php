@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-md-12">
-        <h4 class="m-b-lg">Referans Düzenle</h4>
+        <h4 class="m-b-lg">Kullanıcı Düzenle</h4>
     </div><!-- END column -->
     <div class="col-md-12">
         <div class="widget">
