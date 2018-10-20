@@ -11,6 +11,7 @@ class Course extends CI_Controller
         $this->viewFolder = "course_v";
         if(!is_login()){
             redirect(base_url("login"));
+            die;
         }
         $this->load->model("course_model");
         $this->zaman = date('Y-m-d H:i:s');
@@ -134,6 +135,7 @@ class Course extends CI_Controller
             }
             $this->session->set_flashdata('alert', $alert);
             redirect(base_url('course'));
+            die;
         } else{
             $viewData = new stdClass();
 
@@ -222,6 +224,7 @@ class Course extends CI_Controller
             }
             $this->session->set_flashdata('alert', $alert);
             redirect(base_url('course'));
+            die;
         } else{
             $viewData = new stdClass();
             /** Tablodan verilerin getirilmesi */

@@ -11,6 +11,7 @@ class Brand extends CI_Controller
         $this->viewFolder = "brand_v";
         if(!is_login()){
             redirect(base_url("login"));
+            die;
         }
         $this->load->model("brand_model");
         $this->zaman = date('Y-m-d H:i:s');
@@ -130,6 +131,7 @@ class Brand extends CI_Controller
             }
             $this->session->set_flashdata('alert', $alert);
             redirect(base_url('brand'));
+            die;
         } else{
             $viewData = new stdClass();
 
@@ -213,6 +215,7 @@ class Brand extends CI_Controller
             }
             $this->session->set_flashdata('alert', $alert);
             redirect(base_url('brand'));
+            die;
         } else{
             $viewData = new stdClass();
             /** Tablodan verilerin getirilmesi */

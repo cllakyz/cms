@@ -11,6 +11,7 @@ class Email extends CI_Controller
         $this->viewFolder = "email_v";
         if(!is_login()){
             redirect(base_url("login"));
+            die;
         }
         $this->load->model("email_model");
         $this->zaman = date('Y-m-d H:i:s');
@@ -109,6 +110,7 @@ class Email extends CI_Controller
             }
             $this->session->set_flashdata('alert', $alert);
             redirect(base_url('email'));
+            die;
         } else{
             $viewData = new stdClass();
 
@@ -171,6 +173,7 @@ class Email extends CI_Controller
             }
             $this->session->set_flashdata('alert', $alert);
             redirect(base_url('email'));
+            die;
         } else{
             $viewData = new stdClass();
             /** Tablodan verilerin getirilmesi */

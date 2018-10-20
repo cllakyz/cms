@@ -11,6 +11,7 @@ class Gallery extends CI_Controller
         $this->viewFolder = "gallery_v";
         if(!is_login()){
             redirect(base_url("login"));
+            die;
         }
         $this->load->model("gallery_model");
         $this->load->model("image_model");
@@ -98,6 +99,7 @@ class Gallery extends CI_Controller
                         );
                         $this->session->set_flashdata('alert', $alert);
                         redirect(base_url('gallery'));
+                        die;
                     }
                 }
             }
@@ -128,6 +130,7 @@ class Gallery extends CI_Controller
             }
             $this->session->set_flashdata('alert', $alert);
             redirect(base_url('gallery'));
+            die;
         } else{
             $viewData = new stdClass();
 
@@ -183,6 +186,7 @@ class Gallery extends CI_Controller
                         );
                         $this->session->set_flashdata('alert', $alert);
                         redirect(base_url('gallery'));
+                        die;
                     }
                 } else{
                     rmdir($path.$old_folder_name);
@@ -196,6 +200,7 @@ class Gallery extends CI_Controller
                         );
                         $this->session->set_flashdata('alert', $alert);
                         redirect(base_url('gallery'));
+                        die;
                     }
                 }
             } else{
@@ -216,6 +221,7 @@ class Gallery extends CI_Controller
                         );
                         $this->session->set_flashdata('alert', $alert);
                         redirect(base_url('gallery'));
+                        die;
                     }
                 }
             }
@@ -246,6 +252,7 @@ class Gallery extends CI_Controller
             }
             $this->session->set_flashdata('alert', $alert);
             redirect(base_url('gallery'));
+            die;
         } else{
             $viewData = new stdClass();
             /** Tablodan verilerin getirilmesi */
@@ -603,6 +610,7 @@ class Gallery extends CI_Controller
             }
             $this->session->set_flashdata('alert', $alert);
             redirect(base_url('gallery/gallery_video_list/'.$gallery_id));
+            die;
         } else{
             $viewData = new stdClass();
 
@@ -671,6 +679,7 @@ class Gallery extends CI_Controller
             }
             $this->session->set_flashdata('alert', $alert);
             redirect(base_url('gallery/gallery_video_list/'.$gallery_id));
+            die;
         } else{
             $viewData = new stdClass();
             $viewData->viewFolder = $this->viewFolder;

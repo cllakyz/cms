@@ -11,6 +11,7 @@ class User extends CI_Controller
         $this->viewFolder = "user_v";
         if(!is_login()){
             redirect(base_url("login"));
+            die;
         }
         $this->load->model("user_model");
         $this->zaman = date('Y-m-d H:i:s');
@@ -106,6 +107,7 @@ class User extends CI_Controller
             }
             $this->session->set_flashdata('alert', $alert);
             redirect(base_url('user'));
+            die;
         } else{
             $viewData = new stdClass();
 
@@ -172,6 +174,7 @@ class User extends CI_Controller
             }
             $this->session->set_flashdata('alert', $alert);
             redirect(base_url('user'));
+            die;
         } else{
             $viewData = new stdClass();
             $viewData->viewFolder = $this->viewFolder;
@@ -289,6 +292,7 @@ class User extends CI_Controller
             }
             $this->session->set_flashdata('alert', $alert);
             redirect(base_url('user'));
+            die;
         } else{
             $viewData = new stdClass();
             /** Tablodan verilerin getirilmesi */

@@ -11,6 +11,7 @@ class Product extends CI_Controller
         $this->viewFolder = "product_v";
         if(!is_login()){
             redirect(base_url("login"));
+            die;
         }
         $this->load->model("product_model");
         $this->load->model("product_image_model");
@@ -97,6 +98,7 @@ class Product extends CI_Controller
             }
             $this->session->set_flashdata('alert', $alert);
             redirect(base_url('product'));
+            die;
         } else{
             $viewData = new stdClass();
 
@@ -148,6 +150,7 @@ class Product extends CI_Controller
             }
             $this->session->set_flashdata('alert', $alert);
             redirect(base_url('product'));
+            die;
         } else{
             $viewData = new stdClass();
             /** Tablodan verilerin getirilmesi */

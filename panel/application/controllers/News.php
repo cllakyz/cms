@@ -11,6 +11,7 @@ class News extends CI_Controller
         $this->viewFolder = "news_v";
         if(!is_login()){
             redirect(base_url("login"));
+            die;
         }
         $this->load->model("news_model");
         $this->zaman = date('Y-m-d H:i:s');
@@ -157,6 +158,7 @@ class News extends CI_Controller
             }
             $this->session->set_flashdata('alert', $alert);
             redirect(base_url('news'));
+            die;
         } else{
             $viewData = new stdClass();
 
@@ -267,6 +269,7 @@ class News extends CI_Controller
             }
             $this->session->set_flashdata('alert', $alert);
             redirect(base_url('news'));
+            die;
         } else{
             $viewData = new stdClass();
             /** Tablodan verilerin getirilmesi */

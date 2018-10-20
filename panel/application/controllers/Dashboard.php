@@ -13,6 +13,7 @@ class Dashboard extends CI_Controller {
         //$this->user = is_login();
         if(!is_login()){
             redirect(base_url("login"));
+            die;
         }
     }
 

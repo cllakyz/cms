@@ -11,6 +11,7 @@ class Reference extends CI_Controller
         $this->viewFolder = "reference_v";
         if(!is_login()){
             redirect(base_url("login"));
+            die;
         }
         $this->load->model("reference_model");
         $this->zaman = date('Y-m-d H:i:s');
@@ -132,6 +133,7 @@ class Reference extends CI_Controller
             }
             $this->session->set_flashdata('alert', $alert);
             redirect(base_url('reference'));
+            die;
         } else{
             $viewData = new stdClass();
 
@@ -217,6 +219,7 @@ class Reference extends CI_Controller
             }
             $this->session->set_flashdata('alert', $alert);
             redirect(base_url('reference'));
+            die;
         } else{
             $viewData = new stdClass();
             /** Tablodan verilerin getirilmesi */

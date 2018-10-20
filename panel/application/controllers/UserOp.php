@@ -17,6 +17,7 @@ class UserOp extends CI_Controller
     {
         if(is_login()){
             redirect(base_url());
+            die;
         }
         $viewData = new stdClass();
         $viewData->viewFolder = $this->viewFolder;
@@ -28,6 +29,7 @@ class UserOp extends CI_Controller
     {
         if(is_login()){
             redirect(base_url());
+            die;
         }
         $this->load->library('form_validation');
         //kurallar
@@ -65,6 +67,7 @@ class UserOp extends CI_Controller
                         //setcookie('user', serialize($user), time() + 365*24*60*60, '/');
                     }
                     redirect(base_url());
+                    die;
                 } else{
                     $alert = array(
                         'type' => 'error',
@@ -73,6 +76,7 @@ class UserOp extends CI_Controller
                     );
                     $this->session->set_flashdata('alert', $alert);
                     redirect(base_url('login'));
+                    die;
                 }
 
             } else{
@@ -83,6 +87,7 @@ class UserOp extends CI_Controller
                 );
                 $this->session->set_flashdata('alert', $alert);
                 redirect(base_url('login'));
+                die;
             }
         } else{
             $viewData = new stdClass();
@@ -99,12 +104,14 @@ class UserOp extends CI_Controller
     {
         $this->session->unset_userdata("user");
         redirect(base_url('login'));
+        die;
     }
     /* şifre sıfırla form */
     public function forget_password()
     {
         if(is_login()){
             redirect(base_url());
+            die;
         }
         $viewData = new stdClass();
         $viewData->viewFolder = $this->viewFolder;
@@ -116,6 +123,7 @@ class UserOp extends CI_Controller
     {
         if(is_login()){
             redirect(base_url());
+            die;
         }
         $this->load->library('form_validation');
         //kurallar
@@ -136,8 +144,11 @@ class UserOp extends CI_Controller
             $user = $this->user_model->get($where);
             if($user){
                 $this->load->model('email_model');
-                $email_setting = $this->email_model->get(array('isActive' => 1));
+                $this->load->helper('string');
 
+                $temp_password = random_string();
+
+                $email_setting = $this->email_model->get(array('isActive' => 1));
                 $config = array(
                     "protocol"      => $email_setting->protocol,
                     "smtp_host"     => $email_setting->host,
@@ -153,15 +164,29 @@ class UserOp extends CI_Controller
                 $this->load->library('email', $config);
                 $this->email->from($email_setting->from, $email_setting->user_name);
                 $this->email->to($user->email);
-                $this->email->subject('CMS için Email Çalışmaları');
-                $this->email->message('CMS için Email Çalışmaları');
+                $this->email->subject('Şifre Sıfırlama');
+                $this->email->message("CMS'e geçici olarak <b>{$temp_password}</b> ile giriş yapabilirsiniz.");
 
                 $send = $this->email->send();
                 if($send){
-                    echo 'E-Posta başarıyla gönderilmiştir';
+                    $this->user_model->edit(array('id' => $user->id), array('password' => sha1($temp_password)));
+                    $alert = array(
+                        'type' => 'success',
+                        'title' => 'Başarılı',
+                        'message' => 'Şifreniz Başarıyla Sıfırlandı. Lütfen E-Postanızı Kontrol Ediniz.'
+                    );
+                    $this->session->set_flashdata('alert', $alert);
+                    redirect(base_url('login'));
                     die;
                 } else{
-                    echo $this->email->print_debugger();
+                    //echo $this->email->print_debugger();
+                    $alert = array(
+                        'type' => 'error',
+                        'title' => 'Hata!',
+                        'message' => 'E-Posta Gönderilemedi'
+                    );
+                    $this->session->set_flashdata('alert', $alert);
+                    redirect(base_url('sifremi-unuttum'));
                     die;
                 }
             } else{
@@ -172,6 +197,7 @@ class UserOp extends CI_Controller
                 );
                 $this->session->set_flashdata('alert', $alert);
                 redirect(base_url('sifremi-unuttum'));
+                die;
             }
         } else{
             $viewData = new stdClass();
