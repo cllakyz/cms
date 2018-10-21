@@ -5,24 +5,114 @@
     <div class="col-md-12">
         <div class="widget">
             <div class="widget-body">
-                <form action="<?php echo base_url('product/edit/'.$item->id); ?>" method="post">
-                    <div class="form-group">
-                        <label>Başlık</label>
-                        <input type="text" name="title" class="form-control" placeholder="Başlık" value="<?php echo isset($form_error) ? set_value("title") : $item->title; ?>">
-                        <?php
-                        if(isset($form_error)){ ?>
-                            <span class="pull-right input-form-errors"><?php echo form_error('title'); ?></span>
-                        <?php
-                        }
-                        ?>
+                <?php
+                if(empty($categories)){ ?>
+                    <div class="alert alert-info text-center">
+                        <p>Yeni portfolyo ekleyebilmeniz için portfolyo kategorisi eklemeniz gerekmektedir. Eklemek için <a href="<?php echo base_url('portfolio_category/new_form'); ?>">tıklayınız</a></p>
                     </div>
-                    <div class="form-group">
-                        <label>Açıklama</label>
-                        <textarea name="description" class="m-0" data-plugin="summernote" data-options="{height: 150}"><?php echo isset($form_error) ? set_value("description") : $item->description; ?></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary btn-md btn-outline">Güncelle</button>
-                    <a href="<?php echo base_url('product'); ?>" class="btn btn-md btn-danger btn-outline">İptal</a>
-                </form>
+                    <?php
+                } else{ ?>
+                    <form action="<?php echo base_url('portfolio/edit/'.$item->id); ?>" method="post">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Başlık</label>
+                                    <input type="text" name="title" class="form-control" placeholder="Başlık" value="<?php echo isset($form_error) ? set_value("title") : $item->title; ?>">
+                                    <?php
+                                    if(isset($form_error)){ ?>
+                                        <span class="pull-right input-form-errors"><?php echo form_error('title'); ?></span>
+                                        <?php
+                                    }
+                                    ?>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Kategori</label>
+                                    <select name="category_id" class="form-control">
+                                        <?php
+                                        foreach ($categories as $category){
+                                            if(isset($form_error)){
+                                                if(set_value("category_id") == $category->id){
+                                                    $selected = ' selected';
+                                                } else{
+                                                    $selected = NULL;
+                                                }
+                                            } else{
+                                                if($item->category_id == $category->id){
+                                                    $selected = ' selected';
+                                                } else{
+                                                    $selected = NULL;
+                                                }
+                                            }
+                                            ?>
+                                            <option<?php echo $selected; ?> value="<?php echo $category->id; ?>"><?php echo $category->title; ?></option>
+                                            <?php
+                                        }
+                                        ?>
+                                    </select>
+                                    <?php
+                                    if(isset($form_error)){ ?>
+                                        <span class="pull-right input-form-errors"><?php echo form_error('category_id'); ?></span>
+                                        <?php
+                                    }
+                                    ?>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Bitirme Tarihi</label>
+                                    <input type="hidden" name="finishedAt" class="form-control" data-plugin="datetimepicker" data-options="{ inline: true, format: 'DD-MM-YYYY' }" value="<?php echo isset($form_error) ? set_value("finishedAt") : date('d-m-Y', strtotime($item->finishedAt)); ?>">
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="row">
+                                    <div class="form-group">
+                                        <label>Müşteri</label>
+                                        <input type="text" name="client" class="form-control" placeholder="Müşteri" value="<?php echo isset($form_error) ? set_value("client") : $item->client; ?>">
+                                        <?php
+                                        if(isset($form_error)){ ?>
+                                            <span class="pull-right input-form-errors"><?php echo form_error('client'); ?></span>
+                                            <?php
+                                        }
+                                        ?>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Yer/Mekan</label>
+                                        <input type="text" name="place" class="form-control" placeholder="Yer/Mekan" value="<?php echo isset($form_error) ? set_value("place") : $item->place; ?>">
+                                        <?php
+                                        if(isset($form_error)){ ?>
+                                            <span class="pull-right input-form-errors"><?php echo form_error('place'); ?></span>
+                                            <?php
+                                        }
+                                        ?>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Yapılan İşin Bağlantısı (URL)</label>
+                                        <input type="text" name="portfolio_url" class="form-control" placeholder="Portfolyo URL" value="<?php echo isset($form_error) ? set_value("portfolio_url") : $item->portfolio_url; ?>">
+                                        <?php
+                                        if(isset($form_error)){ ?>
+                                            <span class="pull-right input-form-errors"><?php echo form_error('portfolio_url'); ?></span>
+                                            <?php
+                                        }
+                                        ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Açıklama</label>
+                            <textarea name="description" class="m-0" data-plugin="summernote" data-options="{height: 150}"><?php echo isset($form_error) ? set_value("description") : $item->description; ?></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-md btn-outline">Güncelle</button>
+                        <a href="<?php echo base_url('portfolio'); ?>" class="btn btn-md btn-danger btn-outline">İptal</a>
+                    </form>
+                    <?php
+                }
+                ?>
             </div>
         </div>
     </div>

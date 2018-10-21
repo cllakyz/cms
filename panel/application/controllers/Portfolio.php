@@ -52,7 +52,7 @@ class Portfolio extends CI_Controller
                 'id' => strip_tags(str_replace(' ', '', $id))
             )
         );
-
+        $viewData->categories = $this->portfolio_category_model->get_all(array('isActive' => 1));
         $viewData->viewFolder = $this->viewFolder;
         $viewData->subViewFolder = "edit";
         $viewData->item = $item;
@@ -127,6 +127,9 @@ class Portfolio extends CI_Controller
 
         //kurallar
         $this->form_validation->set_rules('title', 'Başlık', 'required|trim');
+        $this->form_validation->set_rules('category_id', 'Kategori', 'required|trim');
+        $this->form_validation->set_rules('client', 'Müşteri', 'required|trim');
+        $this->form_validation->set_rules('finishedAt', 'Bitiş Tarihi', 'required|trim');
         //mesajlar
         $this->form_validation->set_message(
             array(
@@ -140,9 +143,14 @@ class Portfolio extends CI_Controller
                 'id' => strip_tags(str_replace(' ', '', $id))
             );
             $data = array(
-                'title'       => $this->input->post('title'),
-                'description' => $this->input->post('description'),
-                'url'         => sef($this->input->post('title')),
+                'title'         => $this->input->post('title'),
+                'description'   => $this->input->post('description'),
+                'url'           => sef($this->input->post('title')),
+                'client'        => $this->input->post('client'),
+                'finishedAt'    => date('Y-m-d', strtotime($this->input->post('finishedAt'))),
+                'category_id'   => $this->input->post('category_id'),
+                'place'         => $this->input->post('place'),
+                'portfolio_url' => $this->input->post('portfolio_url'),
             );
             $update = $this->portfolio_model->edit($where, $data);
 
@@ -150,13 +158,13 @@ class Portfolio extends CI_Controller
                 $alert = array(
                     'type' => 'success',
                     'title' => 'Başarılı',
-                    'message' => 'Ürün Başarıyla Güncellendi'
+                    'message' => 'Portfolyo Başarıyla Güncellendi'
                 );
             } else{
                 $alert = array(
                     'type' => 'error',
                     'title' => 'Hata!',
-                    'message' => 'Ürün Güncellenemedi'
+                    'message' => 'Portfolyo Güncellenemedi'
                 );
             }
             $this->session->set_flashdata('alert', $alert);
@@ -174,7 +182,7 @@ class Portfolio extends CI_Controller
             $viewData->subViewFolder = "edit";
             $viewData->form_error = TRUE;
             $viewData->item = $item;
-
+            $viewData->categories = $this->portfolio_category_model->get_all(array('isActive' => 1));
             $this->load->view($viewData->viewFolder.'/'.$viewData->subViewFolder.'/index', $viewData);
         }
     }
@@ -190,17 +198,15 @@ class Portfolio extends CI_Controller
             $alert = array(
                 'type' => 'success',
                 'title' => 'Başarılı',
-                'message' => 'Ürün Başarıyla Silindi'
+                'message' => 'Portfolyo Başarıyla Silindi'
             );
         } else{
             $alert = array(
                 'type' => 'error',
                 'title' => 'Hata!',
-                'message' => 'Ürün Silinemedi'
+                'message' => 'Portfolyo Silinemedi'
             );
         }
-        /*$this->session->set_flashdata('alert', $alert);
-        redirect(base_url('portfolio'));*/
         echo json_encode($alert);
         die;
     }
@@ -216,13 +222,13 @@ class Portfolio extends CI_Controller
                 $alert = array(
                     'type' => 'success',
                     'title' => 'Başarılı',
-                    'message' => 'Ürün Durumu Güncellendi'
+                    'message' => 'Portfolyo Durumu Güncellendi'
                 );
             } else{
                 $alert = array(
                     'type' => 'error',
                     'title' => 'Hata!',
-                    'message' => 'Ürün Durumu Güncellenemedi'
+                    'message' => 'Portfolyo Durumu Güncellenemedi'
                 );
             }
             echo json_encode($alert);
@@ -254,13 +260,13 @@ class Portfolio extends CI_Controller
             $alert = array(
                 'type' => 'success',
                 'title' => 'Başarılı',
-                'message' => 'Ürünler Başarıyla Sıralandı'
+                'message' => 'Portfolyolar Başarıyla Sıralandı'
             );
         } else{
             $alert = array(
                 'type' => 'error',
                 'title' => 'Hata!',
-                'message' => 'Ürünler Sıralanamadı'
+                'message' => 'Portfolyolar Sıralanamadı'
             );
         }
         echo json_encode($alert);

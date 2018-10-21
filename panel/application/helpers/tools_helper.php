@@ -157,3 +157,15 @@ function get_settings(){
     }
     return $settings;
 }
+
+function get_category_title($category_id){
+    $t = &get_instance();
+    $t->load->model('portfolio_category_model');
+    $category = $t->portfolio_category_model->get(array('id' => $category_id));
+    if($category){
+        $title = $category->title;
+    } else{
+        $title = "Tanımlı Değil";
+    }
+    return $title;
+}

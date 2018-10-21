@@ -32,7 +32,7 @@
                                     <select name="category_id" class="form-control">
                                         <?php
                                         foreach ($categories as $category){ ?>
-                                            <option<?php echo isset($form_error) && set_value("title") == $category->id ? ' selected' : NULL; ?> value="<?php echo $category->id; ?>"><?php echo $category->title; ?></option>
+                                            <option<?php echo isset($form_error) && set_value("category_id") == $category->id ? ' selected' : NULL; ?> value="<?php echo $category->id; ?>"><?php echo $category->title; ?></option>
                                             <?php
                                         }
                                         ?>
