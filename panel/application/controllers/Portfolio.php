@@ -36,6 +36,7 @@ class Portfolio extends CI_Controller
     {
         $viewData = new stdClass();
 
+        $viewData->categories = $this->portfolio_category_model->get_all(array('isActive' => 1));
         $viewData->viewFolder = $this->viewFolder;
         $viewData->subViewFolder = "add";
 
