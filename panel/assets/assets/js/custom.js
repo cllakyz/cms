@@ -96,7 +96,7 @@ $(document).ready(function () {
         notify(alert.type, alert.title, alert.message);
     });
 
-    /* kapak fotoğrafı değiştirme */
+    /* ürün kapak fotoğrafı değiştirme */
     $(document).on('change', '.change-product-cover', function () {
         var thisEl = $(this);
         var url = thisEl.attr('data-url');
@@ -121,6 +121,44 @@ $(document).ready(function () {
                                 color = $this.attr('data-color') || '#188ae2',
                                 jackColor = $this.attr('data-jackColor') || '#ffffff',
                                 size = $this.attr('data-size') || 'default'
+
+                            new Switchery(this, {
+                                color: color,
+                                size: size,
+                                jackColor: jackColor
+                            });
+                        });
+                    });
+                }
+            });
+        }
+    });
+
+    /* portfolyo kapak fotoğrafı değiştirme */
+    $(document).on('change', '.change-portfolio-cover', function () {
+        var thisEl = $(this);
+        var url = thisEl.attr('data-url');
+        var set_cover;
+        if(thisEl.is(':checked')){
+            set_cover = 1;
+        } else{
+            set_cover = 0;
+        }
+
+        if(typeof set_cover !== "undefined" && typeof url !== "undefined"){
+            $.post(url, {set_cover: set_cover}, function (data) {
+                var response = data.split('@@');
+                var alert = $.parseJSON(response[0]);
+                notify(alert.type, alert.title, alert.message);
+                if(alert.type == 'success'){
+                    $.post(base_url+'portfolio/refresh_image_list/'+alert.port_id, {}, function (data) {
+                        $('.image_list_container').html(data);
+                        $('.sortable').sortable();
+                        $('[data-switchery]').each(function(){
+                            var $this = $(this),
+                                color = $this.attr('data-color') || '#188ae2',
+                                jackColor = $this.attr('data-jackColor') || '#ffffff',
+                                size = $this.attr('data-size') || 'default';
 
                             new Switchery(this, {
                                 color: color,

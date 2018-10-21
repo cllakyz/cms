@@ -314,20 +314,20 @@ class Portfolio extends CI_Controller
                 $alert = array(
                     'type' => 'success',
                     'title' => 'Başarılı',
-                    'message' => 'Ürün Resmi Başarıyla Eklendi.'
+                    'message' => 'Portfolyo Resmi Başarıyla Eklendi.'
                 );
             } else{
                 $alert = array(
                     'type' => 'error',
                     'title' => 'Hata!',
-                    'message' => 'Ürün Resmi Eklenemedi'
+                    'message' => 'Portfolyo Resmi Eklenemedi'
                 );
             }
         } else{
             $alert = array(
                 'type' => 'error',
                 'title' => 'Hata!',
-                'message' => 'Ürün Resmi Yüklenemedi'
+                'message' => 'Portfolyo Resmi Yüklenemedi'
             );
         }
         echo json_encode($alert);
@@ -349,29 +349,29 @@ class Portfolio extends CI_Controller
         die;
     }
     /* kapak fotoğrafı değiştirme */
-    public function change_portfolio_cover($id,$prd_id)
+    public function change_portfolio_cover($id,$port_id)
     {
-        if($id && $prd_id){
+        if($id && $port_id){
             $set_cover = $this->input->post('set_cover');
-            $where = array('id' => $id, 'portfolio_id' => $prd_id);
+            $where = array('id' => $id, 'portfolio_id' => $port_id);
             $data = array('isCover' => $set_cover);
             $update = $this->portfolio_image_model->edit($where, $data);
             if($update){
-                $where = array('id !=' => $id, 'portfolio_id' => $prd_id);
+                $where = array('id !=' => $id, 'portfolio_id' => $port_id);
                 $data = array('isCover' => 0);
                 $this->portfolio_image_model->edit($where, $data);
                 $alert = array(
                     'type' => 'success',
                     'title' => 'Başarılı',
                     'message' => 'Kapak Resmi Güncellendi',
-                    'prd_id' => $prd_id
+                    'port_id' => $port_id
                 );
             } else{
                 $alert = array(
                     'type' => 'error',
                     'title' => 'Hata!',
                     'message' => 'Kapak Resmi Güncellenemedi',
-                    'prd_id' => $prd_id
+                    'port_id' => $port_id
                 );
             }
             echo json_encode($alert);
@@ -391,13 +391,13 @@ class Portfolio extends CI_Controller
                 $alert = array(
                     'type' => 'success',
                     'title' => 'Başarılı',
-                    'message' => 'Resim Durumu Güncellendi'
+                    'message' => 'Portfolyo Resmi Durumu Güncellendi'
                 );
             } else{
                 $alert = array(
                     'type' => 'error',
                     'title' => 'Hata!',
-                    'message' => 'Resim Durumu Güncellenemedi'
+                    'message' => 'Portfolyo Resmi Durumu Güncellenemedi'
                 );
             }
             echo json_encode($alert);

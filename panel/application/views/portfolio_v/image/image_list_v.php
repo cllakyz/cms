@@ -16,7 +16,7 @@ if(empty($item_images)){ ?>
         <th class="text-center">Kapak</th>
         <th class="text-center">İşlem</th>
         </thead>
-        <tbody class="sortable" data-url="<?php echo base_url('product/image_sort'); ?>">
+        <tbody class="sortable" data-url="<?php echo base_url('portfolio/image_sort'); ?>">
         <?php
         foreach ($item_images as $image){ ?>
             <tr id="sort-<?php echo $image->id; ?>">
@@ -27,13 +27,13 @@ if(empty($item_images)){ ?>
                 </td>
                 <td><?php echo $image->img_url; ?></td>
                 <td class="w100 text-center">
-                    <input type="checkbox" class="change-item-status" data-url="<?php echo base_url('product/change_image_status/'.$image->id); ?>" data-switchery data-color="#10c469"<?php echo $image->isActive == 1 ? ' checked' : NULL; ?> />
+                    <input type="checkbox" class="change-item-status" data-url="<?php echo base_url('portfolio/change_image_status/'.$image->id); ?>" data-switchery data-color="#10c469"<?php echo $image->isActive == 1 ? ' checked' : NULL; ?> />
                 </td>
                 <td class="w100 text-center">
-                    <input type="checkbox" class="change-product-cover" data-url="<?php echo base_url('product/change_product_cover/'.$image->id.'/'.$image->product_id); ?>" data-switchery<?php echo $image->isCover == 1 ? ' checked' : NULL; ?> />
+                    <input type="checkbox" class="change-portfolio-cover" data-url="<?php echo base_url('portfolio/change_portfolio_cover/'.$image->id.'/'.$image->portfolio_id); ?>" data-switchery<?php echo $image->isCover == 1 ? ' checked' : NULL; ?> />
                 </td>
                 <td class="w100 text-center">
-                    <a data-url="<?php echo base_url('product/delete_image/'. $image->id); ?>" class="btn btn-sm btn-danger btn-block btn-outline remove-btn"><i class="fa fa-trash"></i> Sil</a>
+                    <a data-url="<?php echo base_url('portfolio/delete_image/'. $image->id); ?>" class="btn btn-sm btn-danger btn-block btn-outline remove-btn"><i class="fa fa-trash"></i> Sil</a>
                 </td>
             </tr>
             <?php
