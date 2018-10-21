@@ -293,7 +293,7 @@ class News extends CI_Controller
         $where = array(
             'id' => strip_tags(str_replace(' ', '', $id))
         );
-        $item = $this->brand_model->get($where);
+        $item = $this->news_model->get($where);
         $delete = $this->news_model->delete($where);
 
         if($delete){

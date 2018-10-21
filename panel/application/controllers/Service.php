@@ -1,6 +1,6 @@
 <?php
 
-class Reference extends CI_Controller
+class Service extends CI_Controller
 {
     public $viewFolder = "";
     private $zaman = "";
@@ -8,12 +8,12 @@ class Reference extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        $this->viewFolder = "reference_v";
+        $this->viewFolder = "service_v";
         if(!is_login()){
             redirect(base_url("login"));
             die;
         }
-        $this->load->model("reference_model");
+        $this->load->model("service_model");
         $this->zaman = date('Y-m-d H:i:s');
     }
     /* anasayfa */
@@ -21,7 +21,7 @@ class Reference extends CI_Controller
     {
         $viewData = new stdClass();
         /** Tablodan verilerin getirilmesi */
-        $items = $this->reference_model->get_all(array(), "rank ASC");
+        $items = $this->service_model->get_all(array(), "rank ASC");
 
         $viewData->viewFolder = $this->viewFolder;
         $viewData->subViewFolder = "list";
@@ -44,7 +44,7 @@ class Reference extends CI_Controller
     {
         $viewData = new stdClass();
         /** Tablodan verilerin getirilmesi */
-        $item = $this->reference_model->get(
+        $item = $this->service_model->get(
             array(
                 'id' => strip_tags(str_replace(' ', '', $id))
             )
@@ -68,7 +68,7 @@ class Reference extends CI_Controller
                 'message' => 'Lütfen Bir Görsel Seçiniz'
             );
             $this->session->set_flashdata('alert', $alert);
-            redirect(base_url('reference/new_form'));
+            redirect(base_url('service/new_form'));
             die;
         }
 
@@ -103,7 +103,7 @@ class Reference extends CI_Controller
                     'message' => 'Dosya Formatı JPG,PNG veya JPEG Olmalıdır'
                 );
                 $this->session->set_flashdata('alert', $alert);
-                redirect(base_url('reference/new_form'));
+                redirect(base_url('service/new_form'));
                 die;
             }
 
@@ -116,23 +116,23 @@ class Reference extends CI_Controller
                 'isActive'    => 1,
                 'createdAt'   => $this->zaman,
             );
-            $insert = $this->reference_model->add($data);
+            $insert = $this->service_model->add($data);
 
             if($insert){
                 $alert = array(
                     'type' => 'success',
                     'title' => 'Başarılı',
-                    'message' => 'Referans Başarıyla Eklendi'
+                    'message' => 'Hizmet Başarıyla Eklendi'
                 );
             } else{
                 $alert = array(
                     'type' => 'error',
                     'title' => 'Hata!',
-                    'message' => 'Referans Eklenemedi'
+                    'message' => 'Hizmet Eklenemedi'
                 );
             }
             $this->session->set_flashdata('alert', $alert);
-            redirect(base_url('reference'));
+            redirect(base_url('service'));
             die;
         } else{
             $viewData = new stdClass();
@@ -183,7 +183,7 @@ class Reference extends CI_Controller
                         'message' => 'Dosya Formatı JPG,PNG veya JPEG Olmalıdır'
                     );
                     $this->session->set_flashdata('alert', $alert);
-                    redirect(base_url('reference/edit_form/'.$id));
+                    redirect(base_url('service/edit_form/'.$id));
                     die;
                 }
             } else{
@@ -197,7 +197,7 @@ class Reference extends CI_Controller
                 'img_url'     => $image_url,
             );
             $where = array('id' => $id);
-            $update = $this->reference_model->edit($where, $data);
+            $update = $this->service_model->edit($where, $data);
 
             if($update){
                 if($_FILES['img_url']['name'] != ''){
@@ -208,22 +208,22 @@ class Reference extends CI_Controller
                 $alert = array(
                     'type' => 'success',
                     'title' => 'Başarılı',
-                    'message' => 'Referans Başarıyla Güncellendi'
+                    'message' => 'Hizmet Başarıyla Güncellendi'
                 );
             } else{
                 $alert = array(
                     'type' => 'error',
                     'title' => 'Hata!',
-                    'message' => 'Referans Güncellenemedi'
+                    'message' => 'Hizmet Güncellenemedi'
                 );
             }
             $this->session->set_flashdata('alert', $alert);
-            redirect(base_url('reference'));
+            redirect(base_url('service'));
             die;
         } else{
             $viewData = new stdClass();
             /** Tablodan verilerin getirilmesi */
-            $item = $this->reference_model->get(
+            $item = $this->service_model->get(
                 array(
                     'id' => strip_tags(str_replace(' ', '', $id))
                 )
@@ -242,8 +242,8 @@ class Reference extends CI_Controller
         $where = array(
             'id' => strip_tags(str_replace(' ', '', $id))
         );
-        $item = $this->reference_model->get($where);
-        $delete = $this->reference_model->delete($where);
+        $item = $this->service_model->get($where);
+        $delete = $this->service_model->delete($where);
 
         if($delete){
             if(file_exists("uploads/".$this->viewFolder."/".$item->img_url)){
@@ -252,13 +252,13 @@ class Reference extends CI_Controller
             $alert = array(
                 'type' => 'success',
                 'title' => 'Başarılı',
-                'message' => 'Referans Başarıyla Silindi'
+                'message' => 'Hizmet Başarıyla Silindi'
             );
         } else{
             $alert = array(
                 'type' => 'error',
                 'title' => 'Hata!',
-                'message' => 'Referans Silinemedi'
+                'message' => 'Hizmet Silinemedi'
             );
         }
         echo json_encode($alert);
@@ -271,18 +271,18 @@ class Reference extends CI_Controller
             $status = $this->input->post('status');
             $where = array('id' => $id);
             $data = array('isActive' => $status);
-            $update = $this->reference_model->edit($where, $data);
+            $update = $this->service_model->edit($where, $data);
             if($update){
                 $alert = array(
                     'type' => 'success',
                     'title' => 'Başarılı',
-                    'message' => 'Referans Durumu Güncellendi'
+                    'message' => 'Hizmet Durumu Güncellendi'
                 );
             } else{
                 $alert = array(
                     'type' => 'error',
                     'title' => 'Hata!',
-                    'message' => 'Referans Durumu Güncellenemedi'
+                    'message' => 'Hizmet Durumu Güncellenemedi'
                 );
             }
             echo json_encode($alert);
@@ -300,9 +300,9 @@ class Reference extends CI_Controller
         foreach($items as $key => $value){
             $where = array('id' => $value);
             $sort_data = array('rank' => $key+1);
-            $get_item = $this->reference_model->get($where);
+            $get_item = $this->service_model->get($where);
             if($sort_data['rank'] != $get_item->rank){
-                $update = $this->reference_model->edit($where, $sort_data);
+                $update = $this->service_model->edit($where, $sort_data);
                 if($update){
                     $eklenen++;
                 } else{
@@ -314,13 +314,13 @@ class Reference extends CI_Controller
             $alert = array(
                 'type' => 'success',
                 'title' => 'Başarılı',
-                'message' => 'Referanslar Başarıyla Sıralandı'
+                'message' => 'Hizmetler Başarıyla Sıralandı'
             );
         } else{
             $alert = array(
                 'type' => 'error',
                 'title' => 'Hata!',
-                'message' => 'Referanslar Sıralanamadı'
+                'message' => 'Hizmetler Sıralanamadı'
             );
         }
         echo json_encode($alert);
