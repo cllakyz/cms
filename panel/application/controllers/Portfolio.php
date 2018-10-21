@@ -66,6 +66,9 @@ class Portfolio extends CI_Controller
 
         //kurallar
         $this->form_validation->set_rules('title', 'Başlık', 'required|trim');
+        $this->form_validation->set_rules('category_id', 'Kategori', 'required|trim');
+        $this->form_validation->set_rules('client', 'Müşteri', 'required|trim');
+        $this->form_validation->set_rules('finishedAt', 'Bitiş Tarihi', 'required|trim');
         //mesajlar
         $this->form_validation->set_message(
             array(
@@ -76,12 +79,17 @@ class Portfolio extends CI_Controller
 
         if($validate){
             $data = array(
-                'title'       => $this->input->post('title'),
-                'description' => $this->input->post('description'),
-                'url'         => sef($this->input->post('title')),
-                'rank'        => 0,
-                'isActive'    => 1,
-                'createdAt'   => $this->zaman,
+                'title'         => $this->input->post('title'),
+                'description'   => $this->input->post('description'),
+                'url'           => sef($this->input->post('title')),
+                'client'        => $this->input->post('client'),
+                'finishedAt'    => date('Y-m-d', strtotime($this->input->post('finishedAt'))),
+                'category_id'   => $this->input->post('category_id'),
+                'place'         => $this->input->post('place'),
+                'portfolio_url' => $this->input->post('portfolio_url'),
+                'rank'          => 0,
+                'isActive'      => 1,
+                'createdAt'     => $this->zaman,
             );
             $insert = $this->portfolio_model->add($data);
 
@@ -89,13 +97,13 @@ class Portfolio extends CI_Controller
                 $alert = array(
                     'type' => 'success',
                     'title' => 'Başarılı',
-                    'message' => 'Ürün Başarıyla Eklendi'
+                    'message' => 'Portfolyo Başarıyla Eklendi'
                 );
             } else{
                 $alert = array(
                     'type' => 'error',
                     'title' => 'Hata!',
-                    'message' => 'Ürün Eklenemedi'
+                    'message' => 'Portfolyo Eklenemedi'
                 );
             }
             $this->session->set_flashdata('alert', $alert);
@@ -104,6 +112,7 @@ class Portfolio extends CI_Controller
         } else{
             $viewData = new stdClass();
 
+            $viewData->categories = $this->portfolio_category_model->get_all(array('isActive' => 1));
             $viewData->viewFolder = $this->viewFolder;
             $viewData->subViewFolder = "add";
             $viewData->form_error = TRUE;

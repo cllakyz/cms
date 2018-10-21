@@ -51,7 +51,7 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Bitirme Tarihi</label>
-                                    <input type="hidden" name="finishedAt" class="form-control" data-plugin="datetimepicker" data-options="{ inline: true, format: 'DD/MM/YYYY HH:mm:ss' }" value="<?php echo isset($form_error) ? set_value("finishedAt") : NULL; ?>">
+                                    <input type="hidden" name="finishedAt" class="form-control" data-plugin="datetimepicker" data-options="{ inline: true, format: 'DD-MM-YYYY' }" value="<?php echo isset($form_error) ? set_value("finishedAt") : NULL; ?>">
                                 </div>
                             </div>
                             <div class="col-md-8">

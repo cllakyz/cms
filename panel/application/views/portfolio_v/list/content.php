@@ -37,7 +37,7 @@
                                 <td class="text-center"><?php echo $item->url; ?></td>
                                 <td class="text-center"><?php echo $item->category_id; ?></td>
                                 <td class="text-center"><?php echo $item->client; ?></td>
-                                <td class="text-center"><?php echo date('d/m/Y H:i:s', strtotime($item->finishedAt)); ?></td>
+                                <td class="text-center"><?php echo get_date($item->finishedAt); ?></td>
                                 <td class="text-center w100">
                                     <input type="checkbox" class="change-item-status" data-url="<?php echo base_url('portfolio/change_status/'.$item->id); ?>" data-switchery data-color="#10c469"<?php echo $item->isActive == 1 ? ' checked' : NULL; ?> />
                                 </td>
