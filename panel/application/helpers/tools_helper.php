@@ -140,3 +140,15 @@ function sendEmail($toEmail, $subject, $message){
 
     return $t->email->send();
 }
+
+function get_settings(){
+    $t = &get_instance();
+    if($t->session->userdata("settings")){
+        $settings = $t->session->userdata("settings");
+    } else{
+        $t->load->model('setting_model');
+        $settings = $t->setting_model->get();
+        $t->session->set_userdata('settings', $settings);
+    }
+    return $settings;
+}
