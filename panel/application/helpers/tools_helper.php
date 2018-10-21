@@ -148,6 +148,11 @@ function get_settings(){
     } else{
         $t->load->model('setting_model');
         $settings = $t->setting_model->get();
+        if(!$settings){
+            $settings = new stdClass();
+            $settings->company_name = 'CMS Default';
+            $settings->logo = 'default.png';
+        }
         $t->session->set_userdata('settings', $settings);
     }
     return $settings;

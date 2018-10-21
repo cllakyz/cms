@@ -146,6 +146,9 @@ class Setting extends CI_Controller
                     'title' => 'Başarılı',
                     'message' => 'Site Ayarı Başarıyla Eklendi'
                 );
+                //session update
+                $settings = $this->setting_model->get();
+                $this->session->set_userdata('settings', $settings);
             } else{
                 $alert = array(
                     'type' => 'error',
