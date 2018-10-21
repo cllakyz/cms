@@ -61,17 +61,6 @@ class Portfolio_Category extends CI_Controller
     {
         $this->load->library('form_validation');
         //kurallar
-        if($_FILES['img_url']['name'] == ''){
-            $alert = array(
-                'type' => 'info',
-                'title' => 'Hata!',
-                'message' => 'Lütfen Bir Görsel Seçiniz'
-            );
-            $this->session->set_flashdata('alert', $alert);
-            redirect(base_url('portfolio_category/new_form'));
-            die;
-        }
-
         $this->form_validation->set_rules('title', 'Başlık', 'required|trim');
         //mesajlar
         $this->form_validation->set_message(
@@ -83,34 +72,8 @@ class Portfolio_Category extends CI_Controller
 
         if($validate){
 
-            $ext = pathinfo($_FILES['img_url']['name'], PATHINFO_EXTENSION);
-            $file_name = sef(pathinfo($_FILES['img_url']['name'], PATHINFO_FILENAME)).'.'.$ext;
-
-            $config = array(
-                "allowed_types" => "jpg|jpeg|png|JPG|JPEG|PNG",
-                "upload_path"   => "uploads/".$this->viewFolder."/",
-                "file_name"     => $file_name,
-            );
-
-            $this->load->library("upload", $config);
-            $upload = $this->upload->do_upload("img_url");
-            if($upload){
-                $image_url = $this->upload->data("file_name");
-            } else{
-                $alert = array(
-                    'type' => 'error',
-                    'title' => 'Hata!',
-                    'message' => 'Dosya Formatı JPG,PNG veya JPEG Olmalıdır'
-                );
-                $this->session->set_flashdata('alert', $alert);
-                redirect(base_url('portfolio_category/new_form'));
-                die;
-            }
-
             $data = array(
                 'title'       => $this->input->post('title'),
-                'img_url'     => $image_url,
-                'rank'        => 0,
                 'isActive'    => 1,
                 'createdAt'   => $this->zaman,
             );
@@ -120,13 +83,13 @@ class Portfolio_Category extends CI_Controller
                 $alert = array(
                     'type' => 'success',
                     'title' => 'Başarılı',
-                    'message' => 'Marka Başarıyla Eklendi'
+                    'message' => 'Portfolyo Kategorisi Başarıyla Eklendi'
                 );
             } else{
                 $alert = array(
                     'type' => 'error',
                     'title' => 'Hata!',
-                    'message' => 'Marka Eklenemedi'
+                    'message' => 'Portfolyo Kategorisi Eklenemedi'
                 );
             }
             $this->session->set_flashdata('alert', $alert);
@@ -159,58 +122,23 @@ class Portfolio_Category extends CI_Controller
 
         if($validate){
 
-            if($_FILES['img_url']['name'] != ''){
-                $ext = pathinfo($_FILES['img_url']['name'], PATHINFO_EXTENSION);
-                $file_name = sef(pathinfo($_FILES['img_url']['name'], PATHINFO_FILENAME)).'.'.$ext;
-
-                $config = array(
-                    "allowed_types" => "jpg|jpeg|png|JPG|JPEG|PNG",
-                    "upload_path"   => "uploads/".$this->viewFolder."/",
-                    "file_name"     => $file_name,
-                );
-
-                $this->load->library("upload", $config);
-                $upload = $this->upload->do_upload("img_url");
-                if($upload){
-                    $image_url = $this->upload->data("file_name");
-                    $video_url = NULL;
-                } else{
-                    $alert = array(
-                        'type' => 'error',
-                        'title' => 'Hata!',
-                        'message' => 'Dosya Formatı JPG,PNG veya JPEG Olmalıdır'
-                    );
-                    $this->session->set_flashdata('alert', $alert);
-                    redirect(base_url('portfolio_category/edit_form/'.$id));
-                    die;
-                }
-            } else{
-                $image_url = $this->input->post("old_img_url");
-            }
-
             $data = array(
-                'title'       => $this->input->post('title'),
-                'img_url'     => $image_url,
+                'title'       => $this->input->post('title')
             );
             $where = array('id' => $id);
             $update = $this->portfolio_category_model->edit($where, $data);
 
             if($update){
-                if($_FILES['img_url']['name'] != ''){
-                    if(file_exists("uploads/".$this->viewFolder."/".$this->input->post("old_img_url"))){
-                        unlink("uploads/".$this->viewFolder."/".$this->input->post("old_img_url"));
-                    }
-                }
                 $alert = array(
                     'type' => 'success',
                     'title' => 'Başarılı',
-                    'message' => 'Marka Başarıyla Güncellendi'
+                    'message' => 'Portfolyo Kategorisi Başarıyla Güncellendi'
                 );
             } else{
                 $alert = array(
                     'type' => 'error',
                     'title' => 'Hata!',
-                    'message' => 'Marka Güncellenemedi'
+                    'message' => 'Portfolyo Kategorisi Güncellenemedi'
                 );
             }
             $this->session->set_flashdata('alert', $alert);
@@ -238,23 +166,19 @@ class Portfolio_Category extends CI_Controller
         $where = array(
             'id' => strip_tags(str_replace(' ', '', $id))
         );
-        $item = $this->portfolio_category_model->get($where);
         $delete = $this->portfolio_category_model->delete($where);
 
         if($delete){
-            if(file_exists("uploads/".$this->viewFolder."/".$item->img_url)){
-                unlink("uploads/".$this->viewFolder."/".$item->img_url);
-            }
             $alert = array(
                 'type' => 'success',
                 'title' => 'Başarılı',
-                'message' => 'Marka Başarıyla Silindi'
+                'message' => 'Portfolyo Kategorisi Başarıyla Silindi'
             );
         } else{
             $alert = array(
                 'type' => 'error',
                 'title' => 'Hata!',
-                'message' => 'Marka Silinemedi'
+                'message' => 'Portfolyo Kategorisi Silinemedi'
             );
         }
         echo json_encode($alert);
@@ -272,13 +196,13 @@ class Portfolio_Category extends CI_Controller
                 $alert = array(
                     'type' => 'success',
                     'title' => 'Başarılı',
-                    'message' => 'Marka Durumu Güncellendi'
+                    'message' => 'Portfolyo Kategorisi Durumu Güncellendi'
                 );
             } else{
                 $alert = array(
                     'type' => 'error',
                     'title' => 'Hata!',
-                    'message' => 'Marka Durumu Güncellenemedi'
+                    'message' => 'Portfolyo Kategorisi Durumu Güncellenemedi'
                 );
             }
             echo json_encode($alert);

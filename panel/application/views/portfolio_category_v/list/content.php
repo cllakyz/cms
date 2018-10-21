@@ -17,7 +17,6 @@
             } else{ ?>
                 <table class="table table-hover table-striped table-bordered content-table">
                     <thead>
-                    <th class="order"><i class="fa fa-reorder"></i></th>
                     <th class="w50 text-center">#ID</th>
                     <th>Başlık</th>
                     <th class="text-center">Durum</th>
@@ -27,7 +26,6 @@
                         <?php
                         foreach($items as $item){ ?>
                             <tr>
-                                <td class="order"><i class="fa fa-reorder"></i></td>
                                 <td class="w50 text-center"><?php echo $item->id; ?></td>
                                 <td><?php echo $item->title; ?></td>
                                 <td class="text-center w100">
