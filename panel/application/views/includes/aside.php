@@ -91,9 +91,21 @@
 
                 <li>
                     <a href="<?php echo base_url('service'); ?>">
-                        <i class="menu-icon fa fa-list"></i>
+                        <i class="menu-icon fa fa-cutlery"></i>
                         <span class="menu-text">Hizmetlerimiz</span>
                     </a>
+                </li>
+
+                <li class="has-submenu">
+                    <a href="javascript:void(0)" class="submenu-toggle">
+                        <i class="menu-icon fa fa-asterisk"></i>
+                        <span class="menu-text">Portfolyolar</span>
+                        <i class="menu-caret zmdi zmdi-hc-sm zmdi-chevron-right"></i>
+                    </a>
+                    <ul class="submenu">
+                        <li><a href="#"><span class="menu-text">Portfolyo Kategorileri</span></a></li>
+                        <li><a href="#"><span class="menu-text">Portfolyolarımız</span></a></li>
+                    </ul>
                 </li>
 
                 <li>
