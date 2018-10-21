@@ -103,7 +103,7 @@
                         <i class="menu-caret zmdi zmdi-hc-sm zmdi-chevron-right"></i>
                     </a>
                     <ul class="submenu">
-                        <li><a href="#"><span class="menu-text">Portfolyo Kategorileri</span></a></li>
+                        <li><a href="<?php echo base_url('portfolio_category'); ?>"><span class="menu-text">Portfolyo Kategorileri</span></a></li>
                         <li><a href="#"><span class="menu-text">Portfolyolarımız</span></a></li>
                     </ul>
                 </li>
