@@ -38,7 +38,14 @@ class Setting extends CI_Controller
         $viewData = new stdClass();
 
         $viewData->viewFolder = $this->viewFolder;
-        $viewData->subViewFolder = "add";
+        /** Tablodan verilerin getirilmesi */
+        $item = $this->setting_model->get();
+        if($item){
+            $viewData->subViewFolder = "edit";
+        } else{
+            $viewData->subViewFolder = "add";
+        }
+        $viewData->item = $item;
 
         $this->load->view($viewData->viewFolder.'/'.$viewData->subViewFolder.'/index', $viewData);
     }
