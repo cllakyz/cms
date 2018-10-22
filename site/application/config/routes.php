@@ -52,3 +52,5 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'blank';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
+
+$route['urun-listesi'] = 'home/product_list';
