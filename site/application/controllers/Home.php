@@ -24,4 +24,14 @@ class Home extends CI_Controller{
         $viewData->products = $this->product_model->get_all(array('isActive' => 1), "rank ASC");
         $this->load->view($viewData->viewFolder, $viewData);
     }
+
+    public function product_detail()
+    {
+        $viewData = new stdClass();
+        $viewData->viewFolder = "product_v";
+        $this->load->model('product_model');
+        $this->load->helper('text');
+        $viewData->products = $this->product_model->get_all(array('isActive' => 1), "rank ASC");
+        $this->load->view($viewData->viewFolder, $viewData);
+    }
 }
