@@ -8,94 +8,41 @@
                             <div class="slider-revolution-5-container">
                                 <div id="slider-banner-boxedwidth" class="slider-banner-boxedwidth rev_slider" data-version="5.0">
                                     <ul class="slides">
-                                        <li class="text-center" data-transition="slidehorizontal" data-slotamount="default" data-masterspeed="default" data-title="Project Image 1">
-                                            <img src="<?php echo base_url('assets'); ?>images/portfolio-item-banner-1.jpg" alt="slidebg1" data-bgposition="center top"  data-bgrepeat="no-repeat" data-bgfit="cover" class="rev-slidebg">
-                                            <div class="tp-caption dark-translucent-bg"
-                                                 data-x="center"
-                                                 data-y="center"
-                                                 data-start="0"
-                                                 data-transform_idle="o:1;"
-                                                 data-transform_in="o:0;s:600;e:Power2.easeInOut;"
-                                                 data-transform_out="o:0;s:600;"
-                                                 data-width="5000"
-                                                 data-height="450">
-                                            </div>
-                                            <div class="tp-caption large_white"
-                                                 data-x="center"
-                                                 data-y="110"
-                                                 data-start="1000"
-                                                 data-width="650"
-                                                 data-transform_idle="o:1;"
-                                                 data-transform_in="y:[100%];sX:1;sY:1;s:1150;e:Power4.easeInOut;"
-                                                 data-transform_out="y:[100%];s:1000;e:Power2.easeInOut;"
-                                                 data-mask_in="x:0px;y:[100%];s:inherit;e:inherit;"
-                                                 data-mask_out="x:inherit;y:inherit;s:inherit;e:inherit;">Project Image 1
-                                            </div>
-                                            <div class="tp-caption large_white tp-resizeme hidden-xs"
-                                                 data-x="center"
-                                                 data-y="155"
-                                                 data-start="1300"
-                                                 data-width="500"
-                                                 data-transform_idle="o:1;"
-                                                 data-transform_in="o:0;s:2000;e:Power4.easeInOut;">
-                                                <div class="separator light"></div>
-                                            </div>
-                                            <div class="tp-caption medium_white hidden-xs"
-                                                 data-x="center"
-                                                 data-y="190"
-                                                 data-start="1300"
-                                                 data-width="650"
-                                                 data-transform_idle="o:1;"
-                                                 data-transform_in="y:[100%];sX:1;sY:1;s:800;e:Power4.easeInOut;"
-                                                 data-transform_out="y:[100%];s:1000;e:Power2.easeInOut;"
-                                                 data-mask_in="x:0px;y:0px;s:inherit;e:inherit;"
-                                                 data-mask_out="x:inherit;y:inherit;s:inherit;e:inherit;">Lorem ipsum dolor sit amet, consectetur adipisicing elit. <br> Nesciunt, maiores, aliquid. Repellat eum numquam <br> culpa offici, tenetur fugiat dolorum sapiente...
-                                            </div>
-                                        </li>
-                                        <li class="text-center" data-transition="slidehorizontal" data-slotamount="default" data-masterspeed="default" data-title="Project Image 2">
-                                            <img src="<?php echo base_url('assets'); ?>images/portfolio-item-banner-2.jpg" alt="slidebg2" data-bgposition="center top"  data-bgrepeat="no-repeat" data-bgfit="cover" class="rev-slidebg">
-                                            <div class="tp-caption dark-translucent-bg"
-                                                 data-x="center"
-                                                 data-y="center"
-                                                 data-start="0"
-                                                 data-transform_idle="o:1;"
-                                                 data-transform_in="o:0;s:600;e:Power2.easeInOut;"
-                                                 data-transform_out="o:0;s:600;"
-                                                 data-width="5000"
-                                                 data-height="450">
-                                            </div>
-                                            <div class="tp-caption large_white"
-                                                 data-x="center"
-                                                 data-y="110"
-                                                 data-start="1000"
-                                                 data-width="650"
-                                                 data-transform_idle="o:1;"
-                                                 data-transform_in="y:[100%];sX:1;sY:1;s:1150;e:Power4.easeInOut;"
-                                                 data-transform_out="y:[100%];s:1000;e:Power2.easeInOut;"
-                                                 data-mask_in="x:0px;y:[100%];s:inherit;e:inherit;"
-                                                 data-mask_out="x:inherit;y:inherit;s:inherit;e:inherit;">Project Image 2
-                                            </div>
-                                            <div class="tp-caption large_white tp-resizeme hidden-xs"
-                                                 data-x="center"
-                                                 data-y="155"
-                                                 data-start="1300"
-                                                 data-width="500"
-                                                 data-transform_idle="o:1;"
-                                                 data-transform_in="o:0;s:2000;e:Power4.easeInOut;">
-                                                <div class="separator light"></div>
-                                            </div>
-                                            <div class="tp-caption medium_white hidden-xs"
-                                                 data-x="center"
-                                                 data-y="190"
-                                                 data-start="1300"
-                                                 data-width="650"
-                                                 data-transform_idle="o:1;"
-                                                 data-transform_in="y:[100%];sX:1;sY:1;s:800;e:Power4.easeInOut;"
-                                                 data-transform_out="y:[100%];s:1000;e:Power2.easeInOut;"
-                                                 data-mask_in="x:0px;y:0px;s:inherit;e:inherit;"
-                                                 data-mask_out="x:inherit;y:inherit;s:inherit;e:inherit;">Lorem ipsum dolor sit amet, consectetur adipisicing elit. <br> Nesciunt, maiores, aliquid. Repellat eum numquam <br> culpa offici, tenetur fugiat dolorum sapiente...
-                                            </div>
-                                        </li>
+                                        <?php
+                                        if(!empty($product_images)){
+                                            foreach ($product_images as $image){ ?>
+                                                <li class="text-center" data-transition="slidehorizontal" data-slotamount="default" data-masterspeed="default" data-title="<?php echo $product->title; ?>">
+                                                    <img src="<?php echo base_url('panel/uploads/product_v/'.$image->img_url); ?>" alt="<?php echo $product->title; ?>" data-bgposition="center top"  data-bgrepeat="no-repeat" data-bgfit="cover" class="rev-slidebg">
+                                                    <div class="tp-caption dark-translucent-bg"
+                                                         data-x="center"
+                                                         data-y="center"
+                                                         data-start="0"
+                                                         data-transform_idle="o:1;"
+                                                         data-transform_in="o:0;s:600;e:Power2.easeInOut;"
+                                                         data-transform_out="o:0;s:600;"
+                                                         data-width="5000"
+                                                         data-height="450">
+                                                    </div>
+                                                </li>
+                                            <?php
+                                            }
+                                        } else{ ?>
+                                            <li class="text-center" data-transition="slidehorizontal" data-slotamount="default" data-masterspeed="default" data-title="Project Image 1">
+                                                <img src="<?php echo base_url('assets'); ?>images/portfolio-item-banner-1.jpg" alt="slidebg1" data-bgposition="center top"  data-bgrepeat="no-repeat" data-bgfit="cover" class="rev-slidebg">
+                                                <div class="tp-caption dark-translucent-bg"
+                                                     data-x="center"
+                                                     data-y="center"
+                                                     data-start="0"
+                                                     data-transform_idle="o:1;"
+                                                     data-transform_in="o:0;s:600;e:Power2.easeInOut;"
+                                                     data-transform_out="o:0;s:600;"
+                                                     data-width="5000"
+                                                     data-height="450">
+                                                </div>
+                                            </li>
+                                        <?php
+                                        }
+                                        ?>
                                     </ul>
                                     <div class="tp-bannertimer"></div>
                                 </div>
@@ -119,8 +66,8 @@
                         <h3>Diğer <strong>Ürünler</strong></h3>
                         <div class="row grid-space-10">
                             <?php
-                            if(!empty($products)){
-                                foreach($products as $product){ ?>
+                            if(!empty($other_products)){
+                                foreach($other_products as $product){ ?>
                                     <div class="col-sm-4">
                                         <div class="image-box style-2 mb-20 bordered light-gray-bg">
                                             <div class="overlay-container overlay-visible">
