@@ -83,7 +83,7 @@
                                                     <li><a href="features-backgrounds.html">Dosya Galerileri</a></li>
                                                 </ul>
                                             </li>
-                                            <li><a href="index.html">Ürünler</a></li>
+                                            <li><a href="<?php echo base_url('urun-listesi'); ?>">Ürünler</a></li>
                                             <li><a href="index.html">Eğitimler</a></li>
                                             <li><a href="index.html">Markalar</a></li>
                                             <li><a href="index.html">İletişim</a></li>

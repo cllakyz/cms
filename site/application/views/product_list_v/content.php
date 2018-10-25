@@ -21,7 +21,7 @@
                             </div>
                             <div class="body">
                                 <p><?php echo character_limiter(strip_tags($product->description), 30); ?></p>
-                                <a href="<?php echo base_url('urun-detay'); ?>" class="btn btn-default btn-sm btn-hvr hvr-sweep-to-right margin-clear">Görüntüle<i class="fa fa-arrow-right pl-10"></i></a>
+                                <a href="<?php echo base_url('urun-detay/'.$product->url); ?>" class="btn btn-default btn-sm btn-hvr hvr-sweep-to-right margin-clear">Görüntüle<i class="fa fa-arrow-right pl-10"></i></a>
                             </div>
                         </div>
                     </div>
