@@ -54,7 +54,7 @@ class Home extends CI_Controller{
         $viewData->viewFolder = "portfolio_list_v";
         $this->load->model('portfolio_model');
         $this->load->helper('text');
-        $viewData->products = $this->portfolio_model->get_all(array('isActive' => 1), "rank ASC");
+        $viewData->portfolios = $this->portfolio_model->get_all(array('isActive' => 1), "rank ASC");
         $this->load->view($viewData->viewFolder, $viewData);
     }
 }

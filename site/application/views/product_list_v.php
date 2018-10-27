@@ -15,7 +15,7 @@
 <div class="page-wrapper">
     <?php $this->load->view("includes/header"); ?>
 
-    <?php $this->load->view("product_list_v/content"); ?>
+    <?php $this->load->view("$viewFolder/content"); ?>
 
     <?php $this->load->view("includes/footer"); ?>
 </div>
