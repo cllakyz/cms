@@ -20,3 +20,8 @@ function get_product_cover_image($prd_id){
 
     return !empty($cover_image) ? $cover_image->img_url : NULL;
 }
+
+//tarih fonksiyonu
+function get_date($date){
+    return strftime('%e %B %Y', strtotime($date));
+}

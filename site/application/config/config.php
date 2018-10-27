@@ -521,3 +521,8 @@ $config['rewrite_short_tags'] = FALSE;
 | Array:		array('10.0.1.200', '192.168.5.0/24')
 */
 $config['proxy_ips'] = '';
+
+date_default_timezone_set('Europe/Istanbul');
+$dil = 'tr_TR';
+putenv('LC_ALL=' . $dil);
+setlocale(LC_ALL, $dil);
