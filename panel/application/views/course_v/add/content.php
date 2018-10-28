@@ -24,7 +24,7 @@
 
                     <div class="form-group" style="position: relative;">
                         <label>Eğitim Tarihi</label>
-                        <input type="text" name="event_date" class="form-control" data-plugin="datetimepicker" data-options="{ format: 'DD/MM/YYYY HH:mm:ss' }" value="<?php echo isset($form_error) ? set_value("event_date") : NULL; ?>">
+                        <input type="text" name="event_date" class="form-control" data-plugin="datetimepicker" data-options="{ format: 'YYYY-MM-DD HH:mm:ss' }" value="<?php echo isset($form_error) ? set_value("event_date") : NULL; ?>">
                     </div>
 
                     <div class="form-group">

@@ -113,7 +113,7 @@ class Course extends CI_Controller
                 'description' => $this->input->post('description'),
                 'url'         => sef($this->input->post('title')),
                 'img_url'     => $image_url,
-                'event_date'  => date('Y-m-d H:i:s', strtotime($this->input->post('event_date'))),
+                'event_date'  => $this->input->post('event_date'),
                 'rank'        => 0,
                 'isActive'    => 1,
                 'createdAt'   => $this->zaman,
