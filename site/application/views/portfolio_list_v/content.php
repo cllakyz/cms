@@ -43,7 +43,7 @@
                                         </p>
                                         <div class="separator-2"></div>
                                         <p class="mb-10"><?php echo character_limiter(strip_tags($portfolio->description), 200); ?></p>
-                                        <a href="portfolio-item.html" class="btn btn-default btn-sm btn-hvr hvr-shutter-out-horizontal margin-clear">Görüntüle<i class="fa fa-arrow-right pl-10"></i></a>
+                                        <a href="<?php echo base_url('portfolyo-detay/'.$portfolio->url); ?>" class="btn btn-default btn-sm btn-hvr hvr-shutter-out-horizontal margin-clear">Görüntüle<i class="fa fa-arrow-right pl-10"></i></a>
                                     </div>
                                 </div>
                             </div>
