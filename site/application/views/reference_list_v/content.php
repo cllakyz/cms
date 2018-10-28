@@ -34,7 +34,7 @@
                                             <div class="separator-2"></div>
                                             <p class="margin-clear"><?php echo character_limiter(strip_tags($reference->description), 500); ?></p>
                                             <br>
-                                            <a href="#" class="btn btn-default btn-sm btn-hvr hvr-shutter-out-horizontal margin-clear">Görüntüle<i class="fa fa-arrow-right pl-10"></i></a>
+                                            <a href="<?php echo base_url('referans-detay/'.$reference->url); ?>" class="btn btn-default btn-sm btn-hvr hvr-shutter-out-horizontal margin-clear">Görüntüle<i class="fa fa-arrow-right pl-10"></i></a>
                                         </div>
                                     </div>
                                 <?php
@@ -46,7 +46,7 @@
                                             <div class="separator-2"></div>
                                             <p class="margin-clear"><?php echo character_limiter(strip_tags($reference->description), 500); ?></p>
                                             <br>
-                                            <a href="#" class="btn btn-default btn-sm btn-hvr hvr-shutter-out-horizontal margin-clear">Görüntüle<i class="fa fa-arrow-right pl-10"></i></a>
+                                            <a href="<?php echo base_url('referans-detay/'.$reference->url); ?>" class="btn btn-default btn-sm btn-hvr hvr-shutter-out-horizontal margin-clear">Görüntüle<i class="fa fa-arrow-right pl-10"></i></a>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -60,7 +60,6 @@
                                 <?php
                                 }
                                 ?>
-
                             </div>
                         </div>
                     <?php

@@ -112,4 +112,16 @@ class Home extends CI_Controller{
         $viewData->references = $this->reference_model->get_all(array('isActive' => 1), "rank ASC");
         $this->load->view($viewData->viewFolder, $viewData);
     }
+
+    public function reference_detail($url)
+    {
+        $viewData = new stdClass();
+        $viewData->viewFolder = "reference_v";
+        $this->load->model('reference_model');
+        $viewData->reference = $this->reference_model->get(
+            array('url' => $url, 'isActive' => 1)
+        );
+
+        $this->load->view($viewData->viewFolder, $viewData);
+    }
 }
