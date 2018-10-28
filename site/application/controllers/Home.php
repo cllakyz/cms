@@ -160,7 +160,7 @@ class Home extends CI_Controller{
         $viewData = new stdClass();
         $viewData->viewFolder = "about_v";
         $this->load->model('setting_model');
-        $viewData->settings = $this->setting_model->get();
+        $viewData->setting = $this->setting_model->get();
         $this->load->view($viewData->viewFolder, $viewData);
     }
 }
