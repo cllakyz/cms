@@ -21,7 +21,6 @@
                     <th class="w50 text-center">#ID</th>
                     <th>Başlık</th>
                     <th>URL</th>
-                    <th>Açıklama</th>
                     <th class="text-center">Durum</th>
                     <th class="text-center">İşlem</th>
                     </thead>
@@ -33,7 +32,6 @@
                                 <td class="w50 text-center"><?php echo $item->id; ?></td>
                                 <td><?php echo $item->title; ?></td>
                                 <td><?php echo $item->url; ?></td>
-                                <td><?php echo $item->description; ?></td>
                                 <td class="text-center w100">
                                     <input type="checkbox" class="change-item-status" data-url="<?php echo base_url('product/change_status/'.$item->id); ?>" data-switchery data-color="#10c469"<?php echo $item->isActive == 1 ? ' checked' : NULL; ?> />
                                 </td>

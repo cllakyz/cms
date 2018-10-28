@@ -21,7 +21,6 @@
                     <th class="w50 text-center">#ID</th>
                     <th>Başlık</th>
                     <th>URL</th>
-                    <th>Açıklama</th>
                     <th class="text-center">Görsel</th>
                     <th class="text-center">Durum</th>
                     <th class="text-center">İşlem</th>
@@ -34,7 +33,6 @@
                                 <td class="w50 text-center"><?php echo $item->id; ?></td>
                                 <td><?php echo $item->title; ?></td>
                                 <td><?php echo $item->url; ?></td>
-                                <td><?php echo $item->description; ?></td>
                                 <td class="text-center w100">
                                     <img width="75" src="<?php echo base_url("uploads/$viewFolder/$item->img_url"); ?>" alt="" class="img-rounded">
                                 </td>
