@@ -31,7 +31,7 @@
                                 </div>
                                 <div class="col-sm-6 col-md-8 col-lg-9">
                                     <div class="body">
-                                        <h3 class="title"><a href="portfolio-item.html"><?php echo $portfolio->title; ?></a></h3>
+                                        <h3 class="title"><a href="<?php echo base_url('portfolyo-detay/'.$portfolio->url); ?>"><?php echo $portfolio->title; ?></a></h3>
                                         <?php
                                         $category_title = get_portfolio_category_title($portfolio->category_id);
                                         ?>
@@ -42,7 +42,7 @@
                                             ?>
                                         </p>
                                         <div class="separator-2"></div>
-                                        <p class="mb-10"><?php echo character_limiter(strip_tags($portfolio->description), 200); ?></p>
+                                        <p class="mb-10"><?php echo character_limiter(strip_tags($portfolio->description), 400); ?></p>
                                         <a href="<?php echo base_url('portfolyo-detay/'.$portfolio->url); ?>" class="btn btn-default btn-sm btn-hvr hvr-shutter-out-horizontal margin-clear">Görüntüle<i class="fa fa-arrow-right pl-10"></i></a>
                                     </div>
                                 </div>
