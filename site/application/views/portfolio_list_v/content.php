@@ -19,19 +19,31 @@
                             <div class="row">
                                 <div class="col-sm-6 col-md-4 col-lg-3">
                                     <div class="overlay-container">
-                                        <img src="<?php echo base_url('assets/images'); ?>/portfolio-1.jpg" alt="">
+                                        <?php
+                                        $image = get_portfolio_cover_image($portfolio->id);
+                                        $img_path = $image ? base_url("panel/uploads/portfolio_v/$image") : base_url('assets/images/portfolio-1.jpg');
+                                        ?>
+                                        <img src="<?php echo $img_path; ?>" alt="<?php echo $portfolio->title; ?>">
                                         <div class="overlay-to-top">
-                                            <p class="small margin-clear"><em>Some info <br> Lorem ipsum dolor sit</em></p>
+                                            <p class="small margin-clear"><em><?php echo $portfolio->title; ?></em></p>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-sm-6 col-md-8 col-lg-9">
                                     <div class="body">
                                         <h3 class="title"><a href="portfolio-item.html"><?php echo $portfolio->title; ?></a></h3>
-                                        <p class="small mb-10"><i class="icon-calendar"></i> <?php echo get_date($portfolio->finishedAt); ?> <i class="pl-10 icon-tag-1"></i> Web Design</p>
+                                        <?php
+                                        $category_title = get_portfolio_category_title($portfolio->category_id);
+                                        ?>
+                                        <p class="small mb-10"><i class="icon-calendar"></i> <?php echo get_date($portfolio->finishedAt);
+                                            if($category_title){ ?>
+                                                <i class="pl-10 icon-tag-1"></i> <?php echo $category_title;
+                                            }
+                                            ?>
+                                        </p>
                                         <div class="separator-2"></div>
-                                        <p class="mb-10">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam atque ipsam nihialal. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam laudantium, provident culpa saepe.</p>
-                                        <a href="portfolio-item.html" class="btn btn-default btn-sm btn-hvr hvr-shutter-out-horizontal margin-clear">Read More<i class="fa fa-arrow-right pl-10"></i></a>
+                                        <p class="mb-10"><?php echo character_limiter(strip_tags($portfolio->description), 200); ?></p>
+                                        <a href="portfolio-item.html" class="btn btn-default btn-sm btn-hvr hvr-shutter-out-horizontal margin-clear">Görüntüle<i class="fa fa-arrow-right pl-10"></i></a>
                                     </div>
                                 </div>
                             </div>
