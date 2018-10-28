@@ -66,3 +66,5 @@ $route['referanslar']              = 'home/reference_list';
 $route['referans-detay/(:any)']    = 'home/reference_detail/$1';
 
 $route['markalar']                 = 'home/brand_list';
+
+$route['hizmetlerimiz']            = 'home/service_list';

@@ -133,4 +133,13 @@ class Home extends CI_Controller{
         $viewData->brands = $this->brand_model->get_all(array('isActive' => 1), "rank ASC");
         $this->load->view($viewData->viewFolder, $viewData);
     }
+
+    public function service_list()
+    {
+        $viewData = new stdClass();
+        $viewData->viewFolder = "service_list_v";
+        $this->load->model('service_model');
+        $viewData->services = $this->service_model->get_all(array('isActive' => 1), "rank ASC");
+        $this->load->view($viewData->viewFolder, $viewData);
+    }
 }
