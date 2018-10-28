@@ -142,4 +142,16 @@ class Home extends CI_Controller{
         $viewData->services = $this->service_model->get_all(array('isActive' => 1), "rank ASC");
         $this->load->view($viewData->viewFolder, $viewData);
     }
+
+    public function service_detail($url)
+    {
+        $viewData = new stdClass();
+        $viewData->viewFolder = "service_v";
+        $this->load->model('service_model');
+        $viewData->service = $this->service_model->get(
+            array('url' => $url, 'isActive' => 1)
+        );
+
+        $this->load->view($viewData->viewFolder, $viewData);
+    }
 }
