@@ -27,11 +27,11 @@
                                 </div>
                                 <div class="col-sm-6 col-md-8 col-lg-9">
                                     <div class="body">
-                                        <h3 class="title"><a href="<?php echo base_url('portfolyo-detay/'.$course->url); ?>"><?php echo $course->title; ?></a></h3>
+                                        <h3 class="title"><a href="<?php echo base_url('egitim-detay/'.$course->url); ?>"><?php echo $course->title; ?></a></h3>
                                         <p class="small mb-10"><i class="icon-calendar"></i> <?php echo get_date($course->event_date); ?></p>
                                         <div class="separator-2"></div>
                                         <p class="mb-10"><?php echo character_limiter(strip_tags($course->description), 400); ?></p>
-                                        <a href="<?php echo base_url('portfolyo-detay/'.$course->url); ?>" class="btn btn-default btn-sm btn-hvr hvr-shutter-out-horizontal margin-clear">Görüntüle<i class="fa fa-arrow-right pl-10"></i></a>
+                                        <a href="<?php echo base_url('egitim-detay/'.$course->url); ?>" class="btn btn-default btn-sm btn-hvr hvr-shutter-out-horizontal margin-clear">Görüntüle<i class="fa fa-arrow-right pl-10"></i></a>
                                     </div>
                                 </div>
                             </div>

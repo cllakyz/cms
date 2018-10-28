@@ -86,4 +86,21 @@ class Home extends CI_Controller{
         $viewData->courses = $this->course_model->get_all(array('isActive' => 1), "event_date ASC");
         $this->load->view($viewData->viewFolder, $viewData);
     }
+
+    public function course_detail($url)
+    {
+        $viewData = new stdClass();
+        $viewData->viewFolder = "course_v";
+        $this->load->model('course_model');
+        $viewData->course = $this->course_model->get(
+            array('url' => $url, 'isActive' => 1)
+        );
+
+        $viewData->other_courses = $this->course_model->get_all(
+            array('isActive' => 1, 'id !=' => $viewData->course->id),
+            "rand()",
+            array('start' => 0, 'count' => 3)
+        );
+        $this->load->view($viewData->viewFolder, $viewData);
+    }
 }
