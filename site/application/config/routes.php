@@ -61,3 +61,5 @@ $route['portfolyo-detay/(:any)']   = 'home/portfolio_detail/$1';
 
 $route['egitim-listesi']           = 'home/course_list';
 $route['egitim-detay/(:any)']      = 'home/course_detail/$1';
+
+$route['referanslar']              = 'home/reference_list';
