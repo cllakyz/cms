@@ -69,3 +69,5 @@ $route['markalar']                 = 'home/brand_list';
 
 $route['hizmetlerimiz']            = 'home/service_list';
 $route['hizmet-detay/(:any)']      = 'home/service_detail/$1';
+
+$route['hakkimizda']               = 'home/about_us';
