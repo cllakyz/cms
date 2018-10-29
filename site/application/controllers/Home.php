@@ -13,7 +13,7 @@ class Home extends CI_Controller{
 
     public function index()
     {
-
+        echo $this->viewFolder;
     }
 
     public function product_list()
