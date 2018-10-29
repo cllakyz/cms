@@ -1,3 +1,4 @@
+<?php $settings = get_settings(); ?>
 <!-- header-container start -->
 <div class="header-container">
 
@@ -19,13 +20,11 @@
 
                         <!-- logo -->
                         <div id="logo" class="logo">
-                            <a href="index.html"><img id="logo_img" src="<?php echo base_url("assets/images");?>/logo_purple.png" alt="The Project"></a>
+                            <a href="<?php echo base_url(); ?>"><img id="logo_img" src="<?php echo base_url("assets/images");?>/logo_purple.png" alt="The Project"></a>
                         </div>
 
                         <!-- name-and-slogan -->
-                        <div class="site-slogan">
-                            Multipurpose HTML5 Template
-                        </div>
+                        <div class="site-slogan"><?php echo $settings->slogan; ?></div>
 
                     </div>
                     <!-- header-first end -->
