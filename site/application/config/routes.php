@@ -71,3 +71,4 @@ $route['hizmetlerimiz']            = 'home/service_list';
 $route['hizmet-detay/(:any)']      = 'home/service_detail/$1';
 
 $route['hakkimizda']               = 'home/about_us';
+$route['iletisim']                 = 'home/contact';

@@ -86,7 +86,7 @@
                                             <li><a href="<?php echo base_url('urunler'); ?>">Ürünler</a></li>
                                             <li><a href="<?php echo base_url('egitimler'); ?>">Eğitimler</a></li>
                                             <li><a href="<?php echo base_url('markalar'); ?>">Markalar</a></li>
-                                            <li><a href="index.html">İletişim</a></li>
+                                            <li><a href="<?php echo base_url('iletisim'); ?>">İletişim</a></li>
                                         </ul>
                                         <!-- main-menu end -->
                                     </div>
