@@ -63,3 +63,32 @@ function get_settings(){
     }
     return $settings;
 }
+// send email
+function sendEmail($toEmail, $subject, $message){
+    $t = &get_instance();
+    $t->load->model('email_model');
+
+    $email_setting = $t->email_model->get(array('isActive' => 1));
+    if(empty($toEmail)){
+        $toEmail = $email_setting->to;
+    }
+    $config = array(
+        "protocol"      => $email_setting->protocol,
+        "smtp_host"     => $email_setting->host,
+        "smtp_port"     => $email_setting->port,
+        "smtp_user"     => $email_setting->user,
+        "smtp_pass"     => $email_setting->password,
+        "starttls"      => true,
+        "charset"       => "utf-8",
+        "mailtype"      => "html",
+        "wordwrap"      => true,
+        "newline"       => "\r\n"
+    );
+    $t->load->library('email', $config);
+    $t->email->from($email_setting->from, $email_setting->user_name);
+    $t->email->to($toEmail);
+    $t->email->subject($subject);
+    $t->email->message($message);
+
+    return $t->email->send();
+}

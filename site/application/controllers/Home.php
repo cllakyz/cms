@@ -205,7 +205,16 @@ class Home extends CI_Controller{
             redirect(base_url('iletisim'));
         } else{
             if($this->session->userdata('captcha') == $this->input->post('captcha')){
-
+                $name = $this->input->post('name');
+                $email = $this->input->post('email');
+                $subject = $this->input->post('subject');
+                $message = $this->input->post('message');
+                $email_message = "$name isimli ziyaretçi mesaj bıraktı. <br><b>Mesaj: </b> $message <br><b>E-Posta: </b>$email";
+                if(sendEmail(NULL, "Site İletişim Mesajı | $subject", $email_message)){
+                    echo 'başarılı';
+                } else{
+                    echo 'başarısız';
+                }
             } else{
                 //TODO Alert
             }
