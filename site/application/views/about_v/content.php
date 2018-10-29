@@ -1,12 +1,13 @@
+<?php $settings = get_settings(); ?>
 <!-- banner start -->
 <!-- ================ -->
 <div class="banner dark-translucent-bg" style="background-image:url('<?php echo base_url('assets/images'); ?>/page-about-banner-1.jpg'); background-position: 50% 27%;">
     <div class="container">
         <div class="row">
             <div class="col-md-8 text-center col-md-offset-2 pv-20">
-                <h3 class="title logo-font object-non-visible" data-animation-effect="fadeIn" data-effect-delay="100"><?php echo $setting->company_name; ?></h3>
+                <h3 class="title logo-font object-non-visible" data-animation-effect="fadeIn" data-effect-delay="100"><?php echo $settings->company_name; ?></h3>
                 <div class="separator object-non-visible mt-10" data-animation-effect="fadeIn" data-effect-delay="100"></div>
-                <p class="text-center object-non-visible" data-animation-effect="fadeIn" data-effect-delay="100"><?php echo character_limiter(strip_tags($setting->about_us), 200); ?></p>
+                <p class="text-center object-non-visible" data-animation-effect="fadeIn" data-effect-delay="100"><?php echo character_limiter(strip_tags($settings->about_us), 200); ?></p>
             </div>
         </div>
     </div>
@@ -27,7 +28,7 @@
                 <div class="separator-2"></div>
                 <div class="row">
                     <div class="col-md-12">
-                        <p><?php echo $setting->about_us; ?></p>
+                        <p><?php echo $settings->about_us; ?></p>
                     </div>
                 </div>
             </div>
@@ -57,7 +58,7 @@
                             </div>
                             <div id="collapseOne" class="panel-collapse collapse in">
                                 <div class="panel-body">
-                                    <?php echo strip_tags($setting->mission); ?>
+                                    <?php echo strip_tags($settings->mission); ?>
                                 </div>
                             </div>
                         </div>
@@ -71,7 +72,7 @@
                             </div>
                             <div id="collapseTwo" class="panel-collapse collapse">
                                 <div class="panel-body">
-                                    <?php echo strip_tags($setting->vision); ?>
+                                    <?php echo strip_tags($settings->vision); ?>
                                 </div>
                             </div>
                         </div>
