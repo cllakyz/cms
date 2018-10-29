@@ -66,7 +66,7 @@
                             Mesajınız gönderilirken bir sorun oluştu! Lütfen tekrar deneyiniz.
                         </div>
                         <div class="contact-form">
-                            <form id="contact-form" class="margin-clear" role="form">
+                            <form id="contact-formm" class="margin-clear" role="form" action="<?php echo base_url('mesaj-gonder'); ?>" method="post">
                                 <div class="form-group has-feedback">
                                     <label for="name">Ad Soyad*</label>
                                     <input type="text" class="form-control" id="name" name="name" placeholder="">
@@ -87,6 +87,17 @@
                                     <textarea class="form-control" rows="6" id="message" name="message" placeholder=""></textarea>
                                     <i class="fa fa-pencil form-control-feedback"></i>
                                 </div>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <?php echo $captcha['image']; ?>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="form-group has-feedback">
+                                            <input type="text" class="form-control" id="captcha" name="captcha" placeholder="Doğrulama kodu">
+                                        </div>
+                                    </div>
+                                </div>
+                                <input type="hidden" name="<?php echo $this->security->get_csrf_token_name(); ?>" value="<?php echo $this->security->get_csrf_hash(); ?>">
                                 <button type="submit" class="submit-button btn btn-default">Gönder</button>
                             </form>
                         </div>

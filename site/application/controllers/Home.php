@@ -186,7 +186,29 @@ class Home extends CI_Controller{
                 'grid'          => array(255,40,40),
             ),
         );
-        $captcha = create_captcha($config);
+        $viewData->captcha = create_captcha($config);
+        $this->session->set_userdata("captcha", $viewData->captcha['word']);
         $this->load->view($viewData->viewFolder, $viewData);
+    }
+
+    public function send_contact_message()
+    {
+        $this->load->library("form_validation");
+        $this->form_validation->set_rules("name", "Ad Soyad", "trim|required");
+        $this->form_validation->set_rules("email", "E-Posta", "trim|required|valid_email");
+        $this->form_validation->set_rules("subject", "Konu", "trim|required");
+        $this->form_validation->set_rules("message", "Mesaj", "trim|required");
+        $this->form_validation->set_rules("captcha", "Doğrulama Kodu", "trim|required");
+
+        if($this->form_validation->run() == FALSE){
+            //TODO Alert
+            redirect(base_url('iletisim'));
+        } else{
+            if($this->session->userdata('captcha') == $this->input->post('captcha')){
+
+            } else{
+                //TODO Alert
+            }
+        }
     }
 }
