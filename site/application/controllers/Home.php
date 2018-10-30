@@ -249,4 +249,13 @@ class Home extends CI_Controller{
         }
         redirect(base_url('iletisim'));
     }
+
+    public function news_list()
+    {
+        $viewData = new stdClass();
+        $viewData->viewFolder = "news_list_v";
+        $this->load->model('news_model');
+        $viewData->news_list = $this->news_model->get_all(array('isActive' => 1), "rank ASC");
+        $this->load->view($viewData->viewFolder, $viewData);
+    }
 }

@@ -71,6 +71,9 @@ $route['hizmetlerimiz']            = 'home/service_list';
 $route['hizmet-detay/(:any)']      = 'home/service_detail/$1';
 
 $route['hakkimizda']               = 'home/about_us';
+
 $route['iletisim']                 = 'home/contact';
 $route['mesaj-gonder']             = 'home/send_contact_message';
 $route['abone-ol']                 = 'home/make_me_remember';
+
+$route['haberler']                 = 'home/news_list';
