@@ -125,10 +125,11 @@
                             <h2 class="title">Yeni Haberlerimizden Haberdar Olmak İçin Abone Olun</h2>
                             <p>Kampanyalarımızdan, fırsatlarımızdan ve etkinliklerimizden haberdar olmak için abone olun.</p>
                             <div class="separator"></div>
-                            <form class="form-inline margin-clear">
+                            <form class="form-inline margin-clear" action="<?php echo base_url('abone-ol'); ?>" method="post">
                                 <div class="form-group has-feedback">
                                     <label class="sr-only" for="subscribe_email">E-Posta Adresiniz</label>
                                     <input type="email" class="form-control" id="subscribe_email" placeholder="E-Posta adresinizi giriniz" name="subscribe_email" required="">
+                                    <input type="hidden" name="<?php echo $this->security->get_csrf_token_name(); ?>" value="<?php echo $this->security->get_csrf_hash(); ?>">
                                     <i class="fa fa-envelope form-control-feedback"></i>
                                 </div>
                                 <button type="submit" class="btn btn-gray-transparent btn-animated margin-clear">Abone Ol <i class="fa fa-send"></i></button>

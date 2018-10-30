@@ -3,12 +3,14 @@
 class Home extends CI_Controller{
 
     public $viewFolder = "";
+    private $zaman = "";
 
     public function __construct()
     {
         parent::__construct();
         $this->viewFolder = "homepage";
         $this->load->helper('text');
+        $this->zaman = date('Y-m-d H:i:s');
     }
 
     public function index()
@@ -219,5 +221,32 @@ class Home extends CI_Controller{
                 //TODO Alert
             }
         }
+    }
+
+    public function make_me_remember()
+    {
+        $this->load->library("form_validation");
+        $this->form_validation->set_rules("subscribe_email", "E-Posta Adresi", "trim|required|valid_email");
+
+        if($this->form_validation->run() == FALSE){
+            //TODO Alert
+            redirect(base_url('iletisim'));
+        } else{
+            $this->load->model('member_model');
+            $add = $this->member_model->add(
+                array(
+                    'email'      => $this->input->post('subscribe_email'),
+                    'ip_address' => $this->input->ip_address(),
+                    'isActive'   => 1,
+                    'createdAt'  => $this->zaman,
+                )
+            );
+            if($add){
+                //TODO Alert
+            } else{
+                //TODO Alert
+            }
+        }
+        redirect(base_url('iletisim'));
     }
 }
