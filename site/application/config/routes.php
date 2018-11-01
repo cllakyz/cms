@@ -77,3 +77,4 @@ $route['mesaj-gonder']             = 'home/send_contact_message';
 $route['abone-ol']                 = 'home/make_me_remember';
 
 $route['haberler']                 = 'home/news_list';
+$route['haber/(:any)']             = 'home/news/$1';
