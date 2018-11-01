@@ -255,7 +255,7 @@ class Home extends CI_Controller{
         $viewData = new stdClass();
         $viewData->viewFolder = "news_list_v";
         $this->load->model('news_model');
-        $viewData->news_list = $this->news_model->get_all(array('isActive' => 1), "rank ASC");
+        $viewData->news_list = $this->news_model->get_all(array('isActive' => 1), "rank DESC");
         $this->load->view($viewData->viewFolder, $viewData);
     }
 
@@ -269,6 +269,7 @@ class Home extends CI_Controller{
         );
         if($news){
             $viewData->news = $news;
+            $viewData->recent_news_list = $this->news_model->get_all(array('isActive' => 1, 'id !=' => $news->id), "rank ASC");
         } else{
             //TODO Alert
         }

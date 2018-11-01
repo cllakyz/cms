@@ -18,35 +18,9 @@
             </div>
         </header>
         <div class="blogpost-content">
-            <div id="carousel-blog-post" class="carousel slide mb-20" data-ride="carousel">
-                <!-- Indicators -->
-                <ol class="carousel-indicators">
-                    <li data-target="#carousel-blog-post" data-slide-to="0" class="active"></li>
-                    <li data-target="#carousel-blog-post" data-slide-to="1"></li>
-                    <li data-target="#carousel-blog-post" data-slide-to="2"></li>
-                </ol>
-
-                <!-- Wrapper for slides -->
-                <div class="carousel-inner" role="listbox">
-                    <div class="item active">
-                        <div class="overlay-container">
-                            <img src="<?php echo base_url('assets/images'); ?>/blog-1.jpg" alt="">
-                            <a class="overlay-link popup-img" href="<?php echo base_url('assets/images'); ?>/blog-1.jpg"><i class="fa fa-search-plus"></i></a>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="overlay-container">
-                            <img src="<?php echo base_url('assets/images'); ?>/blog-3.jpg" alt="">
-                            <a class="overlay-link popup-img" href="<?php echo base_url('assets/images'); ?>/blog-3.jpg"><i class="fa fa-search-plus"></i></a>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="overlay-container">
-                            <img src="<?php echo base_url('assets/images'); ?>/blog-4.jpg" alt="">
-                            <a class="overlay-link popup-img" href="<?php echo base_url('assets/images'); ?>/blog-4.jpg"><i class="fa fa-search-plus"></i></a>
-                        </div>
-                    </div>
-                </div>
+            <div class="overlay-container mb-20">
+                <img src="<?php echo base_url('panel/uploads/news_v/'.$news->img_url); ?>" alt="<?php echo $news->url; ?>">
+                <a class="overlay-link popup-img" href="<?php echo base_url('panel/uploads/news_v/'.$news->img_url); ?>"><i class="fa fa-search-plus"></i></a>
             </div>
             <p><?php echo strip_tags($news->description); ?></p>
         </div>
