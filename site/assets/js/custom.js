@@ -42,6 +42,24 @@
 			}); // End Notify Plugin - The above code (from line 14) is used for demonstration purposes only
 
 		};
+
+		$(document).on('click', '.share-button', function (e) {
+			e.stopPropagation();
+			var window_size;
+			var url = $(this).attr('href');
+			var domain = url.split('/')[2];
+			if(domain == 'facebook.com'){
+                window_size = ",width=585, height=368";
+			} else if(domain == 'twitter.com'){
+                window_size = ",width=585, height=261";
+			} else if(domain == 'plus.google.com'){
+                window_size = ",width=517, height=511";
+			} else{
+				return false;
+			}
+			window.open(url, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes'+window_size);
+			return false;
+        });
 	}); // End document ready
 
 })(this.jQuery);
