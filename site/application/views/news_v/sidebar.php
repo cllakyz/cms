@@ -28,14 +28,12 @@
                                 </div>
                             <?php
                             } else{ ?>
-                                <div class="embed-responsive embed-responsive-16by9">
-                                    <iframe class="embed-responsive-item" src="<?php echo $recent_news->video_url; ?>"></iframe>
+                                <div>
+                                    <iframe src="<?php echo $recent_news->video_url; ?>" style="max-width: 100px; max-height: 50px;"></iframe>
                                 </div>
                             <?php
                             }
                             ?>
-
-
                         </div>
                         <div class="media-body">
                             <h6 class="media-heading"><a href="<?php echo base_url('haber/'.$recent_news->url); ?>"><?php echo character_limiter(strip_tags($recent_news->description),50); ?></a></h6>

@@ -18,10 +18,22 @@
             </div>
         </header>
         <div class="blogpost-content">
-            <div class="overlay-container mb-20">
-                <img src="<?php echo base_url('panel/uploads/news_v/'.$news->img_url); ?>" alt="<?php echo $news->url; ?>">
-                <a class="overlay-link popup-img" href="<?php echo base_url('panel/uploads/news_v/'.$news->img_url); ?>"><i class="fa fa-search-plus"></i></a>
-            </div>
+            <?php
+            if($news->news_type == 1){ ?>
+                <div class="overlay-container mb-20">
+                    <img src="<?php echo base_url('panel/uploads/news_v/'.$news->img_url); ?>" alt="<?php echo $news->url; ?>">
+                    <a class="overlay-link popup-img" href="<?php echo base_url('panel/uploads/news_v/'.$news->img_url); ?>"><i class="fa fa-search-plus"></i></a>
+                </div>
+                <?php
+            } else{ ?>
+                <div>
+                    <div class="embed-responsive embed-responsive-16by9 mb-20">
+                        <iframe class="embed-responsive-item" src="<?php echo $news->video_url; ?>"></iframe>
+                    </div>
+                </div>
+                <?php
+            }
+            ?>
             <p><?php echo strip_tags($news->description); ?></p>
         </div>
         <footer class="clearfix">
