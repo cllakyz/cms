@@ -268,6 +268,7 @@ class Home extends CI_Controller{
             array('url' => $url, 'isActive' => 1)
         );
         if($news){
+            $this->news_model->edit(array('id' => $news->id), array('viewCount' => ++$news->viewCount));
             $viewData->news = $news;
             $viewData->recent_news_list = $this->news_model->get_all(array('isActive' => 1, 'id !=' => $news->id), "rank ASC");
         } else{
