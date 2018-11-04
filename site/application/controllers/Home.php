@@ -271,6 +271,7 @@ class Home extends CI_Controller{
             $this->news_model->edit(array('id' => $news->id), array('viewCount' => ++$news->viewCount));
             $viewData->news = $news;
             $viewData->recent_news_list = $this->news_model->get_all(array('isActive' => 1, 'id !=' => $news->id), "rank ASC");
+            $viewData->opengraph = TRUE;
         } else{
             //TODO Alert
         }
