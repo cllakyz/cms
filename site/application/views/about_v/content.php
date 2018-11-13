@@ -44,19 +44,19 @@
             <h3>Neden <strong>Bizi Seçmelisiniz</strong></h3>
             <div class="separator-2"></div>
             <div class="row">
-                <!-- accordion start -->
-                <!-- ================ -->
                 <div class="col-md-12">
-                    <div class="panel-group collapse-style-1" id="accordion">
+                    <!-- accordion start -->
+                    <!-- ================ -->
+                    <div class="panel-group collapse-style-2" id="accordion-2">
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h4 class="panel-title">
-                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-                                        <i class="fa fa-rocket pr-10"></i>Misyon
+                                    <a data-toggle="collapse" data-parent="#accordion-2" href="#collapseOne-2">
+                                        <i class="fa fa-check pr-10"></i>Misyon
                                     </a>
                                 </h4>
                             </div>
-                            <div id="collapseOne" class="panel-collapse collapse in">
+                            <div id="collapseOne-2" class="panel-collapse collapse in">
                                 <div class="panel-body">
                                     <?php echo strip_tags($settings->mission); ?>
                                 </div>
@@ -65,20 +65,20 @@
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h4 class="panel-title">
-                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" class="collapsed">
-                                        <i class="fa fa-leaf pr-10"></i>Vizyon
+                                    <a data-toggle="collapse" data-parent="#accordion-2" href="#collapseTwo-2" class="collapsed">
+                                        <i class="fa fa-check pr-10"></i>Vizyon
                                     </a>
                                 </h4>
                             </div>
-                            <div id="collapseTwo" class="panel-collapse collapse">
+                            <div id="collapseTwo-2" class="panel-collapse collapse">
                                 <div class="panel-body">
                                     <?php echo strip_tags($settings->vision); ?>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <!-- accordion end -->
                 </div>
-                <!-- accordion end -->
             </div>
             <!-- clients start -->
             <!-- ================ -->
