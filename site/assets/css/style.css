@@ -7900,11 +7900,11 @@ h6.media-heading {
 
 /* Google maps
 ---------------------------------- */
-#map-canvas {
+#map-canvas, #map-canvas-contact {
   height: 450px;
 }
 
-#map-canvas.small {
+#map-canvas.small, #map-canvas-contact.small {
   height: 347px;
 }
 
@@ -7924,7 +7924,7 @@ h6.media-heading {
   height: 300px;
 }
 
-#map-canvas img {
+#map-canvas, #map-canvas-contact img {
   max-width: inherit;
 }
 

@@ -103,7 +103,7 @@
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <div id="map-canvas"></div>
+                        <div id="map-canvas-contact"></div>
                     </div>
                 </div>
             </div>
