@@ -9,9 +9,9 @@
                 <div class="separator"></div>
                 <p class="lead text-center">Bize ulaşabilmek için aşağıdaki kanallardan herhangi birini kullanabilirsiniz.</p>
                 <ul class="list-inline mb-20 text-center">
-                    <li><i class="text-default fa fa-map-marker pr-5"></i><?php echo strip_tags($settings->address); ?></li>
-                    <li><a href="tel:+00 1234567890" class="link-dark"><i class="text-default fa fa-phone pl-10 pr-5"></i><?php echo $settings->phone_1; ?></a></li>
-                    <li><a href="mailto:<?php echo $settings->email; ?>" class="link-dark"><i class="text-default fa fa-envelope-o pl-10 pr-5"></i><?php echo $settings->email; ?></a></li>
+                    <li><i class="text-default fa fa-map-marker"></i> <?php echo strip_tags($settings->address); ?></li>
+                    <li><a href="tel:+00 1234567890" class="link-dark"><i class="text-default fa fa-phone"></i> <?php echo $settings->phone_1; ?></a></li>
+                    <li><a href="mailto:<?php echo $settings->email; ?>" class="link-dark"><i class="text-default fa fa-envelope-o"></i> <?php echo $settings->email; ?></a></li>
                 </ul>
                 <div class="separator"></div>
                 <?php
