@@ -26,7 +26,7 @@
                         </div>
                     </div>
                 </section>
-                <section class="section light-gray-bg pv-40 clearfix">
+                <section class="section pv-40 clearfix">
                     <div class="container">
                         <h3>Diğer <strong>Eğitimlerimiz</strong></h3>
                         <div class="row grid-space-10">

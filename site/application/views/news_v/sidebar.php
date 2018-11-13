@@ -46,7 +46,7 @@
                 ?>
 
                 <div class="text-right space-top">
-                    <a href="blog-large-image-right-sidebar.html" class="link-dark"><i class="fa fa-plus-circle pl-5 pr-5"></i>Daha Fazla</a>
+                    <a href="<?php echo base_url('haberler'); ?>" class="link-dark"><i class="fa fa-plus-circle pl-5 pr-5"></i>Daha Fazla</a>
                 </div>
             </div>
         <?php

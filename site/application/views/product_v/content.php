@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <div class="pv-40 banner light-gray-bg">
+                <div class="pv-40 banner">
                     <div class="container clearfix">
                         <div class="slideshow">
                             <div class="slider-revolution-5-container">
@@ -61,7 +61,7 @@
                         </div>
                     </div>
                 </section>
-                <section class="section light-gray-bg pv-40 clearfix">
+                <section class="section pv-40 clearfix">
                     <div class="container">
                         <h3>Diğer <strong>Ürünler</strong></h3>
                         <div class="row grid-space-10">
