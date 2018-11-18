@@ -291,19 +291,13 @@ class Portfolio extends CI_Controller
         $ext = pathinfo($_FILES['file']['name'], PATHINFO_EXTENSION);
         $file_name = sef(pathinfo($_FILES['file']['name'], PATHINFO_FILENAME)).'.'.$ext;
 
-        $config = array(
-            "allowed_types" => "jpg|jpeg|png|JPG|JPEG|PNG",
-            "upload_path"   => "uploads/".$this->viewFolder."/",
-            "file_name"     => $file_name,
-        );
+        $image_255x157 = upload_media($_FILES['file']['tmp_name'], "uploads/".$this->viewFolder."/", 255, 157,$file_name);
+        $image_1080x426 = upload_media($_FILES['file']['tmp_name'], "uploads/".$this->viewFolder."/", 1080, 426,$file_name);
 
-        $this->load->library("upload", $config);
-        $upload = $this->upload->do_upload("file");
-        if($upload){
-            $file = $this->upload->data("file_name");
+        if($image_255x157 && $image_1080x426){
             $data = array(
                 'portfolio_id'  => $id,
-                'img_url'     => $file,
+                'img_url'     => $file_name,
                 'rank'        => 0,
                 'isActive'    => 1,
                 'isCover'     => 0,
