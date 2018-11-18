@@ -23,7 +23,7 @@ if(empty($item_images)){ ?>
                 <td class="order"><i class="fa fa-reorder"></i></td>
                 <td class="w50 text-center">#<?php echo $image->id; ?></td>
                 <td class="w100">
-                    <img width="30" src="<?php echo base_url('uploads/'.$viewFolder.'/'.$image->img_url); ?>" alt="<?php echo $image->img_url; ?>" class="img-responsive">
+                    <img width="30" src="<?php echo get_media($viewFolder, $image->img_url, "348x215"); ?>" alt="<?php echo $image->img_url; ?>" class="img-responsive">
                 </td>
                 <td><?php echo $image->img_url; ?></td>
                 <td class="w100 text-center">
