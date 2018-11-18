@@ -4,7 +4,7 @@
 <meta name="description" content="Admin, Dashboard, Bootstrap" />
 <?php $settings = get_settings(); ?>
 <!--<link rel="shortcut icon" sizes="196x196" href="<?php /*echo base_url('assets'); */?>/assets/images/logo.png">-->
-<link rel="shortcut icon" sizes="196x196" href="<?php echo base_url("uploads/setting_v/$settings->logo"); ?>">
+<link rel="shortcut icon" sizes="196x196" href="<?php echo get_media("setting_v", $settings->logo, "150x35"); ?>">
 <title><?php echo $settings->company_name; ?></title>
 
 <?php $this->load->view('includes/include_style'); ?>

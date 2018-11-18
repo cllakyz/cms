@@ -76,7 +76,7 @@
                 </li>
 
                 <li>
-                    <a href="javascript:void(0)">
+                    <a href="<?php echo base_url("slide"); ?>">
                         <i class="menu-icon zmdi zmdi-layers zmdi-hc-lg"></i>
                         <span class="menu-text">Slider</span>
                     </a>
