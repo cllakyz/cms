@@ -99,17 +99,9 @@ class Setting extends CI_Controller
             $ext = pathinfo($_FILES['logo']['name'], PATHINFO_EXTENSION);
             $file_name = sef($this->input->post('company_name')).'.'.$ext;
 
-            $config = array(
-                "allowed_types" => "jpg|jpeg|png|JPG|JPEG|PNG",
-                "upload_path"   => "uploads/".$this->viewFolder."/",
-                "file_name"     => $file_name,
-            );
+            $image_150x35 = upload_media($_FILES['logo']['tmp_name'], "uploads/".$this->viewFolder."/", 150, 35,$file_name);
 
-            $this->load->library("upload", $config);
-            $upload = $this->upload->do_upload("logo");
-            if($upload){
-                $logo = $this->upload->data("file_name");
-            } else{
+            if(!$image_150x35){
                 $alert = array(
                     'type' => 'error',
                     'title' => 'Hata!',
@@ -135,7 +127,7 @@ class Setting extends CI_Controller
                 'twitter'       => $this->input->post('twitter'),
                 'instagram'     => $this->input->post('instagram'),
                 'linkedin'      => $this->input->post('linkedin'),
-                'logo'          => $logo,
+                'logo'          => $file_name,
                 'createdAt'     => $this->zaman,
             );
             $insert = $this->setting_model->add($data);
@@ -192,18 +184,9 @@ class Setting extends CI_Controller
                 $ext = pathinfo($_FILES['logo']['name'], PATHINFO_EXTENSION);
                 $file_name = sef($this->input->post('company_name')).'.'.$ext;
 
-                $config = array(
-                    "allowed_types" => "jpg|jpeg|png|JPG|JPEG|PNG",
-                    "upload_path"   => "uploads/".$this->viewFolder."/",
-                    "file_name"     => $file_name,
-                );
+                $image_150x35 = upload_media($_FILES['logo']['tmp_name'], "uploads/".$this->viewFolder."/", 150, 35,$file_name);
 
-                $this->load->library("upload", $config);
-                $upload = $this->upload->do_upload("logo");
-                if($upload){
-                    $logo = $this->upload->data("file_name");
-                    $video_url = NULL;
-                } else{
+                if(!$image_150x35){
                     $alert = array(
                         'type' => 'error',
                         'title' => 'Hata!',
@@ -214,7 +197,7 @@ class Setting extends CI_Controller
                     die;
                 }
             } else{
-                $logo = $this->input->post("old_logo");
+                $file_name = $this->input->post("old_logo");
             }
 
             $data = array(
@@ -232,7 +215,7 @@ class Setting extends CI_Controller
                 'twitter'       => $this->input->post('twitter'),
                 'instagram'     => $this->input->post('instagram'),
                 'linkedin'      => $this->input->post('linkedin'),
-                'logo'          => $logo,
+                'logo'          => $file_name,
                 'updatedAt'     => $this->zaman,
             );
             $where = array('id' => $id);
