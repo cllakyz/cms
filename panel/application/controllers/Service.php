@@ -88,13 +88,8 @@ class Service extends CI_Controller
 
             $image_555x343 = upload_media($_FILES['img_url']['tmp_name'], "uploads/".$this->viewFolder."/", 555, 343,$file_name);
             $image_350x217 = upload_media($_FILES['img_url']['tmp_name'], "uploads/".$this->viewFolder."/", 350, 217,$file_name);
-            die;
 
-            $this->load->library("upload", $config);
-            $upload = $this->upload->do_upload("img_url");
-            if($upload){
-                $image_url = $this->upload->data("file_name");
-            } else{
+            if(!$image_555x343 || !$image_350x217){
                 $alert = array(
                     'type' => 'error',
                     'title' => 'Hata!',
@@ -109,7 +104,7 @@ class Service extends CI_Controller
                 'title'       => $this->input->post('title'),
                 'description' => $this->input->post('description'),
                 'url'         => sef($this->input->post('title')),
-                'img_url'     => $image_url,
+                'img_url'     => $file_name,
                 'rank'        => 0,
                 'isActive'    => 1,
                 'createdAt'   => $this->zaman,

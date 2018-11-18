@@ -173,6 +173,9 @@ function get_category_title($category_id){
 function upload_media($file, $path, $width, $height, $name){
     $t = &get_instance();
     $t->load->library('simpleimagelib');
+    if(!is_dir($path."/".$width."x".$height)){
+        mkdir($path."/".$width."x".$height);
+    }
     $upload_error = FALSE;
     try {
         $simpleImage = $t->simpleimagelib->SimpleImageInit();
@@ -180,7 +183,7 @@ function upload_media($file, $path, $width, $height, $name){
         $simpleImage
             ->fromFile($file)
             ->thumbnail($width, $height,'center')
-            ->toFile("$path/$name", 'image/png');
+            ->toFile($path."/".$width."x".$height."/$name", 'image/png');
 
     } catch(Exception $err) {
         $upload_error = TRUE;
@@ -190,4 +193,18 @@ function upload_media($file, $path, $width, $height, $name){
     }else{
         return TRUE;
     }
+}
+
+function get_media($path="", $img_name="", $resolution="50x50"){
+    if($img_name != ''){
+        if(file_exists(FCPATH."uploads/$path/$resolution/$img_name")){
+            $img_path = base_url("uploads/$path/$resolution/$img_name");
+        } else{
+            $img_path = base_url("assets/assets/images/default_image.png");
+        }
+    } else{
+        $img_path = base_url("assets/assets/images/default_image.png");
+    }
+
+    return $img_path;
 }
