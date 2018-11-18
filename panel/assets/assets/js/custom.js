@@ -69,32 +69,35 @@ $(document).ready(function () {
     });
 
     /* dropzone */
-    var uploadSection = Dropzone.forElement("#prd-img-dropzone");
+    if($('#prd-img-dropzone').length > 0){
+        var uploadSection = Dropzone.forElement("#prd-img-dropzone");
 
-    uploadSection.on('complete', function (data, response) {
-        var url = $('#prd-img-dropzone').attr('data-url');
-        $.post(url, {}, function (data) {
-            $('.image_list_container').html(data);
-            $('.sortable').sortable();
-            $('[data-switchery]').each(function(){
-                var $this = $(this),
-                    color = $this.attr('data-color') || '#188ae2',
-                    jackColor = $this.attr('data-jackColor') || '#ffffff',
-                    size = $this.attr('data-size') || 'default'
+        uploadSection.on('complete', function (data, response) {
+            var url = $('#prd-img-dropzone').attr('data-url');
+            $.post(url, {}, function (data) {
+                $('.image_list_container').html(data);
+                $('.sortable').sortable();
+                $('[data-switchery]').each(function(){
+                    var $this = $(this),
+                        color = $this.attr('data-color') || '#188ae2',
+                        jackColor = $this.attr('data-jackColor') || '#ffffff',
+                        size = $this.attr('data-size') || 'default'
 
-                new Switchery(this, {
-                    color: color,
-                    size: size,
-                    jackColor: jackColor
+                    new Switchery(this, {
+                        color: color,
+                        size: size,
+                        jackColor: jackColor
+                    });
                 });
             });
         });
-    });
 
-    uploadSection.on('success', function (file, response) {
-        var alert = $.parseJSON(response);
-        notify(alert.type, alert.title, alert.message);
-    });
+        uploadSection.on('success', function (file, response) {
+            var alert = $.parseJSON(response);
+            notify(alert.type, alert.title, alert.message);
+        });
+    }
+
 
     /* ürün kapak fotoğrafı değiştirme */
     $(document).on('change', '.change-product-cover', function () {
@@ -170,5 +173,9 @@ $(document).ready(function () {
                 }
             });
         }
+    });
+
+    $(document).on('change', '.btn_usage', function () {
+        $('.button-information-container').slideToggle();
     });
 });
