@@ -169,3 +169,25 @@ function get_category_title($category_id){
     }
     return $title;
 }
+
+function upload_media($file, $path, $width, $height, $name){
+    $t = &get_instance();
+    $t->load->library('simpleimagelib');
+    $upload_error = FALSE;
+    try {
+        $simpleImage = $t->simpleimagelib->SimpleImageInit();
+
+        $simpleImage
+            ->fromFile($file)
+            ->thumbnail($width, $height,'center')
+            ->toFile("$path/$name", 'image/png');
+
+    } catch(Exception $err) {
+        $upload_error = TRUE;
+    }
+    if($upload_error){
+        return FALSE;
+    }else{
+        return TRUE;
+    }
+}

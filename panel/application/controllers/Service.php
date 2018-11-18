@@ -86,11 +86,9 @@ class Service extends CI_Controller
             $ext = pathinfo($_FILES['img_url']['name'], PATHINFO_EXTENSION);
             $file_name = sef(pathinfo($_FILES['img_url']['name'], PATHINFO_FILENAME)).'.'.$ext;
 
-            $config = array(
-                "allowed_types" => "jpg|jpeg|png|JPG|JPEG|PNG",
-                "upload_path"   => "uploads/".$this->viewFolder."/",
-                "file_name"     => $file_name,
-            );
+            $image_555x343 = upload_media($_FILES['img_url']['tmp_name'], "uploads/".$this->viewFolder."/", 555, 343,$file_name);
+            $image_350x217 = upload_media($_FILES['img_url']['tmp_name'], "uploads/".$this->viewFolder."/", 350, 217,$file_name);
+            die;
 
             $this->load->library("upload", $config);
             $upload = $this->upload->do_upload("img_url");
