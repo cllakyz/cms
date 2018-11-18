@@ -86,17 +86,9 @@ class Brand extends CI_Controller
             $ext = pathinfo($_FILES['img_url']['name'], PATHINFO_EXTENSION);
             $file_name = sef(pathinfo($_FILES['img_url']['name'], PATHINFO_FILENAME)).'.'.$ext;
 
-            $config = array(
-                "allowed_types" => "jpg|jpeg|png|JPG|JPEG|PNG",
-                "upload_path"   => "uploads/".$this->viewFolder."/",
-                "file_name"     => $file_name,
-            );
+            $image_350x216 = upload_media($_FILES['img_url']['tmp_name'], "uploads/".$this->viewFolder."/", 350, 216,$file_name);
 
-            $this->load->library("upload", $config);
-            $upload = $this->upload->do_upload("img_url");
-            if($upload){
-                $image_url = $this->upload->data("file_name");
-            } else{
+            if(!$image_350x216){
                 $alert = array(
                     'type' => 'error',
                     'title' => 'Hata!',
@@ -109,7 +101,7 @@ class Brand extends CI_Controller
 
             $data = array(
                 'title'       => $this->input->post('title'),
-                'img_url'     => $image_url,
+                'img_url'     => $file_name,
                 'rank'        => 0,
                 'isActive'    => 1,
                 'createdAt'   => $this->zaman,
@@ -163,18 +155,9 @@ class Brand extends CI_Controller
                 $ext = pathinfo($_FILES['img_url']['name'], PATHINFO_EXTENSION);
                 $file_name = sef(pathinfo($_FILES['img_url']['name'], PATHINFO_FILENAME)).'.'.$ext;
 
-                $config = array(
-                    "allowed_types" => "jpg|jpeg|png|JPG|JPEG|PNG",
-                    "upload_path"   => "uploads/".$this->viewFolder."/",
-                    "file_name"     => $file_name,
-                );
+                $image_350x216 = upload_media($_FILES['img_url']['tmp_name'], "uploads/".$this->viewFolder."/", 350, 216,$file_name);
 
-                $this->load->library("upload", $config);
-                $upload = $this->upload->do_upload("img_url");
-                if($upload){
-                    $image_url = $this->upload->data("file_name");
-                    $video_url = NULL;
-                } else{
+                if(!$image_350x216){
                     $alert = array(
                         'type' => 'error',
                         'title' => 'Hata!',
@@ -185,12 +168,12 @@ class Brand extends CI_Controller
                     die;
                 }
             } else{
-                $image_url = $this->input->post("old_img_url");
+                $file_name = $this->input->post("old_img_url");
             }
 
             $data = array(
                 'title'       => $this->input->post('title'),
-                'img_url'     => $image_url,
+                'img_url'     => $file_name,
             );
             $where = array('id' => $id);
             $update = $this->brand_model->edit($where, $data);
