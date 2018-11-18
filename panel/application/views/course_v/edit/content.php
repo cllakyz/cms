@@ -29,7 +29,7 @@
                     
                     <div class="row">
                         <div class="form-group col-md-1">
-                            <img src="<?php echo base_url('uploads/'.$viewFolder.'/'.$item->img_url); ?>" alt="<?php echo $item->img_url; ?>" class="img-responsive">
+                            <img src="<?php echo get_media($viewFolder, $item->img_url, "255x157"); ?>" alt="<?php echo $item->img_url; ?>" class="img-responsive">
                         </div>
                         <div class="form-group col-md-11">
                             <label>Görsel Seçiniz</label>
