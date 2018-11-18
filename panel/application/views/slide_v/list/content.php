@@ -20,7 +20,7 @@
                     <th class="order"><i class="fa fa-reorder"></i></th>
                     <th class="w50 text-center">#ID</th>
                     <th>Başlık</th>
-                    <th>URL</th>
+                    <th>Açıklama</th>
                     <th class="text-center">Görsel</th>
                     <th class="text-center">Durum</th>
                     <th class="text-center">İşlem</th>
@@ -32,10 +32,10 @@
                                 <td class="order"><i class="fa fa-reorder"></i></td>
                                 <td class="w50 text-center"><?php echo $item->id; ?></td>
                                 <td><?php echo $item->title; ?></td>
-                                <td><?php echo $item->url; ?></td>
+                                <td><?php echo character_limiter(strip_tags($item->description),100); ?></td>
                                 <td class="text-center w100">
                                     <!--<img width="75" src="<?php /*echo base_url("uploads/$viewFolder/$item->img_url"); */?>" alt="" class="img-rounded">-->
-                                    <img width="75" src="<?php echo get_media($viewFolder, $item->img_url, "350x217"); ?>" alt="" class="img-rounded">
+                                    <img width="75" src="<?php echo get_media($viewFolder, $item->img_url, "1920x650"); ?>" alt="" class="img-rounded">
                                 </td>
                                 <td class="text-center w100">
                                     <input type="checkbox" class="change-item-status" data-url="<?php echo base_url('slide/change_status/'.$item->id); ?>" data-switchery data-color="#10c469"<?php echo $item->isActive == 1 ? ' checked' : NULL; ?> />

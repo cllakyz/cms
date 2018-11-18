@@ -73,6 +73,10 @@ class Slide extends CI_Controller
         }
 
         $this->form_validation->set_rules('title', 'Başlık', 'required|trim');
+        if($this->input->post("allowBtn") != ''){
+            $this->form_validation->set_rules('button_caption', 'Buton Başlık', 'required|trim');
+            $this->form_validation->set_rules('button_url', 'Buton URL', 'required|trim');
+        }
         //mesajlar
         $this->form_validation->set_message(
             array(
@@ -86,10 +90,9 @@ class Slide extends CI_Controller
             $ext = pathinfo($_FILES['img_url']['name'], PATHINFO_EXTENSION);
             $file_name = sef(pathinfo($_FILES['img_url']['name'], PATHINFO_FILENAME)).'.'.$ext;
 
-            $image_555x343 = upload_media($_FILES['img_url']['tmp_name'], "uploads/".$this->viewFolder."/", 555, 343,$file_name);
-            $image_350x217 = upload_media($_FILES['img_url']['tmp_name'], "uploads/".$this->viewFolder."/", 350, 217,$file_name);
+            $image_1920x650 = upload_media($_FILES['img_url']['tmp_name'], "uploads/".$this->viewFolder."/", 1920, 650,$file_name);
 
-            if(!$image_555x343 || !$image_350x217){
+            if(!$image_1920x650){
                 $alert = array(
                     'type' => 'error',
                     'title' => 'Hata!',
@@ -100,14 +103,26 @@ class Slide extends CI_Controller
                 die;
             }
 
+            if($this->input->post("allowBtn") != ''){
+                $allow_btn = 1;
+                $button_caption = $this->input->post('button_caption');
+                $button_url = $this->input->post('button_url');
+            } else{
+                $allow_btn = 0;
+                $button_caption = NULL;
+                $button_url = NULL;
+            }
+
             $data = array(
-                'title'       => $this->input->post('title'),
-                'description' => $this->input->post('description'),
-                'url'         => sef($this->input->post('title')),
-                'img_url'     => $file_name,
-                'rank'        => 0,
-                'isActive'    => 1,
-                'createdAt'   => $this->zaman,
+                'title'             => $this->input->post('title'),
+                'description'       => $this->input->post('description'),
+                'img_url'           => $file_name,
+                'allowButton'       => $allow_btn,
+                'button_caption'    => $button_caption,
+                'button_url'        => $button_url,
+                'rank'              => 0,
+                'isActive'          => 1,
+                'createdAt'         => $this->zaman,
             );
             $insert = $this->slide_model->add($data);
 
