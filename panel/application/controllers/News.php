@@ -93,18 +93,10 @@ class News extends CI_Controller
                 $ext = pathinfo($_FILES['img_url']['name'], PATHINFO_EXTENSION);
                 $file_name = sef(pathinfo($_FILES['img_url']['name'], PATHINFO_FILENAME)).'.'.$ext;
 
-                $config = array(
-                    "allowed_types" => "jpg|jpeg|png|JPG|JPEG|PNG",
-                    "upload_path"   => "uploads/".$this->viewFolder."/",
-                    "file_name"     => $file_name,
-                );
+                $image_513x289 = upload_media($_FILES['img_url']['tmp_name'], "uploads/".$this->viewFolder."/", 513, 289,$file_name);
+                $image_730x411 = upload_media($_FILES['img_url']['tmp_name'], "uploads/".$this->viewFolder."/", 730, 411,$file_name);
 
-                $this->load->library("upload", $config);
-                $upload = $this->upload->do_upload("img_url");
-                if($upload){
-                    $image_url = $this->upload->data("file_name");
-                    $video_url = NULL;
-                } else{
+                if(!$image_513x289 || !$image_730x411){
                     $alert = array(
                         'type' => 'error',
                         'title' => 'Hata!',
@@ -113,12 +105,14 @@ class News extends CI_Controller
                     $this->session->set_flashdata('alert', $alert);
                     redirect(base_url('news/new_form'));
                     die;
+                } else{
+                    $video_url = NULL;
                 }
             } elseif($news_type == 2){
-                $image_url = NULL;
+                $file_name = NULL;
                 $video_url = $this->input->post('video_url');
             } else{
-                $image_url = NULL;
+                $file_name = NULL;
                 $video_url = NULL;
                 $alert = array(
                     'type' => 'info',
@@ -135,7 +129,7 @@ class News extends CI_Controller
                 'description' => $this->input->post('description'),
                 'url'         => sef($this->input->post('title')),
                 'news_type'   => $news_type,
-                'img_url'     => $image_url,
+                'img_url'     => $file_name,
                 'video_url'   => $video_url,
                 'rank'        => 0,
                 'isActive'    => 1,
@@ -197,18 +191,10 @@ class News extends CI_Controller
                     $ext = pathinfo($_FILES['img_url']['name'], PATHINFO_EXTENSION);
                     $file_name = sef(pathinfo($_FILES['img_url']['name'], PATHINFO_FILENAME)).'.'.$ext;
 
-                    $config = array(
-                        "allowed_types" => "jpg|jpeg|png|JPG|JPEG|PNG",
-                        "upload_path"   => "uploads/".$this->viewFolder."/",
-                        "file_name"     => $file_name,
-                    );
+                    $image_513x289 = upload_media($_FILES['img_url']['tmp_name'], "uploads/".$this->viewFolder."/", 513, 289,$file_name);
+                    $image_730x411 = upload_media($_FILES['img_url']['tmp_name'], "uploads/".$this->viewFolder."/", 730, 411,$file_name);
 
-                    $this->load->library("upload", $config);
-                    $upload = $this->upload->do_upload("img_url");
-                    if($upload){
-                        $image_url = $this->upload->data("file_name");
-                        $video_url = NULL;
-                    } else{
+                    if(!$image_513x289 || !$image_730x411){
                         $alert = array(
                             'type' => 'error',
                             'title' => 'Hata!',
@@ -217,16 +203,18 @@ class News extends CI_Controller
                         $this->session->set_flashdata('alert', $alert);
                         redirect(base_url('news/edit_form/'.$id));
                         die;
+                    } else{
+                        $video_url = NULL;
                     }
                 } else{
                     $video_url = NULL;
-                    $image_url = $this->input->post("old_img_url");
+                    $file_name = $this->input->post("old_img_url");
                 }
             } elseif($news_type == 2){
-                $image_url = NULL;
+                $file_name = NULL;
                 $video_url = $this->input->post('video_url');
             } else{
-                $image_url = NULL;
+                $file_name = NULL;
                 $video_url = NULL;
                 $alert = array(
                     'type' => 'info',
@@ -243,7 +231,7 @@ class News extends CI_Controller
                 'description' => $this->input->post('description'),
                 'url'         => sef($this->input->post('title')),
                 'news_type'   => $news_type,
-                'img_url'     => $image_url,
+                'img_url'     => $file_name,
                 'video_url'   => $video_url,
             );
             $where = array('id' => $id);

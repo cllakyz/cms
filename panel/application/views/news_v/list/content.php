@@ -40,7 +40,7 @@
                                 <td class="text-center w100">
                                     <?php
                                     if($item->news_type == 1){ ?>
-                                        <img width="75" src="<?php echo base_url("uploads/$viewFolder/$item->img_url"); ?>" alt="" class="img-rounded">
+                                        <img width="75" src="<?php echo get_media($viewFolder, $item->img_url, "513x289"); ?>" alt="" class="img-rounded">
                                     <?php
                                     } elseif($item->news_type == 2){ ?>
                                         <iframe width="75" src="<?php echo $item->video_url; ?>" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
