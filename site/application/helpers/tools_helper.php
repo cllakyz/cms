@@ -92,3 +92,17 @@ function sendEmail($toEmail, $subject, $message){
 
     return $t->email->send();
 }
+// görsel
+function get_media($path="", $img_name="", $resolution="50x50"){
+    if($img_name != ''){
+        if(file_exists(FCPATH."panel/uploads/$path/$resolution/$img_name")){
+            $img_path = base_url("panel/uploads/$path/$resolution/$img_name");
+        } else{
+            $img_path = base_url("assets/assets/images/default_image.png");
+        }
+    } else{
+        $img_path = base_url("assets/assets/images/default_image.png");
+    }
+
+    return $img_path;
+}
