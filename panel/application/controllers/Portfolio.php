@@ -447,8 +447,11 @@ class Portfolio extends CI_Controller
         $delete = $this->portfolio_image_model->delete($where);
 
         if($delete){
-            if(file_exists("uploads/".$this->viewFolder."/".$img_info->img_url)){
-                unlink("uploads/".$this->viewFolder."/".$img_info->img_url);
+            $dirs = array_diff(scandir("uploads/".$this->viewFolder), array('..', '.'));
+            foreach($dirs as $dir){
+                if(file_exists("uploads/$this->viewFolder/$dir/".$img_info->img_url)){
+                    unlink("uploads/$this->viewFolder/$dir/".$img_info->img_url);
+                }
             }
             $alert = array(
                 'type' => 'success',

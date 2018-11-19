@@ -183,7 +183,7 @@ function upload_media($file, $path, $width, $height, $name){
         $simpleImage
             ->fromFile($file)
             ->thumbnail($width, $height,'center')
-            ->toFile($path."/".$width."x".$height."/$name", 'image/png', 80);
+            ->toFile($path."/".$width."x".$height."/$name", NULL, 75);
 
     } catch(Exception $err) {
         $upload_error = TRUE;

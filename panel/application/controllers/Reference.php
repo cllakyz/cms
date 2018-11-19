@@ -188,8 +188,11 @@ class Reference extends CI_Controller
 
             if($update){
                 if($_FILES['img_url']['name'] != ''){
-                    if(file_exists("uploads/".$this->viewFolder."/".$this->input->post("old_img_url"))){
-                        unlink("uploads/".$this->viewFolder."/".$this->input->post("old_img_url"));
+                    $dirs = array_diff(scandir("uploads/".$this->viewFolder), array('..', '.'));
+                    foreach($dirs as $dir){
+                        if(file_exists("uploads/$this->viewFolder/$dir/".$this->input->post("old_img_url"))){
+                            unlink("uploads/$this->viewFolder/$dir/".$this->input->post("old_img_url"));
+                        }
                     }
                 }
                 $alert = array(
@@ -233,8 +236,11 @@ class Reference extends CI_Controller
         $delete = $this->reference_model->delete($where);
 
         if($delete){
-            if(file_exists("uploads/".$this->viewFolder."/".$item->img_url)){
-                unlink("uploads/".$this->viewFolder."/".$item->img_url);
+            $dirs = array_diff(scandir("uploads/".$this->viewFolder), array('..', '.'));
+            foreach($dirs as $dir){
+                if(file_exists("uploads/$this->viewFolder/$dir/".$item->img_url)){
+                    unlink("uploads/$this->viewFolder/$dir/".$item->img_url);
+                }
             }
             $alert = array(
                 'type' => 'success',

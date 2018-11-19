@@ -130,13 +130,13 @@ class Slide extends CI_Controller
                 $alert = array(
                     'type' => 'success',
                     'title' => 'Başarılı',
-                    'message' => 'Hizmet Başarıyla Eklendi'
+                    'message' => 'Slayt Başarıyla Eklendi'
                 );
             } else{
                 $alert = array(
                     'type' => 'error',
                     'title' => 'Hata!',
-                    'message' => 'Hizmet Eklenemedi'
+                    'message' => 'Slayt Eklenemedi'
                 );
             }
             $this->session->set_flashdata('alert', $alert);
@@ -159,6 +159,10 @@ class Slide extends CI_Controller
         //kurallar
 
         $this->form_validation->set_rules('title', 'Başlık', 'required|trim');
+        if($this->input->post("allowBtn") != ''){
+            $this->form_validation->set_rules('button_caption', 'Buton Başlık', 'required|trim');
+            $this->form_validation->set_rules('button_url', 'Buton URL', 'required|trim');
+        }
         //mesajlar
         $this->form_validation->set_message(
             array(
@@ -173,49 +177,62 @@ class Slide extends CI_Controller
                 $ext = pathinfo($_FILES['img_url']['name'], PATHINFO_EXTENSION);
                 $file_name = sef(pathinfo($_FILES['img_url']['name'], PATHINFO_FILENAME)).'.'.$ext;
 
+                $image_1920x650 = upload_media($_FILES['img_url']['tmp_name'], "uploads/".$this->viewFolder."/", 1920, 650,$file_name);
 
-                $image_555x343 = upload_media($_FILES['img_url']['tmp_name'], "uploads/".$this->viewFolder."/", 555, 343,$file_name);
-                $image_350x217 = upload_media($_FILES['img_url']['tmp_name'], "uploads/".$this->viewFolder."/", 350, 217,$file_name);
-
-                if(!$image_555x343 || !$image_350x217){
+                if(!$image_1920x650){
                     $alert = array(
                         'type' => 'error',
                         'title' => 'Hata!',
                         'message' => 'Dosya Formatı JPG,PNG veya JPEG Olmalıdır'
                     );
                     $this->session->set_flashdata('alert', $alert);
-                    redirect(base_url('slide/edit_form/'.$id));
+                    redirect(base_url('slide/new_form'));
                     die;
                 }
             } else{
                 $file_name = $this->input->post("old_img_url");
             }
 
+            if($this->input->post("allowBtn") != ''){
+                $allow_btn = 1;
+                $button_caption = $this->input->post('button_caption');
+                $button_url = $this->input->post('button_url');
+            } else{
+                $allow_btn = 0;
+                $button_caption = NULL;
+                $button_url = NULL;
+            }
+
             $data = array(
-                'title'       => $this->input->post('title'),
-                'description' => $this->input->post('description'),
-                'url'         => sef($this->input->post('title')),
-                'img_url'     => $file_name,
+                'title'             => $this->input->post('title'),
+                'description'       => $this->input->post('description'),
+                'img_url'           => $file_name,
+                'allowButton'       => $allow_btn,
+                'button_caption'    => $button_caption,
+                'button_url'        => $button_url,
             );
             $where = array('id' => $id);
             $update = $this->slide_model->edit($where, $data);
 
             if($update){
                 if($_FILES['img_url']['name'] != ''){
-                    if(file_exists("uploads/".$this->viewFolder."/".$this->input->post("old_img_url"))){
-                        unlink("uploads/".$this->viewFolder."/".$this->input->post("old_img_url"));
+                    $dirs = array_diff(scandir("uploads/".$this->viewFolder), array('..', '.'));
+                    foreach($dirs as $dir){
+                        if(file_exists("uploads/$this->viewFolder/$dir/".$this->input->post("old_img_url"))){
+                            unlink("uploads/$this->viewFolder/$dir/".$this->input->post("old_img_url"));
+                        }
                     }
                 }
                 $alert = array(
                     'type' => 'success',
                     'title' => 'Başarılı',
-                    'message' => 'Hizmet Başarıyla Güncellendi'
+                    'message' => 'Slayt Başarıyla Güncellendi'
                 );
             } else{
                 $alert = array(
                     'type' => 'error',
                     'title' => 'Hata!',
-                    'message' => 'Hizmet Güncellenemedi'
+                    'message' => 'Slayt Güncellenemedi'
                 );
             }
             $this->session->set_flashdata('alert', $alert);
@@ -247,19 +264,22 @@ class Slide extends CI_Controller
         $delete = $this->slide_model->delete($where);
 
         if($delete){
-            if(file_exists("uploads/".$this->viewFolder."/".$item->img_url)){
-                unlink("uploads/".$this->viewFolder."/".$item->img_url);
+            $dirs = array_diff(scandir("uploads/".$this->viewFolder), array('..', '.'));
+            foreach($dirs as $dir){
+                if(file_exists("uploads/$this->viewFolder/$dir/".$item->img_url)){
+                    unlink("uploads/$this->viewFolder/$dir/".$item->img_url);
+                }
             }
             $alert = array(
                 'type' => 'success',
                 'title' => 'Başarılı',
-                'message' => 'Hizmet Başarıyla Silindi'
+                'message' => 'Slayt Başarıyla Silindi'
             );
         } else{
             $alert = array(
                 'type' => 'error',
                 'title' => 'Hata!',
-                'message' => 'Hizmet Silinemedi'
+                'message' => 'Slayt Silinemedi'
             );
         }
         echo json_encode($alert);
@@ -277,13 +297,13 @@ class Slide extends CI_Controller
                 $alert = array(
                     'type' => 'success',
                     'title' => 'Başarılı',
-                    'message' => 'Hizmet Durumu Güncellendi'
+                    'message' => 'Slayt Durumu Güncellendi'
                 );
             } else{
                 $alert = array(
                     'type' => 'error',
                     'title' => 'Hata!',
-                    'message' => 'Hizmet Durumu Güncellenemedi'
+                    'message' => 'Slayt Durumu Güncellenemedi'
                 );
             }
             echo json_encode($alert);
@@ -315,13 +335,13 @@ class Slide extends CI_Controller
             $alert = array(
                 'type' => 'success',
                 'title' => 'Başarılı',
-                'message' => 'Hizmetler Başarıyla Sıralandı'
+                'message' => 'Slaytlar Başarıyla Sıralandı'
             );
         } else{
             $alert = array(
                 'type' => 'error',
                 'title' => 'Hata!',
-                'message' => 'Hizmetler Sıralanamadı'
+                'message' => 'Slaytlar Sıralanamadı'
             );
         }
         echo json_encode($alert);

@@ -223,8 +223,11 @@ class Setting extends CI_Controller
 
             if($update){
                 if($_FILES['logo']['name'] != ''){
-                    if(file_exists("uploads/".$this->viewFolder."/".$this->input->post("old_logo"))){
-                        unlink("uploads/".$this->viewFolder."/".$this->input->post("old_logo"));
+                    $dirs = array_diff(scandir("uploads/".$this->viewFolder), array('..', '.'));
+                    foreach($dirs as $dir){
+                        if(file_exists("uploads/$this->viewFolder/$dir/".$this->input->post("old_logo"))){
+                            unlink("uploads/$this->viewFolder/$dir/".$this->input->post("old_logo"));
+                        }
                     }
                 }
                 $alert = array(
