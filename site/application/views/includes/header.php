@@ -137,9 +137,9 @@
                                             <li class="dropdown">
                                                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">Galeriler</a>
                                                 <ul class="dropdown-menu">
-                                                    <li ><a href="<?php echo base_url(); ?>">Resim Galerisi</a></li>
-                                                    <li ><a href="<?php echo base_url(); ?>">Video Galerisi</a></li>
-                                                    <li ><a href="<?php echo base_url(); ?>">Dosya Galerisi</a></li>
+                                                    <li ><a href="<?php echo base_url('fotograf-galerisi'); ?>">Resim Galerisi</a></li>
+                                                    <li ><a href="<?php echo base_url('video-galerisi'); ?>">Video Galerisi</a></li>
+                                                    <li ><a href="<?php echo base_url('dosya-galerisi'); ?>">Dosya Galerisi</a></li>
                                                 </ul>
                                             </li>
                                             <li class="nav-item"><a class="nav-link" href="<?php echo base_url('urunler'); ?>">Ürünler</a></li>

@@ -288,4 +288,40 @@ class Home extends CI_Controller{
         $popup_id = $this->input->post("id");
         set_cookie($popup_id, "true", 60*60*24*365);
     }
+
+    public function image_gallery_list()
+    {
+        $viewData = new stdClass();
+        $viewData->viewFolder       = "gallery_v";
+        $viewData->subViewFolder    = "image_gallery";
+        $viewData->viewName         = "list_content";
+        /*$this->load->model('service_model');
+        $viewData->services = $this->service_model->get_all(array('isActive' => 1), "rank ASC");*/
+        $this->load->view($viewData->viewFolder, $viewData);
+    }
+
+    public function image_gallery()
+    {
+
+    }
+
+    public function video_gallery_list()
+    {
+
+    }
+
+    public function video_gallery()
+    {
+
+    }
+
+    public function file_gallery_list()
+    {
+
+    }
+
+    public function file_gallery()
+    {
+
+    }
 }
