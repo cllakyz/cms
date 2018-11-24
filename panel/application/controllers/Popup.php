@@ -173,26 +173,19 @@ class Popup extends CI_Controller
         $where = array(
             'id' => strip_tags(str_replace(' ', '', $id))
         );
-        $item = $this->popup_model->get($where);
         $delete = $this->popup_model->delete($where);
 
         if($delete){
-            $dirs = array_diff(scandir("uploads/".$this->viewFolder), array('..', '.'));
-            foreach($dirs as $dir){
-                if(file_exists("uploads/$this->viewFolder/$dir/".$item->img_url)){
-                    unlink("uploads/$this->viewFolder/$dir/".$item->img_url);
-                }
-            }
             $alert = array(
                 'type' => 'success',
                 'title' => 'Başarılı',
-                'message' => 'Marka Başarıyla Silindi'
+                'message' => 'Popup Başarıyla Silindi'
             );
         } else{
             $alert = array(
                 'type' => 'error',
                 'title' => 'Hata!',
-                'message' => 'Marka Silinemedi'
+                'message' => 'Popup Silinemedi'
             );
         }
         echo json_encode($alert);
@@ -210,13 +203,13 @@ class Popup extends CI_Controller
                 $alert = array(
                     'type' => 'success',
                     'title' => 'Başarılı',
-                    'message' => 'Marka Durumu Güncellendi'
+                    'message' => 'Popup Durumu Güncellendi'
                 );
             } else{
                 $alert = array(
                     'type' => 'error',
                     'title' => 'Hata!',
-                    'message' => 'Marka Durumu Güncellenemedi'
+                    'message' => 'Popup Durumu Güncellenemedi'
                 );
             }
             echo json_encode($alert);

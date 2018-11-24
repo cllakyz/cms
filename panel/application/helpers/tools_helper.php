@@ -209,8 +209,8 @@ function get_media($path="", $img_name="", $resolution="50x50"){
     return $img_path;
 }
 
-function getPageList(){
-    return array(
+function getPageList($page=NULL){
+    $page_list = array(
         "homepage"  => "Anasayfa",
         "about_us"  => "Hakkımızda Sayfası",
         "news"      => "Haberler Sayfası",
@@ -222,4 +222,6 @@ function getPageList(){
         "contact"   => "İletişim Sayfası",
         "gallery"   => "Galeri Sayfası",
     );
+
+    return is_null($page) ? $page_list : $page_list[$page];
 }

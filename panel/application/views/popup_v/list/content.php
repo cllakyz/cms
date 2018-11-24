@@ -20,6 +20,7 @@
                     <th class="order"><i class="fa fa-reorder"></i></th>
                     <th class="w50 text-center">#ID</th>
                     <th>Başlık</th>
+                    <th>Hedef Sayfa</th>
                     <th class="text-center">Durum</th>
                     <th class="text-center">İşlem</th>
                     </thead>
@@ -30,6 +31,7 @@
                                 <td class="order"><i class="fa fa-reorder"></i></td>
                                 <td class="w50 text-center"><?php echo $item->id; ?></td>
                                 <td><?php echo $item->title; ?></td>
+                                <td><?php echo getPageList($item->page); ?></td>
                                 <td class="text-center w100">
                                     <input type="checkbox" class="change-item-status" data-url="<?php echo base_url('popup/change_status/'.$item->id); ?>" data-switchery data-color="#10c469"<?php echo $item->isActive == 1 ? ' checked' : NULL; ?> />
                                 </td>
