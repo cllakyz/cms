@@ -211,16 +211,17 @@ function get_media($path="", $img_name="", $resolution="50x50"){
 
 function getPageList($page=NULL){
     $page_list = array(
-        "homepage"  => "Anasayfa",
-        "about_us"  => "Hakkımızda Sayfası",
-        "news"      => "Haberler Sayfası",
-        "portfolio" => "Portfolyo Sayfası",
-        "reference" => "Referanslar Sayfası",
-        "service"   => "Hizmetler Sayfası",
-        "course"    => "Eğitimler Sayfası",
-        "brand"     => "Markalar Sayfası",
-        "contact"   => "İletişim Sayfası",
-        "gallery"   => "Galeri Sayfası",
+        "home_v"            => "Anasayfa",
+        "about_v"           => "Hakkımızda Sayfası",
+        "news_list_v"       => "Haberler Sayfası",
+        "product_list_v"    => "Ürünler Sayfası",
+        "portfolio_list_v"  => "Portfolyo Sayfası",
+        "reference_list_v"  => "Referanslar Sayfası",
+        "service_list_v"    => "Hizmetler Sayfası",
+        "course_list_v"     => "Eğitimler Sayfası",
+        "brand_list_v"      => "Markalar Sayfası",
+        "contact_v"         => "İletişim Sayfası",
+        "gallery_list_v"    => "Galeri Sayfası",
     );
 
     return is_null($page) ? $page_list : $page_list[$page];

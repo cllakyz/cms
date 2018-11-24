@@ -75,11 +75,12 @@ class Popup extends CI_Controller
         if($validate){
 
             $data = array(
-                'title'       => $this->input->post('title'),
-                'description' => $this->input->post('description'),
-                'page'        => $this->input->post('page'),
-                'isActive'    => 1,
-                'createdAt'   => $this->zaman,
+                'title'             => $this->input->post('title'),
+                'description'       => $this->input->post('description'),
+                'page'              => $this->input->post('page'),
+                'popup_unique_id'   => uniqid(),
+                'isActive'          => 1,
+                'createdAt'         => $this->zaman,
             );
             $insert = $this->popup_model->add($data);
 

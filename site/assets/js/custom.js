@@ -59,6 +59,15 @@
             window.open(url, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes'+window_size);
             return false;
         });
+        $(document).on('click', '.dontShowAgainBtn', function () {
+        	var url 			= $(this).attr('data-url');
+        	var id 				= $(this).attr('data-popup-id');
+        	var data 			= {id: id};
+        	var csrf_token 		= $(this).attr('data-csrf-token');
+        	var csrf_value 		= $(this).attr('data-csrf-value');
+        	data[csrf_token]	= csrf_value;
+        	$.post(url, data, function () {});
+        });
 	}); // End document ready
 
 })(this.jQuery);

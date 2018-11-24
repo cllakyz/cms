@@ -282,4 +282,10 @@ class Home extends CI_Controller{
 
         $this->load->view($viewData->viewFolder, $viewData);
     }
+
+    public function popup_never_show_again()
+    {
+        $popup_id = $this->input->post("id");
+        set_cookie($popup_id, "true", 60*60*24*365);
+    }
 }
