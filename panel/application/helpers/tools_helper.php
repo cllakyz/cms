@@ -208,3 +208,18 @@ function get_media($path="", $img_name="", $resolution="50x50"){
 
     return $img_path;
 }
+
+function getPageList(){
+    return array(
+        "homepage"  => "Anasayfa",
+        "about_us"  => "Hakkımızda Sayfası",
+        "news"      => "Haberler Sayfası",
+        "portfolio" => "Portfolyo Sayfası",
+        "reference" => "Referanslar Sayfası",
+        "service"   => "Hizmetler Sayfası",
+        "course"    => "Eğitimler Sayfası",
+        "brand"     => "Markalar Sayfası",
+        "contact"   => "İletişim Sayfası",
+        "gallery"   => "Galeri Sayfası",
+    );
+}

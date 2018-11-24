@@ -61,18 +61,9 @@ class Popup extends CI_Controller
     {
         $this->load->library('form_validation');
         //kurallar
-        if($_FILES['img_url']['name'] == ''){
-            $alert = array(
-                'type' => 'info',
-                'title' => 'Hata!',
-                'message' => 'Lütfen Bir Görsel Seçiniz'
-            );
-            $this->session->set_flashdata('alert', $alert);
-            redirect(base_url('popup/new_form'));
-            die;
-        }
-
         $this->form_validation->set_rules('title', 'Başlık', 'required|trim');
+        $this->form_validation->set_rules('page', 'Hedef Sayfa', 'required|trim');
+        $this->form_validation->set_rules('description', 'Açıklama', 'required|trim');
         //mesajlar
         $this->form_validation->set_message(
             array(
@@ -83,25 +74,10 @@ class Popup extends CI_Controller
 
         if($validate){
 
-            $ext = pathinfo($_FILES['img_url']['name'], PATHINFO_EXTENSION);
-            $file_name = sef(pathinfo($_FILES['img_url']['name'], PATHINFO_FILENAME)).'.'.$ext;
-
-            $image_350x216 = upload_media($_FILES['img_url']['tmp_name'], "uploads/".$this->viewFolder."/", 350, 216,$file_name);
-
-            if(!$image_350x216){
-                $alert = array(
-                    'type' => 'error',
-                    'title' => 'Hata!',
-                    'message' => 'Dosya Formatı JPG,PNG veya JPEG Olmalıdır'
-                );
-                $this->session->set_flashdata('alert', $alert);
-                redirect(base_url('popup/new_form'));
-                die;
-            }
-
             $data = array(
                 'title'       => $this->input->post('title'),
-                'img_url'     => $file_name,
+                'description' => $this->input->post('description'),
+                'page'        => $this->input->post('page'),
                 'isActive'    => 1,
                 'createdAt'   => $this->zaman,
             );
@@ -111,13 +87,13 @@ class Popup extends CI_Controller
                 $alert = array(
                     'type' => 'success',
                     'title' => 'Başarılı',
-                    'message' => 'Marka Başarıyla Eklendi'
+                    'message' => 'Popup Başarıyla Eklendi'
                 );
             } else{
                 $alert = array(
                     'type' => 'error',
                     'title' => 'Hata!',
-                    'message' => 'Marka Eklenemedi'
+                    'message' => 'Popup Eklenemedi'
                 );
             }
             $this->session->set_flashdata('alert', $alert);
@@ -138,8 +114,9 @@ class Popup extends CI_Controller
     {
         $this->load->library('form_validation');
         //kurallar
-
         $this->form_validation->set_rules('title', 'Başlık', 'required|trim');
+        $this->form_validation->set_rules('page', 'Hedef Sayfa', 'required|trim');
+        $this->form_validation->set_rules('description', 'Açıklama', 'required|trim');
         //mesajlar
         $this->form_validation->set_message(
             array(
@@ -150,52 +127,25 @@ class Popup extends CI_Controller
 
         if($validate){
 
-            if($_FILES['img_url']['name'] != ''){
-                $ext = pathinfo($_FILES['img_url']['name'], PATHINFO_EXTENSION);
-                $file_name = sef(pathinfo($_FILES['img_url']['name'], PATHINFO_FILENAME)).'.'.$ext;
-
-                $image_350x216 = upload_media($_FILES['img_url']['tmp_name'], "uploads/".$this->viewFolder."/", 350, 216,$file_name);
-
-                if(!$image_350x216){
-                    $alert = array(
-                        'type' => 'error',
-                        'title' => 'Hata!',
-                        'message' => 'Dosya Formatı JPG,PNG veya JPEG Olmalıdır'
-                    );
-                    $this->session->set_flashdata('alert', $alert);
-                    redirect(base_url('popup/edit_form/'.$id));
-                    die;
-                }
-            } else{
-                $file_name = $this->input->post("old_img_url");
-            }
-
             $data = array(
                 'title'       => $this->input->post('title'),
-                'img_url'     => $file_name,
+                'description' => $this->input->post('description'),
+                'page'        => $this->input->post('page'),
             );
             $where = array('id' => $id);
             $update = $this->popup_model->edit($where, $data);
 
             if($update){
-                if($_FILES['img_url']['name'] != ''){
-                    $dirs = array_diff(scandir("uploads/".$this->viewFolder), array('..', '.'));
-                    foreach($dirs as $dir){
-                        if(file_exists("uploads/$this->viewFolder/$dir/".$this->input->post("old_img_url"))){
-                            unlink("uploads/$this->viewFolder/$dir/".$this->input->post("old_img_url"));
-                        }
-                    }
-                }
                 $alert = array(
                     'type' => 'success',
                     'title' => 'Başarılı',
-                    'message' => 'Marka Başarıyla Güncellendi'
+                    'message' => 'Popup Başarıyla Güncellendi'
                 );
             } else{
                 $alert = array(
                     'type' => 'error',
                     'title' => 'Hata!',
-                    'message' => 'Marka Güncellenemedi'
+                    'message' => 'Popup Güncellenemedi'
                 );
             }
             $this->session->set_flashdata('alert', $alert);
