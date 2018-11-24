@@ -110,7 +110,14 @@ function is_login(){
     if($user){
         return $user;
     }else{
-        return false;
+        $t = &get_instance();
+        $user = get_cookie("loginUserData");
+        $t->session->set_userdata("user", unserialize($user));
+        if($user){
+            return $t->session->userdata("user");
+        } else{
+            return false;
+        }
     }
 }
 

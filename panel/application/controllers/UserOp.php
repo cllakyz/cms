@@ -64,7 +64,7 @@ class UserOp extends CI_Controller
                     $remember = $this->input->post('remember_me');
                     $this->session->set_userdata("user", $user);
                     if($remember != ''){
-                        //setcookie('user', serialize($user), time() + 365*24*60*60, '/');
+                        setcookie('loginUserData', serialize($user), time() + 365*24*60*60, '/');
                     }
                     redirect(base_url());
                     die;
@@ -103,6 +103,7 @@ class UserOp extends CI_Controller
     public function logout()
     {
         $this->session->unset_userdata("user");
+        setcookie('loginUserData', "", time() - 365*24*60*60, '/');
         redirect(base_url('login'));
         die;
     }
