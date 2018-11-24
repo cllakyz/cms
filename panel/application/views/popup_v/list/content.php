@@ -17,18 +17,16 @@
             } else{ ?>
                 <table class="table table-hover table-striped table-bordered content-table">
                     <thead>
-                    <th class="order"><i class="fa fa-reorder"></i></th>
                     <th class="w50 text-center">#ID</th>
                     <th>Başlık</th>
                     <th>Hedef Sayfa</th>
                     <th class="text-center">Durum</th>
                     <th class="text-center">İşlem</th>
                     </thead>
-                    <tbody class="sortable" data-url="<?php echo base_url('popup/sort'); ?>">
+                    <tbody>
                         <?php
                         foreach($items as $item){ ?>
-                            <tr id="sort-<?php echo $item->id; ?>">
-                                <td class="order"><i class="fa fa-reorder"></i></td>
+                            <tr>
                                 <td class="w50 text-center"><?php echo $item->id; ?></td>
                                 <td><?php echo $item->title; ?></td>
                                 <td><?php echo getPageList($item->page); ?></td>
