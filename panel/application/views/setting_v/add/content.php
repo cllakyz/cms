@@ -14,6 +14,7 @@
                         <li role="presentation"><a href="#tab-4"  aria-controls="tab-4" role="tab" data-toggle="tab">Vizyon</a></li>
                         <li role="presentation"><a href="#tab-5"  aria-controls="tab-5" role="tab" data-toggle="tab">Sosyal Medya</a></li>
                         <li role="presentation"><a href="#tab-7"  aria-controls="tab-7" role="tab" data-toggle="tab">Logo</a></li>
+                        <li role="presentation"><a href="#tab-8"  aria-controls="tab-8" role="tab" data-toggle="tab">Anasayfa</a></li>
                     </ul>
 
                     <div class="tab-content p-md">
@@ -24,6 +25,7 @@
                         <?php $this->load->view($viewFolder."/".$subViewFolder."/tabs/vision"); ?>
                         <?php $this->load->view($viewFolder."/".$subViewFolder."/tabs/social_media"); ?>
                         <?php $this->load->view($viewFolder."/".$subViewFolder."/tabs/logo"); ?>
+                        <?php $this->load->view($viewFolder."/".$subViewFolder."/tabs/homepage"); ?>
                     </div>
                 </div>
             </div>
