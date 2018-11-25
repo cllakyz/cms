@@ -378,6 +378,7 @@ class Gallery extends CI_Controller
         $viewData->item = $item;
         $where = array('gallery_id' => $id);
         if($item->gallery_type == 1){
+            $viewData->folder_name  = $item->folder_name;
             $viewData->items = $this->image_model->get_all($where, "rank ASC");
         } elseif($item->gallery_type == 3){
             $viewData->items = $this->file_model->get_all($where, "rank ASC");
@@ -388,7 +389,7 @@ class Gallery extends CI_Controller
         $this->load->view($viewData->viewFolder.'/'.$viewData->subViewFolder.'/index', $viewData);
     }
     /* image ekleme işlemi */
-    public function file_upload($gallery_id, $gallery_type, $folder_name)
+    public function file_upload_old($gallery_id, $gallery_type, $folder_name)
     {
         $ext = pathinfo($_FILES['file']['name'], PATHINFO_EXTENSION);
         $file_name = sef(pathinfo($_FILES['file']['name'], PATHINFO_FILENAME)).'.'.$ext;
@@ -435,8 +436,72 @@ class Gallery extends CI_Controller
         echo json_encode($alert);
         die;
     }
+    public function file_upload($gallery_id, $gallery_type, $folder_name)
+    {
+        $ext = pathinfo($_FILES['file']['name'], PATHINFO_EXTENSION);
+        $file_name = sef(pathinfo($_FILES['file']['name'], PATHINFO_FILENAME)).'.'.$ext;
+
+        if($gallery_type == 1){
+            $image_252x156 = upload_media($_FILES['file']['tmp_name'], "uploads/".$this->viewFolder."/images/".$folder_name."/", 252, 156,$file_name);
+            $image_350x216 = upload_media($_FILES['file']['tmp_name'], "uploads/".$this->viewFolder."/images/".$folder_name."/", 350, 216,$file_name);
+            $image_851x606 = upload_media($_FILES['file']['tmp_name'], "uploads/".$this->viewFolder."/images/".$folder_name."/", 851, 606,$file_name);
+            if($image_252x156 && $image_350x216 && $image_851x606){
+                $upload = TRUE;
+            } else{
+                $upload = FALSE;
+            }
+        } else{
+            $config = array(
+                "allowed_types" => "jpg|jpeg|png|JPG|JPEG|PNG|pdf|doc|docx|txt",
+                "upload_path"   => "uploads/".$this->viewFolder."/files/".$folder_name."/",
+                "file_name"     => $file_name,
+            );
+
+            $this->load->library("upload", $config);
+            $upload = $this->upload->do_upload("file");
+        }
+
+        if($upload){
+            if($gallery_type == 1){
+                $file = $file_name;
+            } else{
+                $file = $this->upload->data("file_name");
+            }
+
+            $model_name = $gallery_type == 1 ? "image_model" : "file_model";
+            $data = array(
+                'gallery_id'  => $gallery_id,
+                'url'         => $file,
+                'rank'        => 0,
+                'isActive'    => 1,
+                'createdAt'   => $this->zaman,
+            );
+            $add = $this->$model_name->add($data);
+            if($add){
+                $alert = array(
+                    'type' => 'success',
+                    'title' => 'Başarılı',
+                    'message' => 'Dosya Başarıyla Eklendi.'
+                );
+            } else{
+                $alert = array(
+                    'type' => 'error',
+                    'title' => 'Hata!',
+                    'message' => 'Dosya Eklenemedi'
+                );
+            }
+        } else{
+            $alert = array(
+                'type' => 'error',
+                'title' => 'Hata!',
+                'message' => 'Dosya Yüklenemedi'
+            );
+        }
+        echo json_encode($alert);
+        die;
+    }
     /* image list dom load */
-    public function refresh_file_list($gallery_id, $gallery_type)
+    public function refresh_file_list($gallery_id, $gallery_type, $folder_name)
     {
         $viewData = new stdClass();
 
@@ -447,6 +512,7 @@ class Gallery extends CI_Controller
         $model_name = $gallery_type == 1 ? "image_model" : "file_model";
         $viewData->items = $this->$model_name->get_all($where, "rank ASC");
         $viewData->gallery_type = $gallery_type;
+        $viewData->folder_name  = $folder_name;
         $render_html = $this->load->view($viewData->viewFolder.'/'.$viewData->subViewFolder.'/file_list_v', $viewData, true);
         echo $render_html;
         die;

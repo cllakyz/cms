@@ -24,7 +24,7 @@ if(empty($items)){ ?>
                 <td class="w100 text-center">
                     <?php
                     if($gallery_type == 1){ ?>
-                        <img width="30" src="<?php echo base_url($item->url); ?>" alt="<?php echo $item->url; ?>" class="img-responsive">
+                        <img src="<?php echo get_media("$viewFolder/images/$folder_name",$item->url,"252x156"); ?>" alt="<?php echo $item->url; ?>" class="img-responsive">
                     <?php
                     } elseif ($gallery_type == 3){ ?>
                         <i class="fa fa-folder fa-2x"></i>
