@@ -125,3 +125,14 @@ function getGallery($url=""){
     $gallery = $t->gallery_model->get(array('isActive' => 1, 'url' => $url));
     return $gallery ? $gallery : FALSE;
 }
+
+function getGalleryCoverImage($folder_name){
+    $path = "panel/uploads/gallery_v/images/$folder_name/350x216";
+    if($handle = opendir($path)){
+        while(($file = readdir($handle)) != false){
+            if($file != "." && $file != ".."){
+                return $file;
+            }
+        }
+    }
+}
