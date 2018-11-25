@@ -293,9 +293,10 @@ class Portfolio extends CI_Controller
 
         $image_255x157  = upload_media($_FILES['file']['tmp_name'], "uploads/".$this->viewFolder."/", 255, 157,$file_name);
         $image_276x171  = upload_media($_FILES['file']['tmp_name'], "uploads/".$this->viewFolder."/", 276, 171,$file_name);
+        $image_352x171  = upload_media($_FILES['file']['tmp_name'], "uploads/".$this->viewFolder."/", 352, 171,$file_name);
         $image_1080x426 = upload_media($_FILES['file']['tmp_name'], "uploads/".$this->viewFolder."/", 1080, 426,$file_name);
 
-        if($image_255x157 && $image_1080x426 && $image_276x171){
+        if($image_255x157 && $image_1080x426 && $image_276x171 && $image_352x171){
             $data = array(
                 'portfolio_id'  => $id,
                 'img_url'     => $file_name,

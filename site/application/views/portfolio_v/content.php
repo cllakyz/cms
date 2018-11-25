@@ -102,7 +102,7 @@
                                                 <?php
                                                 $image = get_portfolio_cover_image($portfolio->id);
                                                 ?>
-                                                <img src="<?php echo get_media("portfolio_v", $image, "255x157"); ?>" alt="<?php echo $portfolio->title; ?>">
+                                                <img src="<?php echo get_media("portfolio_v", $image, "352x171"); ?>" alt="<?php echo $portfolio->title; ?>">
                                                 <div class="overlay-bottom text-left">
                                                     <p class="lead margin-clear"><?php echo $portfolio->title; ?></p>
                                                 </div>

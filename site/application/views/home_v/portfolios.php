@@ -3,7 +3,7 @@ if(!empty($portfolios)){ ?>
     <section class="clearfix pv-40">
         <div class="container">
             <div class="row justify-content-lg-center">
-                <h3><strong>Portfolyolar</strong></h3>
+                <h2 class="text-center"><strong>Portfolyalrımız</strong></h2>
                 <div class="separator-2"></div>
                 <div class="row grid-space-10">
                     <!--<div class="clearfix visible-sm"></div>-->
