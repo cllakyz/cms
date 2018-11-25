@@ -10,8 +10,8 @@
                         foreach($images as $image){ ?>
                             <div class="col-xs-3 mb-20">
                                 <div class="overlay-container">
-                                    <img src="<?php echo base_url("assets/images"); ?>/portfolio-1.jpg" alt="">
-                                    <a href="<?php echo base_url("assets/images"); ?>/portfolio-1.jpg" class="overlay-link small popup-img" title="<?php echo $gallery->gallery_name; ?>">
+                                    <img src="<?php echo get_media("$viewFolder/images/$gallery->folder_name",$image->url,"350x216"); ?>" alt="">
+                                    <a href="<?php echo get_media("$viewFolder/images/$gallery->folder_name",$image->url,"851x606"); ?>" class="overlay-link small popup-img" title="<?php echo $gallery->gallery_name; ?>">
                                         <i class="fa fa-plus"></i>
                                     </a>
                                 </div>
