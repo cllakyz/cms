@@ -64,6 +64,14 @@
                         </div>
                     <?php
                     }
+                } else{ ?>
+                    <div class="col-md-12">
+                        <div class="alert alert-info text-center">
+                            Referans listesi bulunamadı.
+                        </div>
+                        <a href="<?php echo base_url(); ?>" class="btn btn-default"><i class="fa fa-arrow-left"></i> Geri Dön</a>
+                    </div>
+                <?php
                 }
                 ?>
             </div>

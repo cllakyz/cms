@@ -88,12 +88,13 @@
                         </div>
                     </div>
                 </section>
-                <section class="section pv-40 clearfix">
-                    <div class="container">
-                        <h3>Diğer <strong>Çalışmalarımız</strong></h3>
-                        <div class="row grid-space-10">
-                            <?php
-                            if(!empty($other_portfolios)){
+                <?php
+                if(!empty($other_portfolios)){ ?>
+                    <section class="section pv-40 clearfix">
+                        <div class="container">
+                            <h3>Diğer <strong>Çalışmalarımız</strong></h3>
+                            <div class="row grid-space-10">
+                                <?php
                                 foreach($other_portfolios as $portfolio){ ?>
                                     <div class="col-sm-4">
                                         <div class="image-box style-2 mb-20 bordered light-gray-bg">
@@ -115,13 +116,14 @@
                                     </div>
                                     <?php
                                 }
-                            }
-                            ?>
+                                ?>
+                            </div>
                         </div>
-                    </div>
-                </section>
+                    </section>
+                <?php
+                }
+                ?>
             </div>
         </div>
     </div>
 </div>
-

@@ -61,12 +61,13 @@
                         </div>
                     </div>
                 </section>
-                <section class="section pv-40 clearfix">
-                    <div class="container">
-                        <h3>Diğer <strong>Ürünler</strong></h3>
-                        <div class="row grid-space-10">
-                            <?php
-                            if(!empty($other_products)){
+                <?php
+                if(!empty($other_products)){ ?>
+                    <section class="section pv-40 clearfix">
+                        <div class="container">
+                            <h3>Diğer <strong>Ürünler</strong></h3>
+                            <div class="row grid-space-10">
+                                <?php
                                 foreach($other_products as $product){ ?>
                                     <div class="col-sm-4">
                                         <div class="image-box style-2 mb-20 bordered light-gray-bg">
@@ -88,11 +89,13 @@
                                     </div>
                                     <?php
                                 }
-                            }
-                            ?>
+                                ?>
+                            </div>
                         </div>
-                    </div>
-                </section>
+                    </section>
+                <?php
+                }
+                ?>
             </div>
         </div>
     </div>
