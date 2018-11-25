@@ -12,7 +12,7 @@
                                         if(!empty($product_images)){
                                             foreach ($product_images as $image){ ?>
                                                 <li class="text-center" data-transition="slidehorizontal" data-slotamount="default" data-masterspeed="default" data-title="<?php echo $product->title; ?>">
-                                                    <img src="<?php echo base_url('panel/uploads/product_v/'.$image->img_url); ?>" alt="<?php echo $product->title; ?>" data-bgposition="center top"  data-bgrepeat="no-repeat" data-bgfit="cover" class="rev-slidebg">
+                                                    <img src="<?php echo get_media('product_v', $image->img_url, "1080x426"); ?>" alt="<?php echo $product->title; ?>" data-bgposition="center top"  data-bgrepeat="no-repeat" data-bgfit="cover" class="rev-slidebg">
                                                     <div class="tp-caption dark-translucent-bg"
                                                          data-x="center"
                                                          data-y="center"
@@ -74,9 +74,8 @@
                                             <div class="overlay-container overlay-visible">
                                                 <?php
                                                 $image = get_product_cover_image($product->id);
-                                                $image = $image != '' ? base_url("panel/uploads/product_v/$image") : base_url('assets/images/portfolio-1.jpg');
                                                 ?>
-                                                <img src="<?php echo $image; ?>" alt="">
+                                                <img src="<?php echo get_media("product_v", $image, "348x215"); ?>" alt="">
                                                 <div class="overlay-bottom text-left">
                                                     <p class="lead margin-clear"><?php echo $product->title; ?></p>
                                                 </div>

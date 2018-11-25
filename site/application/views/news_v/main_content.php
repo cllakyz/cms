@@ -21,7 +21,7 @@
             <?php
             if($news->news_type == 1){ ?>
                 <div class="overlay-container mb-20">
-                    <img src="<?php echo base_url('panel/uploads/news_v/'.$news->img_url); ?>" alt="<?php echo $news->url; ?>">
+                    <img src="<?php echo get_media("news_v", $news->img_url, "730x411"); ?>" alt="<?php echo $news->url; ?>">
                     <a class="overlay-link popup-img" href="<?php echo base_url('panel/uploads/news_v/'.$news->img_url); ?>"><i class="fa fa-search-plus"></i></a>
                 </div>
                 <?php

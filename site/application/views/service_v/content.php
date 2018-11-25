@@ -1,4 +1,4 @@
-<div class="banner dark-translucent-bg" style="background-image:url('<?php echo base_url("panel/uploads/service_v/$service->img_url"); ?>'); background-position: 50% 21%;"></div>
+<div class="banner dark-translucent-bg" style="background-image:url('<?php echo get_media("service_v", $service->img_url, "1140x705"); ?>'); background-position: 50% 21%;"></div>
 <div class="main-container">
     <div class="container">
         <div class="row">

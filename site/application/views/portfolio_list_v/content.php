@@ -21,9 +21,8 @@
                                     <div class="overlay-container">
                                         <?php
                                         $image = get_portfolio_cover_image($portfolio->id);
-                                        $img_path = $image ? base_url("panel/uploads/portfolio_v/$image") : base_url('assets/images/portfolio-1.jpg');
                                         ?>
-                                        <img src="<?php echo $img_path; ?>" alt="<?php echo $portfolio->title; ?>">
+                                        <img src="<?php echo get_media("portfolio_v", $image, "255x157"); ?>" alt="<?php echo $portfolio->title; ?>">
                                         <div class="overlay-to-top">
                                             <p class="small margin-clear"><em><?php echo $portfolio->title; ?></em></p>
                                         </div>

@@ -28,7 +28,7 @@
                                     <?php
                                     if($news->news_type == 1){ ?>
                                         <div class="overlay-container">
-                                            <img src="<?php echo base_url('panel/uploads/news_v/'.$news->img_url); ?>" alt="<?php echo $news->title; ?>">
+                                            <img src="<?php echo get_media("news_v", $news->img_url, "513x289"); ?>" alt="<?php echo $news->title; ?>">
                                             <a class="overlay-link" href="<?php echo base_url('haber/'.$news->url); ?>"><i class="fa fa-link"></i></a>
                                         </div>
                                     <?php

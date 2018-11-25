@@ -19,7 +19,7 @@
                             <div class="col-sm-4">
                                 <div class="image-box shadow text-center mb-20">
                                     <div class="overlay-container">
-                                        <img src="<?php echo base_url('panel/uploads/brand_v/'.$brand->img_url); ?>" alt="<?php echo $brand->title; ?>">
+                                        <img src="<?php echo get_media('brand_v', $brand->img_url, "350x216"); ?>" alt="<?php echo $brand->title; ?>">
                                         <div class="overlay-top">
                                             <div class="text">
 

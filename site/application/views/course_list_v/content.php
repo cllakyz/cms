@@ -19,7 +19,7 @@
                             <div class="row">
                                 <div class="col-sm-6 col-md-4 col-lg-3">
                                     <div class="overlay-container">
-                                        <img src="<?php echo base_url("panel/uploads/course_v/$course->img_url"); ?>" alt="<?php echo $course->title; ?>">
+                                        <img src="<?php echo get_media("course_v", $course->img_url, "255x157"); ?>" alt="<?php echo $course->title; ?>">
                                         <div class="overlay-to-top">
                                             <p class="small margin-clear"><em><?php echo $course->title; ?></em></p>
                                         </div>

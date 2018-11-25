@@ -12,9 +12,8 @@
                             <div class="overlay-container overlay-visible">
                                 <?php
                                 $image = get_product_cover_image($product->id);
-                                $img_path = $image ? base_url("panel/uploads/product_v/$image") : base_url('assets/images/portfolio-1.jpg');
                                 ?>
-                                <img src="<?php echo $img_path; ?>" alt="<?php echo $product->title; ?>">
+                                <img src="<?php echo get_media("product_v", $image, "348x215"); ?>" alt="<?php echo $product->title; ?>">
                                 <div class="overlay-bottom text-left">
                                     <p class="lead margin-clear"><?php echo $product->title; ?></p>
                                 </div>

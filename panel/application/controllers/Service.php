@@ -86,10 +86,11 @@ class Service extends CI_Controller
             $ext = pathinfo($_FILES['img_url']['name'], PATHINFO_EXTENSION);
             $file_name = sef(pathinfo($_FILES['img_url']['name'], PATHINFO_FILENAME)).'.'.$ext;
 
-            $image_555x343 = upload_media($_FILES['img_url']['tmp_name'], "uploads/".$this->viewFolder."/", 555, 343,$file_name);
-            $image_350x217 = upload_media($_FILES['img_url']['tmp_name'], "uploads/".$this->viewFolder."/", 350, 217,$file_name);
+            $image_555x343  = upload_media($_FILES['img_url']['tmp_name'], "uploads/".$this->viewFolder."/", 555, 343,$file_name);
+            $image_350x217  = upload_media($_FILES['img_url']['tmp_name'], "uploads/".$this->viewFolder."/", 350, 217,$file_name);
+            $image_1140x705 = upload_media($_FILES['img_url']['tmp_name'], "uploads/".$this->viewFolder."/", 1140, 705,$file_name);
 
-            if(!$image_555x343 || !$image_350x217){
+            if(!$image_555x343 || !$image_350x217 || !$image_1140x705){
                 $alert = array(
                     'type' => 'error',
                     'title' => 'Hata!',
@@ -161,8 +162,9 @@ class Service extends CI_Controller
 
                 $image_555x343 = upload_media($_FILES['img_url']['tmp_name'], "uploads/".$this->viewFolder."/", 555, 343,$file_name);
                 $image_350x217 = upload_media($_FILES['img_url']['tmp_name'], "uploads/".$this->viewFolder."/", 350, 217,$file_name);
+                $image_1140x705 = upload_media($_FILES['img_url']['tmp_name'], "uploads/".$this->viewFolder."/", 1140, 705,$file_name);
 
-                if(!$image_555x343 || !$image_350x217){
+                if(!$image_555x343 || !$image_350x217 || !$image_1140x705){
                     $alert = array(
                         'type' => 'error',
                         'title' => 'Hata!',

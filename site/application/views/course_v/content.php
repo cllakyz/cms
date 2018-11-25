@@ -1,4 +1,4 @@
-<div class="banner dark-translucent-bg" style="background-image:url('<?php echo base_url("panel/uploads/course_v/$course->img_url"); ?>'); background-position: 50% 21%;">
+<div class="banner dark-translucent-bg" style="background-image:url('<?php echo get_media("course_v", $course->img_url, "1140x705"); ?>'); background-position: 50% 21%;">
     <div class="container">
         <div class="row">
             <div class="col-md-8 text-center col-md-offset-2 pv-20">
@@ -37,7 +37,7 @@
                                     <div class="col-sm-4">
                                         <div class="image-box style-2 mb-20 bordered light-gray-bg">
                                             <div class="overlay-container overlay-visible">
-                                                <img src="<?php echo base_url("panel/uploads/course_v/$course->img_url"); ?>" alt="<?php echo $course->title; ?>">
+                                                <img src="<?php echo get_media("course_v", $course->img_url, "255x157"); ?>" alt="<?php echo $course->title; ?>">
                                                 <div class="overlay-bottom text-left">
                                                     <p class="lead margin-clear"><?php echo $course->title; ?></p>
                                                 </div>

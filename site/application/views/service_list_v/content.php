@@ -21,7 +21,7 @@
                                 if($key % 2 == 0){ ?>
                                     <div class="col-md-6">
                                         <div class="overlay-container">
-                                            <img src="<?php echo base_url('panel/uploads/service_v/'.$service->img_url); ?>" alt="<?php echo $service->title; ?>">
+                                            <img src="<?php echo get_media('service_v', $service->img_url, "555x343"); ?>" alt="<?php echo $service->title; ?>">
                                             <div class="overlay-to-top">
                                                 <p class="small margin-clear"><em><?php echo $service->title; ?></em></p>
                                             </div>
@@ -51,7 +51,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="overlay-container">
-                                            <img src="<?php echo base_url('panel/uploads/service_v/'.$service->img_url); ?>" alt="<?php echo $service->title; ?>">
+                                            <img src="<?php echo get_media('service_v', $service->img_url, "555x343"); ?>" alt="<?php echo $service->title; ?>">
                                             <div class="overlay-to-top">
                                                 <p class="small margin-clear"><em><?php echo $service->title; ?></em></p>
                                             </div>
