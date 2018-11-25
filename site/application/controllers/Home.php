@@ -18,11 +18,13 @@ class Home extends CI_Controller{
         $this->load->model("slide_model");
         $this->load->model("reference_model");
         $this->load->model("service_model");
+        $this->load->model("portfolio_model");
         $viewData = new stdClass();
         $viewData->viewFolder = "home_v";
         $viewData->slides = $this->slide_model->get_all(array('isActive' => 1), "rank ASC");
         $viewData->references = $this->reference_model->get_all(array('isActive' => 1), "rank ASC");
         $viewData->services = $this->service_model->get_all(array('isActive' => 1), "rank ASC");
+        $viewData->portfolios = $this->portfolio_model->get_all(array('isActive' => 1), "rank ASC");
         $this->load->view($viewData->viewFolder, $viewData);
     }
 
