@@ -17,7 +17,12 @@
                             foreach($files as $file){ ?>
                                 <tr>
                                     <td><?php echo $file->url; ?></td>
-                                    <td class="w-100"><a target="_blank" href="https://www.skype.com" class="btn btn-animated btn-default">İndir<i class="pl-10 fa fa-download"></i></a></td>
+                                    <td style="width: 100px;">
+                                        <a target="_blank"
+                                           href="<?php echo base_url("panel/uploads/$viewFolder/files/$gallery->folder_name/$file->url"); ?>"
+                                           download="CMS-<?php echo $file->url; ?>"
+                                           class="btn btn-animated btn-default">İndir<i class="pl-10 fa fa-download"></i></a>
+                                    </td>
                                 </tr>
                             <?php
                             }
