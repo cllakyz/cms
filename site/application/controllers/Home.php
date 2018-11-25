@@ -295,14 +295,21 @@ class Home extends CI_Controller{
         $viewData->viewFolder       = "gallery_v";
         $viewData->subViewFolder    = "image_gallery";
         $viewData->viewName         = "list_content";
-        /*$this->load->model('service_model');
-        $viewData->services = $this->service_model->get_all(array('isActive' => 1), "rank ASC");*/
+        $this->load->model('gallery_model');
+        $viewData->galleries = $this->gallery_model->get_all(array('isActive' => 1, 'gallery_type' => 1), "rank ASC");
         $this->load->view($viewData->viewFolder, $viewData);
     }
 
-    public function image_gallery()
+    public function image_gallery($url)
     {
-
+        $viewData = new stdClass();
+        $viewData->viewFolder       = "gallery_v";
+        $viewData->subViewFolder    = "image_gallery";
+        $viewData->viewName         = "item_content";
+        $viewData->gallery = getGallery($url);
+        $this->load->model('image_model');
+        $viewData->images = $this->image_model->get_all(array('isActive' => 1, 'gallery_id' => $viewData->gallery->id), "rank ASC");
+        $this->load->view($viewData->viewFolder, $viewData);
     }
 
     public function video_gallery_list()

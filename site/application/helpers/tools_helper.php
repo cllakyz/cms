@@ -118,3 +118,10 @@ function getPopupService($page){
     );
     return !empty($popup) ? $popup : FALSE;
 }
+
+function getGallery($url=""){
+    $t = &get_instance();
+    $t->load->model('gallery_model');
+    $gallery = $t->gallery_model->get(array('isActive' => 1, 'url' => $url));
+    return $gallery ? $gallery : FALSE;
+}
