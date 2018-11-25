@@ -18,7 +18,7 @@
                     } else{ ?>
                         <div class="col-md-12">
                             <div class="alert alert-info text-center">
-                                Bu galeriye eklenmiş görsel bulunamadı.
+                                Bu galeriye eklenmiş video bulunamadı.
                             </div>
                             <a href="<?php echo base_url('video-galerisi'); ?>" class="btn btn-default"><i class="fa fa-arrow-left"></i> Geri Dön</a>
                         </div>
