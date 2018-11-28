@@ -1,6 +1,4 @@
+.background-testimonial {background: url("../images/testimonial_banner.jpg") 50% 0px no-repeat;}
 @media (min-width: 768px) {
-    .modal-dialog {
-        width: 675px;
-        margin: 30px auto;
-    }
+    .modal-dialog {width: 675px; margin: 30px auto;}
 }
