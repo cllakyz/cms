@@ -147,6 +147,9 @@ class Testimonial extends CI_Controller
         //kurallar
 
         $this->form_validation->set_rules('title', 'Başlık', 'required|trim');
+        $this->form_validation->set_rules('description', 'Mesaj', 'required|trim');
+        $this->form_validation->set_rules('full_name', 'Ad Soyad', 'required|trim');
+        $this->form_validation->set_rules('company', 'Şirket Adı', 'required|trim');
         //mesajlar
         $this->form_validation->set_message(
             array(
@@ -161,9 +164,9 @@ class Testimonial extends CI_Controller
                 $ext = pathinfo($_FILES['img_url']['name'], PATHINFO_EXTENSION);
                 $file_name = sef(pathinfo($_FILES['img_url']['name'], PATHINFO_FILENAME)).'.'.$ext;
 
-                $image_350x216 = upload_media($_FILES['img_url']['tmp_name'], "uploads/".$this->viewFolder."/", 350, 216,$file_name);
+                $image_90x90 = upload_media($_FILES['img_url']['tmp_name'], "uploads/".$this->viewFolder."/", 90, 90,$file_name);
 
-                if(!$image_350x216){
+                if(!$image_90x90){
                     $alert = array(
                         'type' => 'error',
                         'title' => 'Hata!',
@@ -179,6 +182,9 @@ class Testimonial extends CI_Controller
 
             $data = array(
                 'title'       => $this->input->post('title'),
+                'description' => $this->input->post('description'),
+                'full_name'   => $this->input->post('full_name'),
+                'company'     => $this->input->post('company'),
                 'img_url'     => $file_name,
             );
             $where = array('id' => $id);
@@ -196,13 +202,13 @@ class Testimonial extends CI_Controller
                 $alert = array(
                     'type' => 'success',
                     'title' => 'Başarılı',
-                    'message' => 'Marka Başarıyla Güncellendi'
+                    'message' => 'Ziyaretçi Notu Başarıyla Güncellendi'
                 );
             } else{
                 $alert = array(
                     'type' => 'error',
                     'title' => 'Hata!',
-                    'message' => 'Marka Güncellenemedi'
+                    'message' => 'Ziyaretçi Notu Güncellenemedi'
                 );
             }
             $this->session->set_flashdata('alert', $alert);
@@ -243,13 +249,13 @@ class Testimonial extends CI_Controller
             $alert = array(
                 'type' => 'success',
                 'title' => 'Başarılı',
-                'message' => 'Marka Başarıyla Silindi'
+                'message' => 'Ziyaretçi Notu Başarıyla Silindi'
             );
         } else{
             $alert = array(
                 'type' => 'error',
                 'title' => 'Hata!',
-                'message' => 'Marka Silinemedi'
+                'message' => 'Ziyaretçi Notu Silinemedi'
             );
         }
         echo json_encode($alert);
@@ -267,13 +273,13 @@ class Testimonial extends CI_Controller
                 $alert = array(
                     'type' => 'success',
                     'title' => 'Başarılı',
-                    'message' => 'Marka Durumu Güncellendi'
+                    'message' => 'Ziyaretçi Notu Durumu Güncellendi'
                 );
             } else{
                 $alert = array(
                     'type' => 'error',
                     'title' => 'Hata!',
-                    'message' => 'Marka Durumu Güncellenemedi'
+                    'message' => 'Ziyaretçi Notu Durumu Güncellenemedi'
                 );
             }
             echo json_encode($alert);
@@ -305,13 +311,13 @@ class Testimonial extends CI_Controller
             $alert = array(
                 'type' => 'success',
                 'title' => 'Başarılı',
-                'message' => 'Markalar Başarıyla Sıralandı'
+                'message' => 'Ziyaretçi Notları Başarıyla Sıralandı'
             );
         } else{
             $alert = array(
                 'type' => 'error',
                 'title' => 'Hata!',
-                'message' => 'Markalar Sıralanamadı'
+                'message' => 'Ziyaretçi Notları Sıralanamadı'
             );
         }
         echo json_encode($alert);
