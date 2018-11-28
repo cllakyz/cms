@@ -36,7 +36,7 @@
                                 <td><?php echo character_limiter(strip_tags($item->description), 200); ?></td>
                                 <td><?php echo $item->full_name; ?></td>
                                 <td class="text-center w100">
-                                    <img width="75" src="<?php echo get_media($viewFolder, $item->img_url, "350x216"); ?>" alt="" class="img-rounded">
+                                    <img width="75" src="<?php echo get_media($viewFolder, $item->img_url, "90x90"); ?>" alt="" class="img-rounded">
                                 </td>
                                 <td class="text-center w100">
                                     <input type="checkbox" class="change-item-status" data-url="<?php echo base_url('testimonial/change_status/'.$item->id); ?>" data-switchery data-color="#10c469"<?php echo $item->isActive == 1 ? ' checked' : NULL; ?> />
