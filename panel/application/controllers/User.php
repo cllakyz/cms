@@ -20,9 +20,13 @@ class User extends CI_Controller
     public function index()
     {
         $viewData = new stdClass();
-        /** Tablodan verilerin getirilmesi */
         $user = is_login();
-        $items = $this->user_model->get_all(array('id !=' => $user->id));
+        $where = array();
+        if($user->user_role != "admin"){
+            $where["user_role !="] = "admin";
+        }
+        /** Tablodan verilerin getirilmesi */
+        $items = $this->user_model->get_all($where);
 
         $viewData->viewFolder = $this->viewFolder;
         $viewData->subViewFolder = "list";
