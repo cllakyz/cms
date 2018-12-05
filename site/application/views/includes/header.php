@@ -28,7 +28,7 @@
 
                         <!-- logo -->
                         <div id="logo" class="logo">
-                            <a href="<?php echo base_url(); ?>"><img id="logo_img" src="<?php echo base_url('assets/images'); ?>/logo_blue.png" alt="<?php echo $settings->company_name; ?>"></a>
+                            <a href="<?php echo base_url(); ?>"><img id="logo_img" src="<?php echo get_media("setting_v", $settings->logo, "150x35"); ?>" alt="<?php echo $settings->company_name; ?>"></a>
                         </div>
 
                         <!-- name-and-slogan -->

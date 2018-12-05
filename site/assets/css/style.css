@@ -6574,6 +6574,7 @@ header.full-width .animated.main-navigation .dropdown-menu .open .dropdown-menu.
   color: #777777;
   font-size: 11px;
   padding: 3px 0 0;
+  text-align: center;
   font-weight: 300;
   opacity: 1;
   filter: alpha(opacity=100);
