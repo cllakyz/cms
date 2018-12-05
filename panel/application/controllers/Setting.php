@@ -99,8 +99,8 @@ class Setting extends CI_Controller
             $ext = pathinfo($_FILES['logo']['name'], PATHINFO_EXTENSION);
             $file_name = sef($this->input->post('company_name')).'.'.$ext;
 
-            $image_300x70 = upload_media($_FILES['logo']['tmp_name'], "uploads/".$this->viewFolder."/", 300, 70,$file_name);
-            $image_150x35 = upload_media($_FILES['logo_mobile']['tmp_name'], "uploads/".$this->viewFolder."/", 150, 35,$file_name);
+            $image_150x35 = upload_media($_FILES['logo']['tmp_name'], "uploads/".$this->viewFolder."/", 150, 35,$file_name);
+            $image_300x70 = upload_media($_FILES['logo_mobile']['tmp_name'], "uploads/".$this->viewFolder."/", 300, 70,$file_name);
             $image_32x32 = upload_media($_FILES['favicon']['tmp_name'], "uploads/".$this->viewFolder."/", 32, 32,$file_name);
 
             if(!$image_150x35 || !$image_300x70 || !$image_32x32){
@@ -187,22 +187,62 @@ class Setting extends CI_Controller
 
             if($_FILES['logo']['name'] != ''){
                 $ext = pathinfo($_FILES['logo']['name'], PATHINFO_EXTENSION);
-                $file_name = sef($this->input->post('company_name')).'.'.$ext;
+                $file_name_logo = sef($this->input->post('company_name')).'.'.$ext;
 
-                $image_150x35 = upload_media($_FILES['logo']['tmp_name'], "uploads/".$this->viewFolder."/", 150, 35,$file_name);
+                $image_150x35 = upload_media($_FILES['logo']['tmp_name'], "uploads/".$this->viewFolder."/", 150, 35,$file_name_logo);
 
                 if(!$image_150x35){
                     $alert = array(
                         'type' => 'error',
                         'title' => 'Hata!',
-                        'message' => 'Dosya Formatı JPG,PNG veya JPEG Olmalıdır'
+                        'message' => 'Masaüstü Logo Formatı JPG,PNG veya JPEG Olmalıdır'
                     );
                     $this->session->set_flashdata('alert', $alert);
                     redirect(base_url('setting/edit_form/'.$id));
                     die;
                 }
             } else{
-                $file_name = $this->input->post("old_logo");
+                $file_name_logo = $this->input->post("old_logo");
+            }
+
+            if($_FILES['logo_mobile']['name'] != ''){
+                $ext = pathinfo($_FILES['logo_mobile']['name'], PATHINFO_EXTENSION);
+                $file_name_mobile = sef($this->input->post('company_name')).'.'.$ext;
+
+                $image_300x70 = upload_media($_FILES['logo_mobile']['tmp_name'], "uploads/".$this->viewFolder."/", 300, 70,$file_name_mobile);
+
+                if(!$image_300x70){
+                    $alert = array(
+                        'type' => 'error',
+                        'title' => 'Hata!',
+                        'message' => 'Mobil Logo Formatı JPG,PNG veya JPEG Olmalıdır'
+                    );
+                    $this->session->set_flashdata('alert', $alert);
+                    redirect(base_url('setting/edit_form/'.$id));
+                    die;
+                }
+            } else{
+                $file_name_mobile = $this->input->post("old_logo_mobile");
+            }
+
+            if($_FILES['favicon']['name'] != ''){
+                $ext = pathinfo($_FILES['favicon']['name'], PATHINFO_EXTENSION);
+                $file_name_favicon = sef($this->input->post('company_name')).'.'.$ext;
+
+                $image_32x32 = upload_media($_FILES['favicon']['tmp_name'], "uploads/".$this->viewFolder."/", 32, 32,$file_name_favicon);
+
+                if(!$image_32x32){
+                    $alert = array(
+                        'type' => 'error',
+                        'title' => 'Hata!',
+                        'message' => 'Favicon JPG,PNG veya JPEG Olmalıdır'
+                    );
+                    $this->session->set_flashdata('alert', $alert);
+                    redirect(base_url('setting/edit_form/'.$id));
+                    die;
+                }
+            } else{
+                $file_name_favicon = $this->input->post("old_favicon");
             }
 
             $data = array(
@@ -221,7 +261,9 @@ class Setting extends CI_Controller
                 'twitter'               => $this->input->post('twitter'),
                 'instagram'             => $this->input->post('instagram'),
                 'linkedin'              => $this->input->post('linkedin'),
-                'logo'                  => $file_name,
+                'logo'                  => $file_name_logo,
+                'logo_mobile'           => $file_name_mobile,
+                'favicon'               => $file_name_favicon,
                 'updatedAt'             => $this->zaman,
             );
             $where = array('id' => $id);
