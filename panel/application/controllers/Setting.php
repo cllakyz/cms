@@ -71,7 +71,7 @@ class Setting extends CI_Controller
     {
         $this->load->library('form_validation');
         //kurallar
-        if($_FILES['logo']['name'] == ''){
+        if($_FILES['logo']['name'] == '' || $_FILES['logo_mobile']['name'] == '' || $_FILES['favicon']['name'] == ''){
             $alert = array(
                 'type' => 'info',
                 'title' => 'Hata!',
@@ -99,9 +99,11 @@ class Setting extends CI_Controller
             $ext = pathinfo($_FILES['logo']['name'], PATHINFO_EXTENSION);
             $file_name = sef($this->input->post('company_name')).'.'.$ext;
 
-            $image_150x35 = upload_media($_FILES['logo']['tmp_name'], "uploads/".$this->viewFolder."/", 150, 35,$file_name);
+            $image_300x70 = upload_media($_FILES['logo']['tmp_name'], "uploads/".$this->viewFolder."/", 300, 70,$file_name);
+            $image_150x35 = upload_media($_FILES['logo_mobile']['tmp_name'], "uploads/".$this->viewFolder."/", 150, 35,$file_name);
+            $image_32x32 = upload_media($_FILES['favicon']['tmp_name'], "uploads/".$this->viewFolder."/", 32, 32,$file_name);
 
-            if(!$image_150x35){
+            if(!$image_150x35 || !$image_300x70 || !$image_32x32){
                 $alert = array(
                     'type' => 'error',
                     'title' => 'Hata!',
@@ -129,6 +131,8 @@ class Setting extends CI_Controller
                 'instagram'             => $this->input->post('instagram'),
                 'linkedin'              => $this->input->post('linkedin'),
                 'logo'                  => $file_name,
+                'logo_mobile'           => $file_name,
+                'favicon'               => $file_name,
                 'createdAt'             => $this->zaman,
             );
             $insert = $this->setting_model->add($data);

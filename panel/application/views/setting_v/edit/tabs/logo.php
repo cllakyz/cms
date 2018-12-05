@@ -1,7 +1,7 @@
 <div role="tabpanel" class="tab-pane fade" id="tab-7">
     <div class="row">
         <div class="col-md-2">
-            <img src="<?php echo get_media($viewFolder, $item->logo, "150x35"); ?>" alt="<?php echo $item->company_name; ?>" class="img-responsive logo-img">
+            <img src="<?php echo get_media($viewFolder, $item->logo, "300x70"); ?>" alt="<?php echo $item->company_name; ?>" class="img-responsive logo-img">
         </div>
         <div class="form-group col-md-6">
             <label>Logo Seçiniz</label>
@@ -23,7 +23,7 @@
 
     <div class="row">
         <div class="col-md-2">
-            <img src="<?php echo get_media($viewFolder, $item->favicon, "150x35"); ?>" alt="<?php echo $item->company_name; ?>" class="img-responsive logo-img">
+            <img src="<?php echo get_media($viewFolder, $item->favicon, "32x32"); ?>" alt="<?php echo $item->company_name; ?>" class="img-responsive logo-img">
         </div>
         <div class="form-group col-md-6">
             <label>Favicon Seçiniz</label>
