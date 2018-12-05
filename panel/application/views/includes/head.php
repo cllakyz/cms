@@ -4,7 +4,14 @@
 <meta name="description" content="Admin, Dashboard, Bootstrap" />
 <?php $settings = get_settings(); ?>
 <!--<link rel="shortcut icon" sizes="196x196" href="<?php /*echo base_url('assets'); */?>/assets/images/logo.png">-->
-<link rel="shortcut icon" sizes="196x196" href="<?php echo get_media("setting_v", $settings->logo, "150x35"); ?>">
+<?php
+if($settings->logo == 'default'){
+    $favicon = base_url('assets/assets/images/logo.png');
+} else{
+    $favicon = get_media("setting_v", $settings->favicon, "32x32");
+}
+?>
+<link rel="shortcut icon" sizes="196x196" href="<?php echo $favicon; ?>">
 <title><?php echo $settings->company_name; ?></title>
 
 <?php $this->load->view('includes/include_style'); ?>

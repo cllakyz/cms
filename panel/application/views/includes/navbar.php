@@ -19,9 +19,9 @@
         </button>
 
         <a href="<?php echo base_url(); ?>" class="navbar-brand">
-            <span class="brand-icon">
+            <?php /*<span class="brand-icon">
                 <img width="30" src="<?php echo get_media("setting_v", $settings->logo, "150x35"); ?>" alt="<?php echo sef($settings->company_name); ?>" class="img-responsive">
-            </span>
+            </span> */ ?>
             <span class="brand-name"><?php echo $settings->company_name; ?></span>
         </a>
     </div><!-- .navbar-header -->
