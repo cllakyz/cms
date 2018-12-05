@@ -28,7 +28,17 @@
 
                         <!-- logo -->
                         <div id="logo" class="logo">
-                            <a href="<?php echo base_url(); ?>"><img id="logo_img" src="<?php echo get_media("setting_v", $settings->logo, "150x35"); ?>" alt="<?php echo $settings->company_name; ?>"></a>
+                            <a href="<?php echo base_url(); ?>">
+                                <?php
+                                if($this->agent->is_mobile()){ ?>
+                                    <img id="logo_img_mobile" src="<?php echo get_media("setting_v", $settings->logo_mobile, "300x70"); ?>" alt="<?php echo $settings->company_name; ?>">
+                                <?php
+                                } else{ ?>
+                                    <img id="logo_img" src="<?php echo get_media("setting_v", $settings->logo, "150x35"); ?>" alt="<?php echo $settings->company_name; ?>">
+                                <?php
+                                }
+                                ?>
+                            </a>
                         </div>
 
                         <!-- name-and-slogan -->
