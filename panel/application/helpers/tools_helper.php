@@ -243,3 +243,17 @@ function getPageList($page=NULL){
 
     return is_null($page) ? $page_list : $page_list[$page];
 }
+
+function getControllerList(){
+    $t = &get_instance();
+    $t->load->helper("file");
+    $controllers = array();
+
+    $files = get_dir_file_info(APPPATH."controllers", FALSE);
+
+    foreach (array_keys($files) as $file){
+        $controllers[] = strtolower(str_replace(".php", "", $file));
+    }
+
+    return $controllers;
+}

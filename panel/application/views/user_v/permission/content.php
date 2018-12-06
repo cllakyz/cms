@@ -15,21 +15,26 @@
                             <th>Güncelleme</th>
                         </thead>
                         <tbody>
+                        <?php
+                        foreach (getControllerList() as $controllerName){ ?>
                             <tr>
-                                <td>test</td>
+                                <td><?php echo $controllerName; ?></td>
                                 <td class="text-center w150">
-                                    <input type="checkbox" data-switchery data-color="#10c469" />
+                                    <input type="checkbox" name="permission[<?php echo $controllerName; ?>]" data-switchery data-color="#10c469" />
                                 </td>
                                 <td class="text-center w150">
-                                    <input type="checkbox" data-switchery data-color="#10c469" />
+                                    <input type="checkbox" name="permission[<?php echo $controllerName; ?>]" data-switchery data-color="#10c469" />
                                 </td>
                                 <td class="text-center w150">
-                                    <input type="checkbox" data-switchery data-color="#10c469" />
+                                    <input type="checkbox" name="permission[<?php echo $controllerName; ?>]" data-switchery data-color="#10c469" />
                                 </td>
                                 <td class="text-center w150">
-                                    <input type="checkbox" data-switchery data-color="#10c469" />
+                                    <input type="checkbox" name="permission[<?php echo $controllerName; ?>]" data-switchery data-color="#10c469" />
                                 </td>
                             </tr>
+                        <?php
+                        }
+                        ?>
                         </tbody>
                     </table>
                     <br>
