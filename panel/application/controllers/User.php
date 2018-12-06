@@ -317,4 +317,21 @@ class User extends CI_Controller
             $this->load->view($viewData->viewFolder.'/'.$viewData->subViewFolder.'/index', $viewData);
         }
     }
+    /* Şifre düzenle form */
+    public function edit_permission_form($id)
+    {
+        $viewData = new stdClass();
+        /** Tablodan verilerin getirilmesi */
+        $item = $this->user_model->get(
+            array(
+                'id' => strip_tags(str_replace(' ', '', $id))
+            )
+        );
+
+        $viewData->viewFolder = $this->viewFolder;
+        $viewData->subViewFolder = "permission";
+        $viewData->item = $item;
+
+        $this->load->view($viewData->viewFolder.'/'.$viewData->subViewFolder.'/index', $viewData);
+    }
 }
