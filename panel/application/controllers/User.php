@@ -20,9 +20,8 @@ class User extends CI_Controller
     public function index()
     {
         $viewData = new stdClass();
-        $user = is_login();
         $where = array();
-        if($user->user_role != "admin"){
+        if(isAdmin()){
             $where["user_role !="] = "admin";
         }
         /** Tablodan verilerin getirilmesi */
@@ -40,7 +39,12 @@ class User extends CI_Controller
         $viewData = new stdClass();
 
         $viewData->viewFolder = $this->viewFolder;
-        $viewData->subViewFolder = "add";
+        if(isAdmin()){
+            $viewData->subViewFolder = "add";
+        } else{
+            $viewData->subViewFolder = "list";
+        }
+
 
         $this->load->view($viewData->viewFolder.'/'.$viewData->subViewFolder.'/index', $viewData);
     }

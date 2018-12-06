@@ -121,6 +121,16 @@ function is_login(){
     }
 }
 
+function isAdmin(){
+    $t = &get_instance();
+    $user = $t->session->userdata("user");
+    if($user->user_role == "admin"){
+        return true;
+    }else{
+        return false;
+    }
+}
+
 // send email
 function sendEmail($toEmail, $subject, $message){
     $t = &get_instance();
