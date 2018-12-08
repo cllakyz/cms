@@ -317,48 +317,4 @@ class User extends CI_Controller
             $this->load->view($viewData->viewFolder.'/'.$viewData->subViewFolder.'/index', $viewData);
         }
     }
-    /* Şifre düzenle form */
-    public function edit_permission_form($id)
-    {
-        $viewData = new stdClass();
-        /** Tablodan verilerin getirilmesi */
-        $item = $this->user_model->get(
-            array(
-                'id' => strip_tags(str_replace(' ', '', $id))
-            )
-        );
-
-        $viewData->viewFolder = $this->viewFolder;
-        $viewData->subViewFolder = "permission";
-        $viewData->item = $item;
-
-        $this->load->view($viewData->viewFolder.'/'.$viewData->subViewFolder.'/index', $viewData);
-    }
-    /* güncelleme işlemi */
-    public function edit_permission($id)
-    {
-        $permission = json_encode($this->input->post("permission"));
-        $data = array(
-            'permission'    => $permission,
-        );
-        $where = array('id' => $id);
-        $update = $this->user_model->edit($where, $data);
-
-        if($update){
-            $alert = array(
-                'type' => 'success',
-                'title' => 'Başarılı',
-                'message' => 'Yetki Tanımı Başarıyla Güncellendi'
-            );
-        } else{
-            $alert = array(
-                'type' => 'error',
-                'title' => 'Hata!',
-                'message' => 'Yetki Tanımı Güncellenemedi'
-            );
-        }
-        $this->session->set_flashdata('alert', $alert);
-        redirect(base_url('user'));
-        die;
-    }
 }

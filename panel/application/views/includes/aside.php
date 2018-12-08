@@ -145,7 +145,7 @@
 
                 <li>
                     <a href="<?php echo base_url('user_role'); ?>">
-                        <i class="menu-icon fa fa-user-times"></i>
+                        <i class="menu-icon fa fa-eye"></i>
                         <span class="menu-text">Yetki Grupları</span>
                     </a>
                 </li>
