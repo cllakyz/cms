@@ -144,6 +144,13 @@
                 </li>
 
                 <li>
+                    <a href="<?php echo base_url('user_role'); ?>">
+                        <i class="menu-icon fa fa-user-times"></i>
+                        <span class="menu-text">Yetki Grupları</span>
+                    </a>
+                </li>
+
+                <li>
                     <a href="javascript:void(0)">
                         <i class="menu-icon fa fa-users"></i>
                         <span class="menu-text">Aboneler</span>
