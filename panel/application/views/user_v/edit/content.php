@@ -36,6 +36,37 @@
                         }
                         ?>
                     </div>
+                    <div class="form-group">
+                        <label>Yetki Grubu</label>
+                        <select name="user_role" class="form-control">
+                            <?php
+                            foreach ($user_roles as $role){
+                                if(isset($form_error)){
+                                    if(set_value("user_role") == $role->id){
+                                        $selected = ' selected';
+                                    } else{
+                                        $selected = NULL;
+                                    }
+                                } else{
+                                    if($item->user_role == $role->id){
+                                        $selected = ' selected';
+                                    } else{
+                                        $selected = NULL;
+                                    }
+                                }
+                                ?>
+                                <option<?php echo $selected; ?> value="<?php echo $role->id; ?>"><?php echo $role->title; ?></option>
+                                <?php
+                            }
+                            ?>
+                        </select>
+                        <?php
+                        if(isset($form_error)){ ?>
+                            <span class="pull-right input-form-errors"><?php echo form_error('category_id'); ?></span>
+                            <?php
+                        }
+                        ?>
+                    </div>
                     <button type="submit" class="btn btn-primary btn-md btn-outline">Güncelle</button>
                     <a href="<?php echo base_url('user'); ?>" class="btn btn-md btn-danger btn-outline">İptal</a>
                 </form>

@@ -14,6 +14,7 @@ class User extends CI_Controller
             die;
         }
         $this->load->model("user_model");
+        $this->load->model("user_role_model");
         $this->zaman = date('Y-m-d H:i:s');
     }
     /* anasayfa */
@@ -40,11 +41,11 @@ class User extends CI_Controller
 
         $viewData->viewFolder = $this->viewFolder;
         if(isAdmin()){
+            $viewData->user_roles = $this->user_role_model->get_all(array("isActive" => 1));
             $viewData->subViewFolder = "add";
         } else{
             $viewData->subViewFolder = "list";
         }
-
 
         $this->load->view($viewData->viewFolder.'/'.$viewData->subViewFolder.'/index', $viewData);
     }
@@ -62,6 +63,7 @@ class User extends CI_Controller
         $viewData->viewFolder = $this->viewFolder;
         $viewData->subViewFolder = "edit";
         $viewData->item = $item;
+        $viewData->user_roles = $this->user_role_model->get_all(array("isActive" => 1));
 
         $this->load->view($viewData->viewFolder.'/'.$viewData->subViewFolder.'/index', $viewData);
     }
@@ -73,6 +75,7 @@ class User extends CI_Controller
         $this->form_validation->set_rules('user_name', 'Kullanıcı Adı', 'required|trim|is_unique[users.user_name]');
         $this->form_validation->set_rules('full_name', 'Ad Soyad', 'required|trim');
         $this->form_validation->set_rules('email', 'E-Posta', 'required|trim|valid_email|is_unique[users.email]');
+        $this->form_validation->set_rules('user_role', 'Yetki Grubu', 'required|trim');
         $this->form_validation->set_rules('password', 'Şifre', 'required|trim|min_length[6]|max_length[8]');
         $this->form_validation->set_rules('re_password', 'Şifre Tekrar', 'required|trim|min_length[6]|max_length[8]|matches[password]');
         //mesajlar
@@ -94,6 +97,7 @@ class User extends CI_Controller
                 'user_name'   => $this->input->post('user_name'),
                 'full_name'   => $this->input->post('full_name'),
                 'email'       => $this->input->post('email'),
+                'user_role'   => $this->input->post('user_role'),
                 'password'    => sha1($this->input->post('password')),
                 'isActive'    => 1,
                 'createdAt'   => $this->zaman,
@@ -122,6 +126,7 @@ class User extends CI_Controller
             $viewData->viewFolder = $this->viewFolder;
             $viewData->subViewFolder = "add";
             $viewData->form_error = TRUE;
+            $viewData->user_roles = $this->user_role_model->get_all(array("isActive" => 1));
 
             $this->load->view($viewData->viewFolder.'/'.$viewData->subViewFolder.'/index', $viewData);
         }
@@ -146,6 +151,7 @@ class User extends CI_Controller
         }
 
         $this->form_validation->set_rules('full_name', 'Ad Soyad', 'required|trim');
+        $this->form_validation->set_rules('user_role', 'Yetki Grubu', 'required|trim');
 
         //mesajlar
         $this->form_validation->set_message(
@@ -163,6 +169,7 @@ class User extends CI_Controller
                 'user_name'  => $this->input->post('user_name'),
                 'full_name'  => $this->input->post('full_name'),
                 'email'      => $this->input->post('email'),
+                'user_role'  => $this->input->post('user_role'),
             );
             $where = array('id' => $id);
             $update = $this->user_model->edit($where, $data);
@@ -189,6 +196,7 @@ class User extends CI_Controller
             $viewData->subViewFolder = "edit";
             $viewData->form_error = TRUE;
             $viewData->item = $item;
+            $viewData->user_roles = $this->user_role_model->get_all(array("isActive" => 1));
 
             $this->load->view($viewData->viewFolder.'/'.$viewData->subViewFolder.'/index', $viewData);
         }

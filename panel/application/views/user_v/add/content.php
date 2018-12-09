@@ -37,6 +37,23 @@
                         ?>
                     </div>
                     <div class="form-group">
+                        <label>Yetki Grubu</label>
+                        <select name="user_role" class="form-control">
+                            <?php
+                            foreach ($user_roles as $role){ ?>
+                                <option<?php echo isset($form_error) && set_value("user_role") == $role->id ? ' selected' : NULL; ?> value="<?php echo $role->id; ?>"><?php echo $role->title; ?></option>
+                                <?php
+                            }
+                            ?>
+                        </select>
+                        <?php
+                        if(isset($form_error)){ ?>
+                            <span class="pull-right input-form-errors"><?php echo form_error('category_id'); ?></span>
+                            <?php
+                        }
+                        ?>
+                    </div>
+                    <div class="form-group">
                         <label>Şifre</label>
                         <input type="password" name="password" class="form-control" placeholder="Şifre giriniz">
                         <?php
