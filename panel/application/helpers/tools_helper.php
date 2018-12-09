@@ -133,10 +133,20 @@ function isAdmin(){
     }
 }
 
-function isAllowedViewModule($module){
+function isAllowedViewModule($module=NULL){
     $t = &get_instance();
     $user       = is_login();
     $user_roles = getUserRoles();
+    if(is_null($module)){
+        $module = $t->router->fetch_class();
+    }
+    if(isset($user_roles[$user->user_role])){
+        $permission = json_decode($user_roles[$user->user_role]);
+        if(isset($permission->$module) && isset($permission->$module->read)){
+            return true;
+        }
+    }
+    return false;
 }
 
 function setUserRoles(){
@@ -147,7 +157,7 @@ function setUserRoles(){
     foreach ($user_roles as $role){
         $roles[$role->id] = $role->permission;
     }
-    $t->session_set_userdata("user_roles", $roles);
+    $t->session->set_userdata("user_roles", $roles);
 }
 
 function getUserRoles(){
