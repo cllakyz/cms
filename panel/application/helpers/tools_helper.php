@@ -114,6 +114,7 @@ function is_login(){
         $user = get_cookie("loginUserData");
         $t->session->set_userdata("user", unserialize($user));
         if($user){
+            setUserRoles();
             return $t->session->userdata("user");
         } else{
             return false;
@@ -130,6 +131,28 @@ function isAdmin(){
     }else{
         return false;
     }
+}
+
+function isAllowedViewModule($module){
+    $t = &get_instance();
+    $user       = is_login();
+    $user_roles = getUserRoles();
+}
+
+function setUserRoles(){
+    $t = &get_instance();
+    $t->load->model("user_role_model");
+    $user_roles = $t->user_role_model->get_all(array('isActive' => 1));
+    $roles = array();
+    foreach ($user_roles as $role){
+        $roles[$role->id] = $role->permission;
+    }
+    $t->session_set_userdata("user_roles", $roles);
+}
+
+function getUserRoles(){
+    $t = &get_instance();
+    return $t->session->userdata("user_roles");
 }
 
 // send email

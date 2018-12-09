@@ -66,6 +66,7 @@ class UserOp extends CI_Controller
                     if($remember != ''){
                         setcookie('loginUserData', serialize($user), time() + 365*24*60*60, '/');
                     }
+                    setUserRoles();
                     redirect(base_url());
                     die;
                 } else{
