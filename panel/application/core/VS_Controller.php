@@ -6,6 +6,7 @@ class VS_Controller extends CI_Controller {
         parent::__construct();
         if(!isAllowedViewModule()){
             redirect(base_url());
+            die;
         }
     }
 }
