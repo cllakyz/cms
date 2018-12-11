@@ -7,19 +7,12 @@ class VS_Model extends CI_Model {
     {
         parent::__construct();
     }
-    /** belirtilen kaydı getirir
-     * @param array $where
-     * @return
-     */
+
     public function get($where = [])
     {
         return $this->db->where($where)->get($this->tableName)->row();
     }
 
-    /** tüm kayıtları listeler
-     * @param array $where
-     * @return
-     */
     public function get_all($where = [], $order = "id ASC")
     {
         return $this->db->where($where)->order_by($order)->get($this->tableName)->result();
@@ -27,16 +20,28 @@ class VS_Model extends CI_Model {
 
     public function add($data = array())
     {
-        return $this->db->insert($this->tableName, $data);
+        if(isAllowedWriteModule()){
+            return $this->db->insert($this->tableName, $data);
+        } else{
+            return false;
+        }
     }
 
     public function edit($where = array(), $data = array())
     {
-        return $this->db->where($where)->update($this->tableName, $data);
+        if(isAllowedEditModule()){
+            return $this->db->where($where)->update($this->tableName, $data);
+        } else{
+            return false;
+        }
     }
 
     public function delete($where = [])
     {
-        return $this->db->where($where)->delete($this->tableName);
+        if(isAllowedDeleteModule()){
+            return $this->db->where($where)->delete($this->tableName);
+        } else{
+            return false;
+        }
     }
 }
