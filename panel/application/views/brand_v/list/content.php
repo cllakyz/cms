@@ -2,7 +2,12 @@
     <div class="col-md-12">
         <h4 class="m-b-lg">
             Marka Listesi
-            <a href="<?php echo base_url('brand/new_form'); ?>" class="btn btn-outline btn-primary btn-sm pull-right"> <i class="fa fa-plus"></i> Yeni Ekle</a>
+            <?php
+            if(isAllowedWriteModule()){ ?>
+                <a href="<?php echo base_url('brand/new_form'); ?>" class="btn btn-outline btn-primary btn-sm pull-right"> <i class="fa fa-plus"></i> Yeni Ekle</a>
+            <?php
+            }
+            ?>
         </h4>
     </div><!-- END column -->
     <div class="col-md-12">
@@ -22,7 +27,12 @@
                     <th>Başlık</th>
                     <th class="text-center">Görsel</th>
                     <th class="text-center">Durum</th>
-                    <th class="text-center">İşlem</th>
+                    <?php
+                    if(isAllowedDeleteModule() || isAllowedEditModule()){ ?>
+                        <th class="text-center">İşlem</th>
+                    <?php
+                    }
+                    ?>
                     </thead>
                     <tbody class="sortable" data-url="<?php echo base_url('brand/sort'); ?>">
                         <?php
@@ -37,10 +47,23 @@
                                 <td class="text-center w100">
                                     <input type="checkbox" class="change-item-status" data-url="<?php echo base_url('brand/change_status/'.$item->id); ?>" data-switchery data-color="#10c469"<?php echo $item->isActive == 1 ? ' checked' : NULL; ?> />
                                 </td>
-                                <td class="text-center w200">
-                                    <a data-url="<?php echo base_url('brand/delete/'.$item->id); ?>" class="btn btn-sm btn-danger btn-outline remove-btn"><i class="fa fa-trash"></i> Sil</a>
-                                    <a href="<?php echo base_url('brand/edit_form/'.$item->id); ?>" class="btn btn-sm btn-info btn-outline"><i class="fa fa-edit"></i> Düzenle</a>
-                                </td>
+                                <?php
+                                if(isAllowedDeleteModule() || isAllowedEditModule()){ ?>
+                                    <td class="text-center w200">
+                                        <?php
+                                        if(isAllowedDeleteModule()){ ?>
+                                            <a data-url="<?php echo base_url('brand/delete/'.$item->id); ?>" class="btn btn-sm btn-danger btn-outline remove-btn"><i class="fa fa-trash"></i> Sil</a>
+                                            <?php
+                                        }
+                                        if(isAllowedEditModule()){ ?>
+                                            <a href="<?php echo base_url('brand/edit_form/'.$item->id); ?>" class="btn btn-sm btn-info btn-outline"><i class="fa fa-edit"></i> Düzenle</a>
+                                            <?php
+                                        }
+                                        ?>
+                                    </td>
+                                <?php
+                                }
+                                ?>
                             </tr>
                         <?php
                         }

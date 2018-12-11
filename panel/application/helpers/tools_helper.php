@@ -122,33 +122,6 @@ function is_login(){
     }
 }
 
-function isAdmin(){
-    $t = &get_instance();
-    $user = $t->session->userdata("user");
-    return true;
-    if($user->user_role == "admin"){
-        return true;
-    }else{
-        return false;
-    }
-}
-
-function isAllowedViewModule($module=NULL){
-    $t = &get_instance();
-    $user       = is_login();
-    $user_roles = getUserRoles();
-    if(is_null($module)){
-        $module = $t->router->fetch_class();
-    }
-    if(isset($user_roles[$user->user_role])){
-        $permission = json_decode($user_roles[$user->user_role]);
-        if(isset($permission->$module) && isset($permission->$module->read)){
-            return true;
-        }
-    }
-    return false;
-}
-
 function setUserRoles(){
     $t = &get_instance();
     $t->load->model("user_role_model");

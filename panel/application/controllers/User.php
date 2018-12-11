@@ -22,9 +22,6 @@ class User extends VS_Controller
     {
         $viewData = new stdClass();
         $where = array();
-        if(isAdmin()){
-            $where["user_role !="] = "admin";
-        }
         /** Tablodan verilerin getirilmesi */
         $items = $this->user_model->get_all($where);
 
@@ -40,12 +37,7 @@ class User extends VS_Controller
         $viewData = new stdClass();
 
         $viewData->viewFolder = $this->viewFolder;
-        if(isAdmin()){
-            $viewData->user_roles = $this->user_role_model->get_all(array("isActive" => 1));
-            $viewData->subViewFolder = "add";
-        } else{
-            $viewData->subViewFolder = "list";
-        }
+        $viewData->subViewFolder = "list";
 
         $this->load->view($viewData->viewFolder.'/'.$viewData->subViewFolder.'/index', $viewData);
     }

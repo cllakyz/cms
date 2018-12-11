@@ -32,6 +32,10 @@ class Brand extends VS_Controller
     /* yeni kayıt form */
     public function new_form()
     {
+        if(!isAllowedWriteModule()){
+            redirect(base_url($this->router->fetch_class()));
+            die;
+        }
         $viewData = new stdClass();
 
         $viewData->viewFolder = $this->viewFolder;
@@ -42,6 +46,10 @@ class Brand extends VS_Controller
     /* düzenle form */
     public function edit_form($id)
     {
+        if(!isAllowedEditModule()){
+            redirect(base_url($this->router->fetch_class()));
+            die;
+        }
         $viewData = new stdClass();
         /** Tablodan verilerin getirilmesi */
         $item = $this->brand_model->get(
@@ -59,6 +67,10 @@ class Brand extends VS_Controller
     /* yeni kayıt işlemi*/
     public function save()
     {
+        if(!isAllowedWriteModule()){
+            redirect(base_url($this->router->fetch_class()));
+            die;
+        }
         $this->load->library('form_validation');
         //kurallar
         if($_FILES['img_url']['name'] == ''){
@@ -137,6 +149,10 @@ class Brand extends VS_Controller
     /* güncelleme işlemi */
     public function edit($id)
     {
+        if(!isAllowedEditModule()){
+            redirect(base_url($this->router->fetch_class()));
+            die;
+        }
         $this->load->library('form_validation');
         //kurallar
 
@@ -221,6 +237,10 @@ class Brand extends VS_Controller
     /* silme işlemi */
     public function delete($id)
     {
+        if(!isAllowedDeleteModule()){
+            redirect(base_url($this->router->fetch_class()));
+            die;
+        }
         $where = array(
             'id' => strip_tags(str_replace(' ', '', $id))
         );
@@ -252,31 +272,47 @@ class Brand extends VS_Controller
     /* durum değiştirme işlemi */
     public function change_status($id)
     {
-        if($id){
-            $status = $this->input->post('status');
-            $where = array('id' => $id);
-            $data = array('isActive' => $status);
-            $update = $this->brand_model->edit($where, $data);
-            if($update){
-                $alert = array(
-                    'type' => 'success',
-                    'title' => 'Başarılı',
-                    'message' => 'Marka Durumu Güncellendi'
-                );
-            } else{
-                $alert = array(
-                    'type' => 'error',
-                    'title' => 'Hata!',
-                    'message' => 'Marka Durumu Güncellenemedi'
-                );
-            }
+        if(!isAllowedEditModule()){
+            $alert = array(
+                'type' => 'error',
+                'title' => 'Hata!',
+                'message' => 'Bu İşlemi Yapmak İçin Yetkiniz Yok'
+            );
             echo json_encode($alert);
             die;
         }
+        $status = $this->input->post('status');
+        $where = array('id' => $id);
+        $data = array('isActive' => $status);
+        $update = $this->brand_model->edit($where, $data);
+        if($update){
+            $alert = array(
+                'type' => 'success',
+                'title' => 'Başarılı',
+                'message' => 'Marka Durumu Güncellendi'
+            );
+        } else{
+            $alert = array(
+                'type' => 'error',
+                'title' => 'Hata!',
+                'message' => 'Marka Durumu Güncellenemedi'
+            );
+        }
+        echo json_encode($alert);
+        die;
     }
     /* sıralama işlemi*/
     public function sort()
     {
+        if(!isAllowedEditModule()){
+            $alert = array(
+                'type' => 'error',
+                'title' => 'Hata!',
+                'message' => 'Bu İşlemi Yapmak İçin Yetkiniz Yok'
+            );
+            echo json_encode($alert);
+            die;
+        }
         $data = $this->input->post('data');
         parse_str($data, $order);
         $items = $order['sort'];
