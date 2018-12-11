@@ -1,6 +1,6 @@
 <?php
 
-class Testimonial extends CI_Controller
+class Testimonial extends VS_Controller
 {
     public $viewFolder = "";
     private $zaman = "";

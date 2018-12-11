@@ -1,6 +1,6 @@
 <?php
 
-class Email extends CI_Controller
+class Email extends VS_Controller
 {
     public $viewFolder = "";
     private $zaman = "";

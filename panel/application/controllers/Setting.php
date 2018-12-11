@@ -1,6 +1,6 @@
 <?php
 
-class Setting extends CI_Controller
+class Setting extends VS_Controller
 {
     public $viewFolder = "";
     private $zaman = "";

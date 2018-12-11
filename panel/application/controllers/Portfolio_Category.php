@@ -1,6 +1,6 @@
 <?php
 
-class Portfolio_Category extends CI_Controller
+class Portfolio_Category extends VS_Controller
 {
     public $viewFolder = "";
     private $zaman = "";

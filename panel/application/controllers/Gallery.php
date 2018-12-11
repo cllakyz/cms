@@ -1,6 +1,6 @@
 <?php
 
-class Gallery extends CI_Controller
+class Gallery extends VS_Controller
 {
     public $viewFolder = "";
     private $zaman = "";

@@ -1,6 +1,6 @@
 <?php
 
-class Brand extends CI_Controller
+class Brand extends VS_Controller
 {
     public $viewFolder = "";
     private $zaman = "";

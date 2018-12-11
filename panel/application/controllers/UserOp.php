@@ -1,6 +1,6 @@
 <?php
 
-class UserOp extends CI_Controller
+class UserOp extends VS_Controller
 {
     public $viewFolder = "";
     private $zaman = "";

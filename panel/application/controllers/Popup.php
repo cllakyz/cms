@@ -1,6 +1,6 @@
 <?php
 
-class Popup extends CI_Controller
+class Popup extends VS_Controller
 {
     public $viewFolder = "";
     private $zaman = "";

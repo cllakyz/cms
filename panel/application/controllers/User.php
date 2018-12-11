@@ -1,6 +1,6 @@
 <?php
 
-class User extends CI_Controller
+class User extends VS_Controller
 {
     public $viewFolder = "";
     private $zaman = "";

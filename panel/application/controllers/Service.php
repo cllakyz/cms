@@ -1,6 +1,6 @@
 <?php
 
-class Service extends CI_Controller
+class Service extends VS_Controller
 {
     public $viewFolder = "";
     private $zaman = "";

@@ -1,6 +1,6 @@
 <?php
 
-class User_role extends CI_Controller
+class User_role extends VS_Controller
 {
     public $viewFolder = "";
     private $zaman = "";
