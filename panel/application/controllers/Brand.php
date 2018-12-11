@@ -238,7 +238,12 @@ class Brand extends VS_Controller
     public function delete($id)
     {
         if(!isAllowedDeleteModule()){
-            redirect(base_url($this->router->fetch_class()));
+            $alert = array(
+                'type' => 'error',
+                'title' => 'Hata!',
+                'message' => 'Bu İşlemi Yapmak İçin Yetkiniz Yok'
+            );
+            echo json_encode($alert);
             die;
         }
         $where = array(
